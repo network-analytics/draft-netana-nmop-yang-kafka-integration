@@ -57,14 +57,6 @@
       <t>Source for this draft and an issue tracker can be found at <eref
       target="https://github.com/network-analytics/draft-daisy-kafka-yang-integration/"/>.</t>
     </note>
-
-    <note title="Requirements Language">
-      <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-      "OPTIONAL" in this document are to be interpreted as described in BCP 14
-      <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
-      they appear in all capitals, as shown here.</t>
-    </note>
   </front>
 
   <middle>
@@ -95,26 +87,110 @@
         <t>This document focuses on <xref target="RFC8639">YANG Push</xref> as
         the messaging protocol between the network node and the <xref
         target="RFC9232">Network Telemetry</xref> data collection since YANG
-        push contains a subscription id describing the xpath of the subscribed
-        YANG module. For a message broker and schema registry it focuses on
-        Apache Kafka and <xref target="Con18">Confluent Schema Registry</xref>
-        due its native capability to support different serializers and schema
-        languages, scales out well and being a de-facto standard for network
-        operators today.</t>
+        push contains a subscription id describing the event stream filter of
+        the subscribed YANG data. For a message broker and schema registry it
+        focuses on Apache Kafka and <xref target="Con18">Confluent Schema
+        Registry</xref> due its native capability to support different
+        serializers and schema languages, scales out well and being a de-facto
+        standard for network operators today.</t>
+      </section>
+
+      <section anchor="Terminology" title="Terminology">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described in BCP
+        14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only
+        when, they appear in all capitals, as shown here.</t>
+
+        <t>This document makes use of the terms defined in <xref
+        target="RFC8639"/>, <xref target="Kaf11">Apache Kafka</xref> and <xref
+        target="ConDoc18">Confluent Schema Registry Documentation</xref>.</t>
+
+        <t>The following terms are used as defined in <xref
+        target="RFC8639"/>.</t>
+
+        <t><list style="symbols">
+            <t>Publisher</t>
+
+            <t>Receiver</t>
+
+            <t>Subscription</t>
+
+            <t>Subscription ID</t>
+
+            <t>Event stream filter</t>
+
+            <t>Notification message</t>
+          </list></t>
+
+        <t>The following terms are used as defined in <xref
+        target="Kaf11">Apache Kafka</xref>.</t>
+
+        <t><list style="symbols">
+            <t>Producer</t>
+
+            <t>Consumer</t>
+
+            <t>Topic</t>
+
+            <t>Partition</t>
+          </list></t>
+
+        <t>The following terms are used as defined in <xref
+        target="ConDoc18">Confluent Schema Registry Documentation</xref>.</t>
+
+        <t><list style="symbols">
+            <t>Schema</t>
+
+            <t>Schema ID</t>
+
+            <t>Schema Registry</t>
+
+            <t>Subject</t>
+          </list></t>
       </section>
 
       <section anchor="Origins_of_YANG_Push" title="Origins of YANG Push">
-        <t>Text.</t>
+        <t>With <xref target="RFC3535"/> the IAB set the requirements for
+        Network Management in 2003. From these requirements <xref
+        target="RFC6241">Netconf</xref>, <xref target="RFC5277">Netconf
+        Notifications</xref> and <xref target="RFC8040">Restconf</xref> has
+        been defined to configure through &lt;edit-config&gt; and retrieve
+        operational data through &lt;get&gt; and netconf notifications through
+        &lt;notification&gt; from a YANG datastore on a network node.</t>
+
+        <t>With YANG push, as defined in <xref target="RFC8639"/>, <xref
+        target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
+        on-change subscriptions to the YANG datastire can be dynamically
+        defined or configured. When dynamicall defined, messages are being
+        published in the established Netconf session, where when configured
+        messages are being published through <xref
+        target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
+        target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
+        Section 3.7 of <xref target="RFC8641"/> describes push-update messages
+        where the YANG subscribed data is being published, where Section 2.7
+        of <xref target="RFC8639"/> describes the subscription state change
+        notifications where changes in the subscription are being
+        described.</t>
       </section>
 
       <section anchor="Origins_of_Apache_Kafka"
                title="Origins of Apache Kafka">
-        <t>Text.</t>
+        <t><xref target="Kaf11">Apache Kafka</xref> where messages can be
+        produced into so called topics and consumed from. Each topic has one
+        or more partitions where messages are replicated or loadbalanced to
+        scale out. With the introduction of <xref target="Con18">Confluent
+        Schema Registry</xref> a topic can contain one or more subjects. A
+        subject refers to a schema definition. The schema definition or the
+        schema ID for a message can be either prefixed to the message with the
+        Apache Kafk serializer. If the schema ID is prefixed, the schema needs
+        to be previously be regsitered through a REST API to the Confluent
+        Schema Registry where a schema ID is being issued. Messages can be
+        validated against schema when produced or consumed from topic to
+        ensure schema integrity of the message. The type of schema evolution
+        scheme can be defined per subject. Wherever non backward schema
+        changes are allowed or not.</t>
       </section>
-    </section>
-
-    <section anchor="Terminology" title="Terminology">
-      <t>Text.</t>
     </section>
 
     <section anchor="Motivation" title="Motivation">
@@ -202,6 +278,8 @@
 
       <?rfc include='reference.RFC.8639'?>
 
+      <?rfc include='reference.RFC.8641'?>
+
       <reference anchor="Kaf11" target="https://kafka.apache.org/">
         <front>
           <title>Apache Kafka</title>
@@ -219,6 +297,20 @@
         <front>
           <title>Confluent Schema Registry</title>
 
+          <author fullname="Robert Yokota" initials="R." surname="Yokota"/>
+
+          <date month="December" year="2018"/>
+        </front>
+
+        <refcontent>Confluent Community and Apache Software
+        Foundation</refcontent>
+      </reference>
+
+      <reference anchor="ConDoc18"
+                 target="https://docs.confluent.io/platform/current/schema-registry/">
+        <front>
+          <title>Confluent Schema Registry Documentation</title>
+
           <author fullname="Robert Yokota " initials="R." surname="Yokota"/>
 
           <date month="December" year="2018"/>
@@ -230,7 +322,21 @@
     </references>
 
     <references title="Informative References">
+      <?rfc include='reference.RFC.3535'?>
+
+      <?rfc include='reference.RFC.5277'?>
+
+      <?rfc include='reference.RFC.6241'?>
+
+      <?rfc include='reference.RFC.8040'?>
+
+      <?rfc include='reference.RFC.8640'?>
+
       <?rfc include='reference.RFC.9232'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-https-notif'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <reference anchor="Deh22"
                  target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
