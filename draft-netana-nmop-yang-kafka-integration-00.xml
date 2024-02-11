@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="2"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="info" docName="draft-netana-nmop-yang-kafka-integration-00"
+     ipr="trust200902">
+  <front>
+    <title abbrev="YANG Push to Apache Kafka Integration">An Architecture for
+    YANG Push to Apache Kafka Integration</title>
+
+    <author fullname="Thomas Graf" initials="T" surname="Graf">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>thomas.graf@swisscom.com</email>
+      </address>
+    </author>
+
+    <date day="11" month="February" year="2024"/>
+
+    <area>Operations and Management</area>
+
+    <workgroup>NMOP</workgroup>
+
+    <abstract>
+      <t>This document describes the motivation and architecture of a native
+      YANG Push notifications and YANG schema integration into Apache Kafka
+      Message Broker and Confluent Schema Registry.</t>
+    </abstract>
+
+    <note removeInRFC="true">
+      <name>Discussion Venues</name>
+
+      <t>Discussion of this document takes place on the Operations and
+      Management Area Working Group Working Group mailing list
+      (nmop@ietf.org), which is archived at <eref
+      target="https://mailarchive.ietf.org/arch/browse/nmop/"/>.</t>
+
+      <t>Source for this draft and an issue tracker can be found at <eref
+      target="https://github.com/network-analytics/draft-daisy-kafka-yang-integration/"/>.</t>
+    </note>
+
+    <note title="Requirements Language">
+      <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
+      they appear in all capitals, as shown here.</t>
+    </note>
+  </front>
+
+  <middle>
+    <section anchor="Introduction" title="Introduction">
+      <t>Nowadays network operators are using <xref
+      target="RFC7950">YANG</xref> to model their configurations and obtain
+      YANG modelled data from their networks. It is well understood that plain
+      text are initially intended for humans and need effort to make it
+      machine readable due to the lack of semantics. YANG modeled data is
+      addressing this need.</t>
+
+      <t>Increasingly more network operators organizing their data in a <xref
+      target="Deh22">Data Mesh</xref> where a message broker such as <xref
+      target="Kaf11">Apache Kafka</xref> or <xref
+      target="Rab07">RabbitMQ</xref> facilitates the exchange of messages
+      among data processing components like a stream processor to filter,
+      enrich, correlate or aggregate, or a time series database to store
+      data.</t>
+
+      <t>Even though YANG is intend to ease the handling of data, this promise
+      has not yet been fulfilled. From subscribing on a YANG datastore,
+      publishing a YANG modeled notification message from the network and
+      viewing the data in a time series database, manual labor is needed to
+      perform a data transformation to make a message broker and its data
+      processing components with YANG notifications interoparable.</t>
+
+      <section anchor="Document_Scope" title="Document Scope">
+        <t>This document focuses on <xref target="RFC8639">YANG Push</xref> as
+        the messaging protocol between the network node and the <xref
+        target="RFC9232">Network Telemetry</xref> data collection since YANG
+        push contains a subscription id describing the xpath of the subscribed
+        YANG module. For a message broker and schema registry it focuses on
+        Apache Kafka and <xref target="Con18">Confluent Schema Registry</xref>
+        due its native capability to support different serializers and schema
+        languages, scales out well and being a de-facto standard for network
+        operators today.</t>
+      </section>
+
+      <section anchor="Origins_of_YANG_Push" title="Origins of YANG Push">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="Origins_of_Apache_Kafka"
+               title="Origins of Apache Kafka">
+        <t>Text.</t>
+      </section>
+    </section>
+
+    <section anchor="Terminology" title="Terminology">
+      <t>Text.</t>
+    </section>
+
+    <section anchor="Motivation" title="Motivation">
+      <t>Text.</t>
+
+      <section anchor="Preserve_and_Use_of_Schema"
+               title="Preserve and Use of Schema">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="Preserve_and_Use_of_Schema_Information"
+               title="Preserve and Use of Schema Information">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="Standardize_Data_Processing_Integration"
+               title="Standardize Data Processing Integration">
+        <t>Text.</t>
+      </section>
+    </section>
+
+    <section anchor="Elements_of_the_Architecture"
+             title="Elements of the Architecture">
+      <t>Text.</t>
+
+      <section anchor="YANG_Push_Subscription" title="YANG Push Subscription">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Push_Publisher" title="YANG Push Publisher">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Push_Receiver" title="YANG Push Receiver">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Schema_Registry" title="YANG Schema Registry">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Kafka_Producer" title="YANG Kafka Producer">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Kafka_Consumer" title="YANG Kafka Consumer">
+        <t>Text.</t>
+      </section>
+
+      <section anchor="YANG_Time_Series_Database_Ingestion"
+               title="YANG Time Series Database Ingestion">
+        <t>Text.</t>
+      </section>
+    </section>
+
+    <section anchor="Project_Milestones" title="Project Milestones">
+      <t>Text.</t>
+    </section>
+
+    <section anchor="Open_Points" title="Open Points">
+      <t>Text.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>The security considerations.</t>
+    </section>
+
+    <section anchor="Implementation_Status" title="Implementation Status">
+      <t>The security considerations.</t>
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The authors would like to thank xxx for their review and valuable
+      comments.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include='reference.RFC.2119'?>
+
+      <?rfc include='reference.RFC.7950'?>
+
+      <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include='reference.RFC.8639'?>
+
+      <reference anchor="Kaf11" target="https://kafka.apache.org/">
+        <front>
+          <title>Apache Kafka</title>
+
+          <author fullname="Neha Narkhede" initials="N." surname="Narkhede"/>
+
+          <date month="January" year="2011"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+      <reference anchor="Con18"
+                 target="https://github.com/confluentinc/schema-registry/">
+        <front>
+          <title>Confluent Schema Registry</title>
+
+          <author fullname="Robert Yokota " initials="R." surname="Yokota"/>
+
+          <date month="December" year="2018"/>
+        </front>
+
+        <refcontent>Confluent Community and Apache Software
+        Foundation</refcontent>
+      </reference>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include='reference.RFC.9232'?>
+
+      <reference anchor="Deh22"
+                 target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
+        <front>
+          <title>Data Mesh</title>
+
+          <author fullname="Zhamak Dehghani" initials="Z." surname="Dehghani"/>
+
+          <date month="March" year="2022"/>
+        </front>
+
+        <seriesInfo name="ISBN" value="9781492092391"/>
+
+        <refcontent>O'Reilly Media</refcontent>
+      </reference>
+
+      <reference anchor="Rab07" target="https://rabbitmq.com/">
+        <front>
+          <title>RabbitMQ</title>
+
+          <author fullname="VMware"/>
+
+          <date month="February" year="2007"/>
+        </front>
+
+        <refcontent>Mozilla Public License</refcontent>
+      </reference>
+    </references>
+  </back>
+</rfc>
