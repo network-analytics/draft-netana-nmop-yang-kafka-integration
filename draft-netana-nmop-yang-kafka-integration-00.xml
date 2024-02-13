@@ -34,7 +34,7 @@
       </address>
     </author>
 
-    <date day="11" month="February" year="2024"/>
+    <date day="13" month="February" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -161,10 +161,10 @@
 
         <t>With YANG push, as defined in <xref target="RFC8639"/>, <xref
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
-        on-change subscriptions to the YANG datastire can be dynamically
-        defined or configured. When dynamicall defined, messages are being
-        published in the established Netconf session, where when configured
-        messages are being published through <xref
+        on-change subscriptions to the YANG datastore can be dynamically
+        defined or configured. When dynamically configured, messages are being
+        published in the established Netconf session, where when statically
+        configured messages are being published through <xref
         target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
         target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
         Section 3.7 of <xref target="RFC8641"/> describes push-update messages
@@ -215,6 +215,45 @@
     <section anchor="Elements_of_the_Architecture"
              title="Elements of the Architecture">
       <t>Text.</t>
+
+      <figure anchor="workflow_diagram" title="End to End Workflow">
+        <artwork align="center"><![CDATA[
+   +------------------------------------------------------------+
+   |                    Time Series Database                    |
+   +------------------------------------------------------------+
+                                  ^
+                                  | (11) Ingest Data
+                                  | According to Schema
+                                  |
+   +------------------------------------------------------------+
+   |                Time Series Database Ingestion              |
+   +------------------------------------------------------------+
+(8) Get  |  ^                                   ^ (10) Validate Kafka Message
+ Schema  |  |                                   | Against Schema on Consumer
+         |  |                                   |
+         |  |                                   |
+         |  | (9) Issue                         | (7) Produce Kafka Message
+         v  | Schema             (5) Post       | with Schema ID prefixed
+   +--------------------+          Schema  +--------------------+
+   |     Confluent      | <--------------  |  Data Collection   |
+   |  Schema Registry   | -------------->  | YANG Push Receiver |
+   +--------------------+ (6) Issue        +--------------------+
+                          Schema ID     (4) Get |  ^ (2) Receive YANG Push
+                                         Schema |  | Subscription Start Message
+                                                |  |   ^
+                                                |  |   |
+                                                |  |   | (3) Publish YANG Push
+                                                v  |   | Message with Subscription ID
+   +--------------------+                  +--------------------+
+   |       Network      | (5) Subscribe    |   Network Node     |
+   |    Orchestration   | ---------------> |YANG Push Publisher |
+   +--------------------+                  +--------------------+
+]]></artwork>
+      </figure>
+
+      <t>The <xref target="workflow_diagram">workflow diagram</xref> describes
+      the steps from establishing the YANG Push subscription to Time Series
+      Database ingestion.</t>
 
       <section anchor="YANG_Push_Subscription" title="YANG Push Subscription">
         <t>Text.</t>
