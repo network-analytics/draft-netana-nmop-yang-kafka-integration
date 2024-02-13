@@ -162,9 +162,9 @@
         <t>With YANG push, as defined in <xref target="RFC8639"/>, <xref
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
         on-change subscriptions to the YANG datastore can be dynamically
-        defined or configured. When dynamically configured, messages are being
-        published in the established Netconf session, where when statically
-        configured messages are being published through <xref
+        configured or statically configured. When dynamically configured,
+        messages are being published in the established Netconf session, where
+        when statically configured messages are being published through <xref
         target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
         target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
         Section 3.7 of <xref target="RFC8641"/> describes push-update messages
@@ -182,14 +182,14 @@
         scale out. With the introduction of <xref target="Con18">Confluent
         Schema Registry</xref> a topic can contain one or more subjects. A
         subject refers to a schema definition. The schema definition or the
-        schema ID for a message can be either prefixed to the message with the
-        Apache Kafk serializer. If the schema ID is prefixed, the schema needs
-        to be previously be regsitered through a REST API to the Confluent
-        Schema Registry where a schema ID is being issued. Messages can be
-        validated against schema when produced or consumed from topic to
-        ensure schema integrity of the message. The type of schema evolution
-        scheme can be defined per subject. Wherever non backward schema
-        changes are allowed or not.</t>
+        schema ID can be either prefixed to the message with the Apache Kafka
+        serializer. If the schema ID is prefixed, the schema needs to be
+        previously be regsitered through a REST API to the Confluent Schema
+        Registry where a schema ID is being issued. Messages can be validated
+        against schema when produced or consumed from topic to ensure schema
+        integrity of the message. The type of schema evolution scheme can be
+        defined per subject. Wherever non backward schema changes are allowed
+        or not.</t>
       </section>
     </section>
 

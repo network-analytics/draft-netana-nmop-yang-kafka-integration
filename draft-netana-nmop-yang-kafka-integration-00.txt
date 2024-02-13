@@ -83,10 +83,10 @@ Table of Contents
      2.1.  Preserve and Use of Schema  . . . . . . . . . . . . . . .   5
      2.2.  Preserve and Use of Schema Information  . . . . . . . . .   5
      2.3.  Standardize Data Processing Integration . . . . . . . . .   5
-   3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   6
+   3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   5
      3.1.  YANG Push Subscription  . . . . . . . . . . . . . . . . .   6
      3.2.  YANG Push Publisher . . . . . . . . . . . . . . . . . . .   6
-     3.3.  YANG Push Receiver  . . . . . . . . . . . . . . . . . . .   7
+     3.3.  YANG Push Receiver  . . . . . . . . . . . . . . . . . . .   6
      3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .   7
      3.5.  YANG Kafka Producer . . . . . . . . . . . . . . . . . . .   7
      3.6.  YANG Kafka Consumer . . . . . . . . . . . . . . . . . . .   7
@@ -228,13 +228,13 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
    With YANG push, as defined in [RFC8639], [RFC8640] and [RFC8641],
    periodical and on-change subscriptions to the YANG datastore can be
-   dynamically defined or configured.  When dynamically configured,
-   messages are being published in the established Netconf session,
-   where when statically configured messages are being published through
-   HTTPS-based [I-D.ietf-netconf-https-notif] or UDP-based
-   [I-D.ietf-netconf-udp-notif] transport.  Section 3.7 of [RFC8641]
-   describes push-update messages where the YANG subscribed data is
-   being published, where Section 2.7 of [RFC8639] describes the
+   dynamically configured or statically configured.  When dynamically
+   configured, messages are being published in the established Netconf
+   session, where when statically configured messages are being
+   published through HTTPS-based [I-D.ietf-netconf-https-notif] or
+   UDP-based [I-D.ietf-netconf-udp-notif] transport.  Section 3.7 of
+   [RFC8641] describes push-update messages where the YANG subscribed
+   data is being published, where Section 2.7 of [RFC8639] describes the
    subscription state change notifications where changes in the
    subscription are being described.
 
@@ -245,15 +245,14 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
    where messages are replicated or loadbalanced to scale out.  With the
    introduction of Confluent Schema Registry [Con18] a topic can contain
    one or more subjects.  A subject refers to a schema definition.  The
-   schema definition or the schema ID for a message can be either
-   prefixed to the message with the Apache Kafk serializer.  If the
-   schema ID is prefixed, the schema needs to be previously be
-   regsitered through a REST API to the Confluent Schema Registry where
-   a schema ID is being issued.  Messages can be validated against
-   schema when produced or consumed from topic to ensure schema
-   integrity of the message.  The type of schema evolution scheme can be
-   defined per subject.  Wherever non backward schema changes are
-   allowed or not.
+   schema definition or the schema ID can be either prefixed to the
+   message with the Apache Kafka serializer.  If the schema ID is
+   prefixed, the schema needs to be previously be regsitered through a
+   REST API to the Confluent Schema Registry where a schema ID is being
+   issued.  Messages can be validated against schema when produced or
+   consumed from topic to ensure schema integrity of the message.  The
+   type of schema evolution scheme can be defined per subject.  Wherever
+   non backward schema changes are allowed or not.
 
 2.  Motivation
 
@@ -271,8 +270,9 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
    Text.
 
+3.  Elements of the Architecture
 
-
+   Text.
 
 
 
@@ -281,10 +281,6 @@ Graf                     Expires 16 August 2024                 [Page 5]
 
 Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
-
-3.  Elements of the Architecture
-
-   Text.
 
    +------------------------------------------------------------+
    |                    Time Series Database                    |
@@ -329,6 +325,10 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
    Text.
 
+3.3.  YANG Push Receiver
+
+   Text.
+
 
 
 
@@ -337,10 +337,6 @@ Graf                     Expires 16 August 2024                 [Page 6]
 
 Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
-
-3.3.  YANG Push Receiver
-
-   Text.
 
 3.4.  YANG Schema Registry
 
@@ -386,6 +382,10 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
    [Con18]    Yokota, R., "Confluent Schema Registry", Confluent
               Community and Apache Software Foundation, December 2018,
               <https://github.com/confluentinc/schema-registry/>.
+
+
+
+
 
 
 
