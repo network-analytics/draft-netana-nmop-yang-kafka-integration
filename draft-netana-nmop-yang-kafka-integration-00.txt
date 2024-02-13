@@ -292,7 +292,6 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
                                   ^
                                   | (11) Ingest Data
                                   | According to Schema
-                                  |
    +------------------------------------------------------------+
    |                Time Series Database Ingestion              |
    +------------------------------------------------------------+
@@ -313,8 +312,8 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
                                                 |  |   | (3) Publish YANG Push
                                                 v  |   | Message with Subscription ID
    +--------------------+                  +--------------------+
-   |       Network      | (5) Subscribe    |   Network Node     |
-   |    Orchestration   | ---------------> |YANG Push Publisher |
+   |      Network       | (1) Subscribe    |   Network Node     |
+   |   Orchestration    | ---------------> | YANG Push Publisher|
    +--------------------+                  +--------------------+
 
                     Figure 1: End to End Workflow
@@ -329,6 +328,7 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 3.2.  YANG Push Publisher
 
    Text.
+
 
 
 

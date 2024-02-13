@@ -224,7 +224,6 @@
                                   ^
                                   | (11) Ingest Data
                                   | According to Schema
-                                  |
    +------------------------------------------------------------+
    |                Time Series Database Ingestion              |
    +------------------------------------------------------------+
@@ -245,8 +244,8 @@
                                                 |  |   | (3) Publish YANG Push
                                                 v  |   | Message with Subscription ID
    +--------------------+                  +--------------------+
-   |       Network      | (5) Subscribe    |   Network Node     |
-   |    Orchestration   | ---------------> |YANG Push Publisher |
+   |      Network       | (1) Subscribe    |   Network Node     |
+   |   Orchestration    | ---------------> | YANG Push Publisher|
    +--------------------+                  +--------------------+
 ]]></artwork>
       </figure>
