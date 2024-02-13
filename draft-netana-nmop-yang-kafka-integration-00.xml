@@ -13,8 +13,8 @@
 <rfc category="info" docName="draft-netana-nmop-yang-kafka-integration-00"
      ipr="trust200902">
   <front>
-    <title abbrev="YANG Push to Apache Kafka Integration">An Architecture for
-    YANG Push to Apache Kafka Integration</title>
+    <title abbrev="YANG-Push to Apache Kafka Integration">An Architecture for
+    YANG-Push to Apache Kafka Integration</title>
 
     <author fullname="Thomas Graf" initials="T" surname="Graf">
       <organization>Swisscom</organization>
@@ -42,7 +42,7 @@
 
     <abstract>
       <t>This document describes the motivation and architecture of a native
-      YANG Push notifications and YANG schema integration into Apache Kafka
+      YANG-Push notifications and YANG schema integration into Apache Kafka
       Message Broker and Confluent Schema Registry.</t>
     </abstract>
 
@@ -77,14 +77,14 @@
       data.</t>
 
       <t>Even though YANG is intend to ease the handling of data, this promise
-      has not yet been fulfilled. From subscribing on a YANG datastore,
-      publishing a YANG modeled notification message from the network and
-      viewing the data in a time series database, manual labor is needed to
-      perform a data transformation to make a message broker and its data
-      processing components with YANG notifications interoparable.</t>
+      has not yet been fulfilled for Network Telemetry. From subscribing on a
+      YANG datastore, publishing a YANG modeled notification message from the
+      network and viewing the data in a time series database, manual labor is
+      needed to perform a data transformation to make a message broker and its
+      data processing components with YANG notifications interoparable.</t>
 
       <section anchor="Document_Scope" title="Document Scope">
-        <t>This document focuses on <xref target="RFC8639">YANG Push</xref> as
+        <t>This document focuses on <xref target="RFC8639">YANG-Push</xref> as
         the messaging protocol between the network node and the <xref
         target="RFC9232">Network Telemetry</xref> data collection since YANG
         push contains a subscription id describing the event stream filter of
@@ -150,20 +150,20 @@
           </list></t>
       </section>
 
-      <section anchor="Origins_of_YANG_Push" title="Origins of YANG Push">
+      <section anchor="Origins_of_YANG_Push" title="Origins of YANG-Push">
         <t>With <xref target="RFC3535"/> the IAB set the requirements for
         Network Management in 2003. From these requirements <xref
-        target="RFC6241">Netconf</xref>, <xref target="RFC5277">Netconf
+        target="RFC6241">NETCONF</xref>, <xref target="RFC5277">NETCONF
         Notifications</xref> and <xref target="RFC8040">Restconf</xref> has
         been defined to configure through &lt;edit-config&gt; and retrieve
-        operational data through &lt;get&gt; and netconf notifications through
+        operational data through &lt;get&gt; and NETCONF notifications through
         &lt;notification&gt; from a YANG datastore on a network node.</t>
 
-        <t>With YANG push, as defined in <xref target="RFC8639"/>, <xref
+        <t>With YANG-Push, as defined in <xref target="RFC8639"/>, <xref
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
         on-change subscriptions to the YANG datastore can be dynamically
         configured or statically configured. When dynamically configured,
-        messages are being published in the established Netconf session, where
+        messages are being published in the established NETCONF session, where
         when statically configured messages are being published through <xref
         target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
         target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
@@ -196,25 +196,39 @@
     <section anchor="Motivation" title="Motivation">
       <t>Text.</t>
 
-      <section anchor="Preserve_and_Use_of_Schema"
-               title="Preserve and Use of Schema">
-        <t>Text.</t>
+      <section anchor="Preserve_Semantics" title="Preserve Semantics">
+        <t>The preservation of the YANG semantics, that includes the YANG data
+        types as defined in <xref target="RFC6991"/> and the nested structure
+        of the YANG module, throughout the data processing chain ensures that
+        metrics can be processed and visualized as they were originally
+        intended. Not only for the user but also for an automated closed loop
+        operation action.</t>
       </section>
 
-      <section anchor="Preserve_and_Use_of_Schema_Information"
-               title="Preserve and Use of Schema Information">
-        <t>Text.</t>
+      <section anchor="Preserve_Semantic_Information"
+               title="Preserve Semantic Information">
+        <t><xref target="RFC7950"/> defines in Section 7.21.3 and 7.21.4 the
+        description and reference statement. This information is intended for
+        the user, describing in a human-readable fashion the meaning of a
+        definition. In Data Mesh, this information can be imported from the
+        Confluent Schema Registry into a Stream Catalog where subjects within
+        Apache Kafka are identifyable and searchable. An example of a Stream
+        Catalog is <xref target="Atl15">Apache Atlas</xref>. It can also be
+        applied for time series data visualization in a similar fashion.</t>
       </section>
 
       <section anchor="Standardize_Data_Processing_Integration"
                title="Standardize Data Processing Integration">
-        <t>Text.</t>
+        <t>Since the YANG schema is preserved for operational metrics in
+        Apache Kafka, a standartization for integration betwen network data
+        collection and stream processor or time series database is
+        implied.</t>
       </section>
     </section>
 
     <section anchor="Elements_of_the_Architecture"
              title="Elements of the Architecture">
-      <t>Text.</t>
+      <t>The architecture consists of 6 elements.</t>
 
       <figure anchor="workflow_diagram" title="End to End Workflow">
         <artwork align="center"><![CDATA[
@@ -235,39 +249,88 @@
          v  | Schema             (5) Post       | with Schema ID prefixed
    +--------------------+          Schema  +--------------------+
    |     Confluent      | <--------------  |  Data Collection   |
-   |  Schema Registry   | -------------->  | YANG Push Receiver |
+   |  Schema Registry   | -------------->  | YANG-Push Receiver |
    +--------------------+ (6) Issue        +--------------------+
-                          Schema ID     (4) Get |  ^ (2) Receive YANG Push
+                          Schema ID     (3) Get |  ^ (2) Receive YANG-Push
                                          Schema |  | Subscription Start Message
                                                 |  |   ^
                                                 |  |   |
-                                                |  |   | (3) Publish YANG Push
+                                                |  |   | (4) Publish YANG-Push
                                                 v  |   | Message with Subscription ID
    +--------------------+                  +--------------------+
    |      Network       | (1) Subscribe    |   Network Node     |
-   |   Orchestration    | ---------------> | YANG Push Publisher|
+   |   Orchestration    | ---------------> | YANG-Push Publisher|
    +--------------------+                  +--------------------+
 ]]></artwork>
       </figure>
 
       <t>The <xref target="workflow_diagram">workflow diagram</xref> describes
-      the steps from establishing the YANG Push subscription to Time Series
+      the steps from establishing the YANG-Push subscription to Time Series
       Database ingestion.</t>
 
-      <section anchor="YANG_Push_Subscription" title="YANG Push Subscription">
-        <t>Text.</t>
+      <section anchor="YANG_Push_Subscription" title="YANG-Push Subscription">
+        <t>With step number (1) in the workflow diagram, a YANG-Push
+        subscription is according to Section 2.4 and 2.5 of <xref
+        target="RFC8639"/> dynamically or statically configured, and with step
+        (2) subscription state change notifications are sent according to
+        section 2.7 from the YANG-Push publisher to the receiver to inform
+        which event stream filter has been applied to which subscription
+        ID.</t>
+
+        <t><xref target="I-D.ietf-netconf-yang-notifications-versioning"/>
+        adds the capability to subscribe to a specific YANG module revision or
+        a YANG module which needs to be backward compatible to in step (1) and
+        adds the module name, revision and revision-label information into the
+        subscription state change notifications in step (2).</t>
       </section>
 
-      <section anchor="YANG_Push_Publisher" title="YANG Push Publisher">
-        <t>Text.</t>
+      <section anchor="YANG_Push_Publisher" title="YANG-Push Publisher">
+        <t>With step number (4) in the workflow diagram, a YANG-Push
+        push-update or push-change-update message, depending on wherever
+        periodical or on-change subscription has been established, is sent
+        from the YANG-Push publisher to the receiver according to Section 3.7
+        of <xref target="RFC8639"/>.</t>
+
+        <t><xref target="I-D.ahuang-netconf-notif-yang"/> defines the NETCONF
+        notification header specified in <xref target="RFC5277"/> in YANG to
+        enable JSON and CBOR encoding.</t>
+
+        <t><xref target="I-D.tgraf-netconf-notif-sequencing"/> adds sysName,
+        messagePublisherId and sequenceNumber in the NETCONF notification
+        header to each message to identify from which network node and
+        publishing process according to <xref
+        target="I-D.ietf-netconf-distributed-notif"/> a network node with
+        distributed architecture could have multiple messagePublisherId's, the
+        message has been published from. The sequenceNumber enables to measure
+        from the YANG-Push publisher down to the Time Series Database
+        Ingestion in step (11) to recognize loss.</t>
+
+        <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
+        observation-time or state-changed-observation-time in the YANG-Push
+        push-update or push-change-update message, depending on wherever
+        periodical or on-change subscription has been established.
+        observation-time describes when the operational metrics was obtained
+        from the YANG datastore. Where state-changed-observation-time
+        describes when the network state change was observed.</t>
       </section>
 
-      <section anchor="YANG_Push_Receiver" title="YANG Push Receiver">
-        <t>Text.</t>
+      <section anchor="YANG_Push_Receiver" title="YANG-Push Receiver">
+        <t>For all the YANG modules and revisions of each subscription ID in
+        the subscription state change notification received in step number (3)
+        in the workflow diagram, through the <xref target="RFC8525">YANG
+        Library</xref>, all the YANG module depencies need to be determined
+        and then through NETCONF &lt;get-schema&gt; rpc call according to
+        <xref target="RFC6022"/> all YANG modules retrieved as described in
+        step (3) in the workflow diagram.</t>
+
+        <t><xref target="I-D.lincla-netconf-yang-library-augmentation"/>
+        extends the YANG Library so that not only the submodule but also the
+        augmentation list can be obtained.</t>
       </section>
 
       <section anchor="YANG_Schema_Registry" title="YANG Schema Registry">
-        <t>Text.</t>
+        <t>Confluent Schema Registry is pluggable. Supports AVRO, JSON Schema
+        and protobuf natively. In order to support YANG natively.....</t>
       </section>
 
       <section anchor="YANG_Kafka_Producer" title="YANG Kafka Producer">
@@ -310,6 +373,8 @@
     <references title="Normative References">
       <?rfc include='reference.RFC.2119'?>
 
+      <?rfc include='reference.RFC.6022'?>
+
       <?rfc include='reference.RFC.7950'?>
 
       <?rfc include='reference.RFC.8174'?>
@@ -317,6 +382,12 @@
       <?rfc include='reference.RFC.8639'?>
 
       <?rfc include='reference.RFC.8641'?>
+
+      <?rfc include='reference.I-D.tgraf-netconf-notif-sequencing'?>
+
+      <?rfc include='reference.I-D.tgraf-netconf-yang-push-observation-time'?>
+
+      <?rfc include='reference.I-D.lincla-netconf-yang-library-augmentation'?>
 
       <reference anchor="Kaf11" target="https://kafka.apache.org/">
         <front>
@@ -366,7 +437,11 @@
 
       <?rfc include='reference.RFC.6241'?>
 
+      <?rfc include='reference.RFC.6991'?>
+
       <?rfc include='reference.RFC.8040'?>
+
+      <?rfc include='reference.RFC.8525'?>
 
       <?rfc include='reference.RFC.8640'?>
 
@@ -375,6 +450,12 @@
       <?rfc include='reference.I-D.ietf-netconf-https-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
+
+      <?rfc include='reference.I-D.ahuang-netconf-notif-yang'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
 
       <reference anchor="Deh22"
                  target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
@@ -401,6 +482,18 @@
         </front>
 
         <refcontent>Mozilla Public License</refcontent>
+      </reference>
+
+      <reference anchor="Atl15" target="https://atlas.apache.org/">
+        <front>
+          <title>Apache Atlas</title>
+
+          <author fullname="Hortonworks"/>
+
+          <date month="May" year="2015"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
       </reference>
     </references>
   </back>
