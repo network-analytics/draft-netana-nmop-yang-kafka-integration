@@ -240,14 +240,14 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
 
 1.4.  Origins of Apache Kafka
 
-   Apache Kafka [Kaf11] where messages can be produced into so called
-   topics and consumed from.  Each topic has one or more partitions
-   where messages are replicated or loadbalanced to scale out.  With the
+   Apache Kafka [Kaf11] messages can be produced into so called topics
+   and consumed from.  Each topic has one or more partitions where
+   messages are replicated or loadbalanced to scale out.  With the
    introduction of Confluent Schema Registry [Con18] a topic can contain
    one or more subjects.  A subject refers to a schema definition.  The
    schema definition or the schema ID can be either prefixed to the
    message with the Apache Kafka serializer.  If the schema ID is
-   prefixed, the schema needs to be previously be regsitered through a
+   prefixed, the schema needs to be previously be registered through a
    REST API to the Confluent Schema Registry where a schema ID is being
    issued.  Messages can be validated against schema when produced or
    consumed from topic to ensure schema integrity of the message.  The
@@ -291,11 +291,11 @@ Internet-Draft    YANG Push to Apache Kafka Integration    February 2024
    +------------------------------------------------------------+
    |                Time Series Database Ingestion              |
    +------------------------------------------------------------+
-(8) Get  |  ^                                   ^ (10) Validate Kafka Message
+(9) Get  |  ^                                   ^ (8) Validate Kafka Message
  Schema  |  |                                   | Against Schema on Consumer
          |  |                                   |
          |  |                                   |
-         |  | (9) Issue                         | (7) Produce Kafka Message
+         |  | (10) Issue                        | (7) Produce Kafka Message
          v  | Schema             (5) Post       | with Schema ID prefixed
    +--------------------+          Schema  +--------------------+
    |     Confluent      | <--------------  |  Data Collection   |
