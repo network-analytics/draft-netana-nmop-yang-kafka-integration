@@ -343,7 +343,7 @@
         semantics needed for Schema registration and also enable the
         possibility to add additional metadata such as the applied event
         stream filter, YANG module name, revision and revision-label from the
-        subscription state change notifications as described <xref
+        subscription state change notifications as described in <xref
         target="YANG_Push_Subscription"/>.</t>
       </section>
 
