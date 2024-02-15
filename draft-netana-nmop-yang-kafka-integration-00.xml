@@ -298,12 +298,12 @@
         <t><xref target="I-D.tgraf-netconf-notif-sequencing"/> adds sysName,
         messagePublisherId and sequenceNumber in the NETCONF notification
         header to each message to identify from which network node and
-        publishing process according to <xref
+        publishing process, according to <xref
         target="I-D.ietf-netconf-distributed-notif"/> a network node with
         distributed architecture could have multiple messagePublisherId's, the
-        message has been published from. The sequenceNumber enables to measure
-        from the YANG-Push publisher down to the Time Series Database
-        Ingestion in step (11) to recognize loss.</t>
+        message has been published from. The sequenceNumber enables to
+        recognize loss from the YANG-Push publisher in step (1) down to the
+        Time Series Database Ingestion in step (11).</t>
 
         <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
         observation-time or state-changed-observation-time in the YANG-Push
@@ -317,38 +317,108 @@
       <section anchor="YANG_Push_Receiver" title="YANG-Push Receiver">
         <t>For all the YANG modules and revisions of each subscription ID in
         the subscription state change notification received in step number (3)
-        in the workflow diagram, through the <xref target="RFC8525">YANG
-        Library</xref>, all the YANG module depencies need to be determined
-        and then through NETCONF &lt;get-schema&gt; rpc call according to
-        <xref target="RFC6022"/> all YANG modules retrieved as described in
-        step (3) in the workflow diagram.</t>
+        in the workflow diagram, all the YANG module depencies need to be
+        determined through the <xref target="RFC8525">YANG Library</xref>, and
+        then through NETCONF &lt;get-schema&gt; rpc calls according to <xref
+        target="RFC6022"/> all YANG modules need to be retrieved as described
+        in step (3) in the workflow diagram.</t>
 
         <t><xref target="I-D.lincla-netconf-yang-library-augmentation"/>
         extends the YANG Library so that not only the submodule but also the
         augmentation list can be obtained.</t>
+
+        <t>The YANG data model for datastore push subscriptions is defined in
+        Section 4.1 in <xref target="RFC8641"/>. Since the subscribed YANG
+        data is referenced with datastore-subtree-filter or
+        datastore-xpath-filter which where the anydata resp. xpath1.0
+        statement is used to represent an unknown set of nodes as defined in
+        Section 7.10 and subset of a YANG module as defined in Section 6.4.1
+        of <xref target="RFC7950"/>. It is the current understanding that with
+        the anydata statement as a reference semantics is lost where with
+        xpath1.0 statement it is not.</t>
+
+        <t>A new YANG module augmenting ietf-notification,
+        ietf-subscribed-notifications and the referenced YANG data in
+        datastore-subtree-filter or datastore-xpath-filter could re-establish
+        semantics needed for schema registration and also enable the
+        possibility to add additional metadata such as the applied event
+        stream filter, YANG module name, revision and revision-label from the
+        subscription state change notifications as described <xref
+        target="YANG_Push_Subscription"/>.</t>
       </section>
 
       <section anchor="YANG_Schema_Registry" title="YANG Schema Registry">
-        <t>Confluent Schema Registry is pluggable. Supports AVRO, JSON Schema
-        and protobuf natively. In order to support YANG natively.....</t>
+        <t>Confluent Schema Registry is pluggable. Currently Supports AVRO,
+        JSON Schema and Protobuf. The YANG support is being developed at <xref
+        target="Yak24"/> as part of this architecture. Enable to register,
+        obtain and compare <xref target="YSR24"/> YANG schemas. One YANG
+        schema with all its augmentations is being registered per YANG Push
+        subscription ID. for each YANG schema a locally significant schema ID
+        is being issued as described in step (6) in the workflow diagram.</t>
       </section>
 
       <section anchor="YANG_Kafka_Producer" title="YANG Kafka Producer">
-        <t>Text.</t>
+        <t>The previously issued schema ID is prefixed to the previously in
+        <xref target="YANG_Push_Receiver"/> described metadata augmented YANG
+        push push-update message and serialized to a Apache Kafka topic in
+        step (7) of the workflow diagram.</t>
       </section>
 
       <section anchor="YANG_Kafka_Consumer" title="YANG Kafka Consumer">
-        <t>Text.</t>
+        <t>From the Apache Kafka topic the message is being consumed and the
+        prefixed schema ID is being used in step 9 of the workflow diagram to
+        retrieve the YANG schema to validate the schema integrity of the
+        message.</t>
       </section>
 
       <section anchor="YANG_Time_Series_Database_Ingestion"
                title="YANG Time Series Database Ingestion">
-        <t>Text.</t>
+        <t>The time series database ingestion specifications are being derived
+        with the in <xref target="YANG_Kafka_Consumer"/> already retrieved
+        schema ID and YANG push-update messages can be now ingested and
+        indexed into the database table according to their semantics.</t>
       </section>
     </section>
 
     <section anchor="Project_Milestones" title="Project Milestones">
-      <t>Text.</t>
+      <t>IETF 115:</t>
+
+      <ul>
+        <li>Official Project Kickoff.</li>
+
+        <li><xref target="I-D.ietf-netconf-yang-notifications-versioning"/>
+        extends semantics reference in subscription state change
+        notification.</li>
+      </ul>
+
+      <t>IETF 116:</t>
+
+      <ul>
+        <li>YANG module with augmentations can be registered in Confluent
+        Schema Registry with YANG extension <xref target="Yak24"/>.</li>
+
+        <li><xref target="I-D.tgraf-netconf-notif-sequencing"/> extends
+        NETCONF notification header with sysName, messagePublisherId and
+        sequenceNumber.</li>
+
+        <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
+        extends YANG-Push push-update or push-change-update message with
+        observation-time or state-changed-observation-time.</li>
+
+        <li><xref target="I-D.ahuang-netconf-notif-yang"/> defines the NETCONF
+        notification header specified in <xref target="RFC5277"/> in
+        YANG.</li>
+      </ul>
+
+      <t>IETF 118:</t>
+
+      <ul>
+        <li>All relevant YANG modules for a subscribed xpath can be determined
+        through the <xref target="RFC8525">YANG Library</xref> and retrieved
+        throug NETCONF &lt;get-schema&gt; rpc calls according to <xref
+        target="RFC6022"/>. Gap in YANG library addressed in <xref
+        target="I-D.lincla-netconf-yang-library-augmentation"/>.</li>
+      </ul>
     </section>
 
     <section anchor="Open_Points" title="Open Points">
@@ -360,12 +430,12 @@
     </section>
 
     <section anchor="Implementation_Status" title="Implementation Status">
-      <t>The security considerations.</t>
+      <t>The implementation status.</t>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank xxx for their review and valuable
-      comments.</t>
+      <t>The authors would like to thank Yannick Buchs and Benoit Claise for
+      their review and valuable comments.</t>
     </section>
   </middle>
 
@@ -388,6 +458,36 @@
       <?rfc include='reference.I-D.tgraf-netconf-yang-push-observation-time'?>
 
       <?rfc include='reference.I-D.lincla-netconf-yang-library-augmentation'?>
+
+      <?rfc include='reference.I-D.ahuang-netconf-notif-yang'?>
+
+      <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
+
+      <reference anchor="YSR24"
+                 target="https://github.com/confluentinc/schema-registry-yang-format/">
+        <front>
+          <title>Confluent YANG Schema Registry</title>
+
+          <author fullname="Ahmed Elhassany" initials="A." surname="Elhassany"/>
+
+          <date month="February" year="2024"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+      <reference anchor="Yak24"
+                 target="https://github.com/yang-central/yangkit/">
+        <front>
+          <title>Yangkit</title>
+
+          <author fullname="Frank Feng" initials="F." surname="Feng"/>
+
+          <date month="February" year="2024"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
 
       <reference anchor="Kaf11" target="https://kafka.apache.org/">
         <front>
@@ -452,10 +552,6 @@
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
-
-      <?rfc include='reference.I-D.ahuang-netconf-notif-yang'?>
-
-      <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
 
       <reference anchor="Deh22"
                  target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
