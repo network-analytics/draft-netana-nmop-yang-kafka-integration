@@ -317,7 +317,7 @@
       <section anchor="YANG_Push_Receiver" title="YANG-Push Receiver">
         <t>For all the YANG modules and revisions of each subscription ID in
         the subscription state change notification received in step number (3)
-        in the workflow diagram, all the YANG module depencies need to be
+        in the workflow diagram, all the YANG module dependencies need to be
         determined through the <xref target="RFC8525">YANG Library</xref>, and
         then through NETCONF &lt;get-schema&gt; rpc calls according to <xref
         target="RFC6022"/> all YANG modules need to be retrieved as described

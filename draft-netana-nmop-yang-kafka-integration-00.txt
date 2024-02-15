@@ -398,7 +398,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    For all the YANG modules and revisions of each subscription ID in the
    subscription state change notification received in step number (3) in
-   the workflow diagram, all the YANG module depencies need to be
+   the workflow diagram, all the YANG module dependencies need to be
    determined through the YANG Library [RFC8525], and then through
    NETCONF <get-schema> rpc calls according to [RFC6022] all YANG
    modules need to be retrieved as described in step (3) in the workflow
