@@ -4,8 +4,8 @@
 
 NMOP                                                             T. Graf
 Internet-Draft                                                  Swisscom
-Intended status: Informational                          13 February 2024
-Expires: 16 August 2024
+Intended status: Informational                          15 February 2024
+Expires: 18 August 2024
 
 
        An Architecture for YANG-Push to Apache Kafka Integration
@@ -14,7 +14,7 @@ Expires: 16 August 2024
 Abstract
 
    This document describes the motivation and architecture of a native
-   YANG-Push notifications and YANG schema integration into Apache Kafka
+   YANG-Push notifications and YANG Schema integration into Apache Kafka
    Message Broker and Confluent Schema Registry.
 
 Discussion Venues
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 August 2024.
+   This Internet-Draft will expire on 18 August 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf                     Expires 16 August 2024                 [Page 1]
+Graf                     Expires 18 August 2024                 [Page 1]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf                     Expires 16 August 2024                 [Page 2]
+Graf                     Expires 18 August 2024                 [Page 2]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -144,7 +144,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    the event stream filter of the subscribed YANG data.  For a message
    broker and schema registry it focuses on Apache Kafka and Confluent
    Schema Registry [Con18] due its native capability to support
-   different serializers and schema languages, scales out well and being
+   different serializers and Schema languages, scales out well and being
    a de-facto standard for network operators today.
 
 1.2.  Terminology
@@ -165,7 +165,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 3]
+Graf                     Expires 18 August 2024                 [Page 3]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -221,7 +221,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 4]
+Graf                     Expires 18 August 2024                 [Page 4]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -236,15 +236,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    and consumed from.  Each topic has one or more partitions where
    messages are replicated or loadbalanced to scale out.  With the
    introduction of Confluent Schema Registry [Con18] a topic can contain
-   one or more subjects.  A subject refers to a schema definition.  The
-   schema definition or the schema ID can be either prefixed to the
-   message with the Apache Kafka serializer.  If the schema ID is
-   prefixed, the schema needs to be previously be registered through a
-   REST API to the Confluent Schema Registry where a schema ID is being
-   issued.  Messages can be validated against schema when produced or
-   consumed from topic to ensure schema integrity of the message.  The
-   type of schema evolution scheme can be defined per subject.  Wherever
-   non backward schema changes are allowed or not.
+   one or more subjects.  A subject refers to a Schema definition.  The
+   Schema definition or the Schema ID can be either prefixed to the
+   message with the Apache Kafka serializer.  If the Schema ID is
+   prefixed, the Schema needs to be previously be registered through a
+   REST API to the Confluent Schema Registry where a Schema ID is being
+   issued.  Messages can be validated against Schema when produced or
+   consumed from topic to ensure Schema integrity of the message.  The
+   type of Schema evolution scheme can be defined per subject.  Wherever
+   non backward Schema changes are allowed or not.
 
 2.  Motivation
 
@@ -277,14 +277,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 5]
+Graf                     Expires 18 August 2024                 [Page 5]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 2.3.  Standardize Data Processing Integration
 
-   Since the YANG schema is preserved for operational metrics in Apache
+   Since the YANG Schema is preserved for operational metrics in Apache
    Kafka, a standartization for integration betwen network data
    collection and stream processor or time series database is implied.
 
@@ -333,7 +333,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 6]
+Graf                     Expires 18 August 2024                 [Page 6]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -389,7 +389,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 7]
+Graf                     Expires 18 August 2024                 [Page 7]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -414,13 +414,13 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    which where the anydata resp. xpath1.0 statement is used to represent
    an unknown set of nodes as defined in Section 7.10 and subset of a
    YANG module as defined in Section 6.4.1 of [RFC7950].  It is the
-   current understanding that with the anydata statement as a reference
+   current understanding that with the anydata statement as a reference,
    semantics is lost where with xpath1.0 statement it is not.
 
    A new YANG module augmenting ietf-notification, ietf-subscribed-
    notifications and the referenced YANG data in datastore-subtree-
    filter or datastore-xpath-filter could re-establish semantics needed
-   for schema registration and also enable the possibility to add
+   for Schema registration and also enable the possibility to add
    additional metadata such as the applied event stream filter, YANG
    module name, revision and revision-label from the subscription state
    change notifications as described Section 3.1.
@@ -430,14 +430,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Confluent Schema Registry is pluggable.  Currently Supports AVRO,
    JSON Schema and Protobuf.  The YANG support is being developed at
    [Yak24] as part of this architecture.  Enable to register, obtain and
-   compare [YSR24] YANG schemas.  One YANG schema with all its
+   compare [YSR24] YANG Schemas.  One YANG Schema with all its
    augmentations is being registered per YANG Push subscription ID. for
-   each YANG schema a locally significant schema ID is being issued as
+   each YANG Schema a locally significant Schema ID is being issued as
    described in step (6) in the workflow diagram.
 
 3.5.  YANG Kafka Producer
 
-   The previously issued schema ID is prefixed to the previously in
+   The previously issued Schema ID is prefixed to the previously in
    Section 3.3 described metadata augmented YANG push push-update
    message and serialized to a Apache Kafka topic in step (7) of the
    workflow diagram.
@@ -445,7 +445,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 8]
+Graf                     Expires 18 August 2024                 [Page 8]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -453,14 +453,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 3.6.  YANG Kafka Consumer
 
    From the Apache Kafka topic the message is being consumed and the
-   prefixed schema ID is being used in step 9 of the workflow diagram to
-   retrieve the YANG schema to validate the schema integrity of the
+   prefixed Schema ID is being used in step 9 of the workflow diagram to
+   retrieve the YANG Schema to validate the Schema integrity of the
    message.
 
 3.7.  YANG Time Series Database Ingestion
 
    The time series database ingestion specifications are being derived
-   with the in Section 3.6 already retrieved schema ID and YANG push-
+   with the in Section 3.6 already retrieved Schema ID and YANG push-
    update messages can be now ingested and indexed into the database
    table according to their semantics.
 
@@ -501,7 +501,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                 [Page 9]
+Graf                     Expires 18 August 2024                 [Page 9]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -557,7 +557,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                [Page 10]
+Graf                     Expires 18 August 2024                [Page 10]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -613,7 +613,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                [Page 11]
+Graf                     Expires 18 August 2024                [Page 11]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -669,7 +669,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 16 August 2024                [Page 12]
+Graf                     Expires 18 August 2024                [Page 12]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -725,4 +725,4 @@ Author's Address
 
 
 
-Graf                     Expires 16 August 2024                [Page 13]
+Graf                     Expires 18 August 2024                [Page 13]

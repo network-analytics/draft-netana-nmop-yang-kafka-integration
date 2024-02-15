@@ -34,7 +34,7 @@
       </address>
     </author>
 
-    <date day="13" month="February" year="2024"/>
+    <date day="15" month="February" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -42,7 +42,7 @@
 
     <abstract>
       <t>This document describes the motivation and architecture of a native
-      YANG-Push notifications and YANG schema integration into Apache Kafka
+      YANG-Push notifications and YANG Schema integration into Apache Kafka
       Message Broker and Confluent Schema Registry.</t>
     </abstract>
 
@@ -91,7 +91,7 @@
         the subscribed YANG data. For a message broker and schema registry it
         focuses on Apache Kafka and <xref target="Con18">Confluent Schema
         Registry</xref> due its native capability to support different
-        serializers and schema languages, scales out well and being a de-facto
+        serializers and Schema languages, scales out well and being a de-facto
         standard for network operators today.</t>
       </section>
 
@@ -181,14 +181,14 @@
         partitions where messages are replicated or loadbalanced to scale out.
         With the introduction of <xref target="Con18">Confluent Schema
         Registry</xref> a topic can contain one or more subjects. A subject
-        refers to a schema definition. The schema definition or the schema ID
+        refers to a Schema definition. The Schema definition or the Schema ID
         can be either prefixed to the message with the Apache Kafka
-        serializer. If the schema ID is prefixed, the schema needs to be
+        serializer. If the Schema ID is prefixed, the Schema needs to be
         previously be registered through a REST API to the Confluent Schema
-        Registry where a schema ID is being issued. Messages can be validated
-        against schema when produced or consumed from topic to ensure schema
-        integrity of the message. The type of schema evolution scheme can be
-        defined per subject. Wherever non backward schema changes are allowed
+        Registry where a Schema ID is being issued. Messages can be validated
+        against Schema when produced or consumed from topic to ensure Schema
+        integrity of the message. The type of Schema evolution scheme can be
+        defined per subject. Wherever non backward Schema changes are allowed
         or not.</t>
       </section>
     </section>
@@ -219,7 +219,7 @@
 
       <section anchor="Standardize_Data_Processing_Integration"
                title="Standardize Data Processing Integration">
-        <t>Since the YANG schema is preserved for operational metrics in
+        <t>Since the YANG Schema is preserved for operational metrics in
         Apache Kafka, a standartization for integration betwen network data
         collection and stream processor or time series database is
         implied.</t>
@@ -334,13 +334,13 @@
         statement is used to represent an unknown set of nodes as defined in
         Section 7.10 and subset of a YANG module as defined in Section 6.4.1
         of <xref target="RFC7950"/>. It is the current understanding that with
-        the anydata statement as a reference semantics is lost where with
+        the anydata statement as a reference, semantics is lost where with
         xpath1.0 statement it is not.</t>
 
         <t>A new YANG module augmenting ietf-notification,
         ietf-subscribed-notifications and the referenced YANG data in
         datastore-subtree-filter or datastore-xpath-filter could re-establish
-        semantics needed for schema registration and also enable the
+        semantics needed for Schema registration and also enable the
         possibility to add additional metadata such as the applied event
         stream filter, YANG module name, revision and revision-label from the
         subscription state change notifications as described <xref
@@ -351,14 +351,14 @@
         <t>Confluent Schema Registry is pluggable. Currently Supports AVRO,
         JSON Schema and Protobuf. The YANG support is being developed at <xref
         target="Yak24"/> as part of this architecture. Enable to register,
-        obtain and compare <xref target="YSR24"/> YANG schemas. One YANG
-        schema with all its augmentations is being registered per YANG Push
-        subscription ID. for each YANG schema a locally significant schema ID
+        obtain and compare <xref target="YSR24"/> YANG Schemas. One YANG
+        Schema with all its augmentations is being registered per YANG Push
+        subscription ID. for each YANG Schema a locally significant Schema ID
         is being issued as described in step (6) in the workflow diagram.</t>
       </section>
 
       <section anchor="YANG_Kafka_Producer" title="YANG Kafka Producer">
-        <t>The previously issued schema ID is prefixed to the previously in
+        <t>The previously issued Schema ID is prefixed to the previously in
         <xref target="YANG_Push_Receiver"/> described metadata augmented YANG
         push push-update message and serialized to a Apache Kafka topic in
         step (7) of the workflow diagram.</t>
@@ -366,8 +366,8 @@
 
       <section anchor="YANG_Kafka_Consumer" title="YANG Kafka Consumer">
         <t>From the Apache Kafka topic the message is being consumed and the
-        prefixed schema ID is being used in step 9 of the workflow diagram to
-        retrieve the YANG schema to validate the schema integrity of the
+        prefixed Schema ID is being used in step 9 of the workflow diagram to
+        retrieve the YANG Schema to validate the Schema integrity of the
         message.</t>
       </section>
 
@@ -375,7 +375,7 @@
                title="YANG Time Series Database Ingestion">
         <t>The time series database ingestion specifications are being derived
         with the in <xref target="YANG_Kafka_Consumer"/> already retrieved
-        schema ID and YANG push-update messages can be now ingested and
+        Schema ID and YANG push-update messages can be now ingested and
         indexed into the database table according to their semantics.</t>
       </section>
     </section>
