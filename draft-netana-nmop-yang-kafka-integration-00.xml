@@ -34,7 +34,7 @@
       </address>
     </author>
 
-    <date day="15" month="February" year="2024"/>
+    <date day="18" month="February" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -43,7 +43,7 @@
     <abstract>
       <t>This document describes the motivation and architecture of a native
       YANG-Push notifications and YANG Schema integration into Apache Kafka
-      Message Broker and Confluent Schema Registry.</t>
+      Message Broker and YANG Schema Registry.</t>
     </abstract>
 
     <note removeInRFC="true">
@@ -211,7 +211,7 @@
         description and reference statement. This information is intended for
         the user, describing in a human-readable fashion the meaning of a
         definition. In Data Mesh, this information can be imported from the
-        Confluent Schema Registry into a Stream Catalog where subjects within
+        YANG Schema Registry into a Stream Catalog where subjects within
         Apache Kafka are identifyable and searchable. An example of a Stream
         Catalog is <xref target="Atl15">Apache Atlas</xref>. It can also be
         applied for time series data visualization in a similar fashion.</t>
@@ -248,7 +248,7 @@
          |  | (10) Issue                        | (7) Produce Kafka Message
          v  | Schema             (5) Post       | with Schema ID prefixed
    +--------------------+          Schema  +--------------------+
-   |     Confluent      | <--------------  |  Data Collection   |
+   |       YANG         | <--------------  |  Data Collection   |
    |  Schema Registry   | -------------->  | YANG-Push Receiver |
    +--------------------+ (6) Issue        +--------------------+
                           Schema ID     (3) Get |  ^ (2) Receive YANG-Push
@@ -332,10 +332,16 @@
         data is referenced with datastore-subtree-filter or
         datastore-xpath-filter which where the anydata resp. xpath1.0
         statement is used to represent an unknown set of nodes as defined in
-        Section 7.10 and subset of a YANG module as defined in Section 6.4.1
-        of <xref target="RFC7950"/>. It is the current understanding that with
-        the anydata statement as a reference, semantics is lost where with
-        xpath1.0 statement it is not.</t>
+        Section 7.10 and subset of a namespace as defined in Section 6.4.1 of
+        <xref target="RFC7950"/>. Where the namespace is defined in Section
+        5.3 and Section 6.2.1 of <xref target="RFC7950"/> defines that all
+        identifiers in a namespace MUST be unique. Section 5.5 in <xref
+        target="RFC7951"/> describes how anydata in notifications are encoded
+        where a description how to encode xpath1.0 is missing. Therefore the
+        current understanding that with the anydata statement as a reference,
+        semantics is lost where with xpath1.0 statement it is not. This will
+        be further clarified in point number (1) in <xref
+        target="Open_Points"/>.</t>
 
         <t>A new YANG module augmenting ietf-notification,
         ietf-subscribed-notifications and the referenced YANG data in
@@ -352,7 +358,7 @@
         JSON Schema and Protobuf. The YANG support is being developed at <xref
         target="Yak24"/> as part of this architecture. Enable to register,
         obtain and compare <xref target="YSR24"/> YANG Schemas. One YANG
-        Schema with all its augmentations is being registered per YANG Push
+        Schema with all its augmentations is being registered per YANG-Push
         subscription ID. for each YANG Schema a locally significant Schema ID
         is being issued as described in step (6) in the workflow diagram.</t>
       </section>
@@ -366,8 +372,8 @@
 
       <section anchor="YANG_Kafka_Consumer" title="YANG Kafka Consumer">
         <t>From the Apache Kafka topic the message is being consumed and the
-        prefixed Schema ID is being used in step 9 of the workflow diagram to
-        retrieve the YANG Schema to validate the Schema integrity of the
+        prefixed Schema ID is being used in step (9) of the workflow diagram
+        to retrieve the YANG Schema to validate the Schema integrity of the
         message.</t>
       </section>
 
@@ -423,19 +429,76 @@
 
     <section anchor="Open_Points" title="Open Points">
       <t>Text.</t>
+
+      <dl newline="true">
+        <dt>Open Point 1:</dt>
+
+        <dd>Regarding Figure 8 in Section 4.1 of <xref target="RFC8641"/>.
+        Clarify wherever with an anydata statement as a reference, semantics
+        is lost where with xpath1.0 statement it is not. Propose solutions how
+        semantics can be preserved on YANG-Push Publisher and when not
+        preserved on YANG-Push Publisher how it could be restored on YANG-Push
+        Receiver.</dd>
+
+        <dt>Open Point 2:</dt>
+
+        <dd>Test with running code wherever semantics can be restored by
+        introducing a new YANG module augmenting at the YANG-Push receiver
+        ietf-notification, ietf-subscribed-notifications and
+        datastore-subtree-filter or datastore-xpath-filter referenced YANG
+        modules and their dependencies.</dd>
+
+        <dt>Open Point 3:</dt>
+
+        <dd>Clarify wherever <xref target="RFC7951"/> is missing the
+        definition how to encode xpath1.0 data node in YANG JSON.</dd>
+
+        <dt>Open Point 4:</dt>
+
+        <dd>Test with running code wherever with <xref
+        target="I-D.ietf-netconf-yang-notifications-versioning"/> and <xref
+        target="I-D.lincla-netconf-yang-library-augmentation"/> all
+        datastore-subtree-filter or datastore-xpath-filter referenced YANG
+        modules and their dependencies can be fully indentified.</dd>
+      </dl>
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>The security considerations.</t>
+      <t>TBD.</t>
     </section>
 
-    <section anchor="Implementation_Status" title="Implementation Status">
-      <t>The implementation status.</t>
+    <section anchor="Implementation" title="Implementation Status">
+      <t>Note to the RFC-Editor: Please remove this section before
+      publishing.</t>
+
+      <section anchor="YANG_Schema_Registry_Extension"
+               title="YANG Schema Registry Extension">
+        <t>Ahmed Elhassany is developing a YANG Schema Extension in Confluent
+        Schema Registry.</t>
+
+        <t>The source code can be obtained here: <xref target="YSR24"/>, the
+        progress report here: <xref target="YSRPR24"/>, and was validated at
+        the IETF 117 hackathon.</t>
+      </section>
+
+      <section anchor="YANG-Push_Receiver_Parsing_Library"
+               title="YANG-Push Receiver Parsing Library">
+        <t>Zhuoyao Lin developed as part of her internship a library to parse
+        YANG-Push subscription notifications, identify YANG module
+        dependencises with <xref target="RFC8525">YANG Library</xref> and
+        obtain with NETCONF &lt;get-schema&gt; rpc calls <xref
+        target="RFC6022"/> all YANG modules from YANG-Push publisher.</t>
+
+        <t>The source code can be obtained here: <xref target="LYP23"/> and
+        was validated at the IETF 117 hackathon.</t>
+      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Yannick Buchs and Benoit Claise for
-      their review and valuable comments.</t>
+      their review and valuable comments, Ahmed Elhassany and Zhuoyao Lin for
+      contributing code and Alex Huang Feng for providing examples and inputs
+      for the open points.</t>
     </section>
   </middle>
 
@@ -446,6 +509,8 @@
       <?rfc include='reference.RFC.6022'?>
 
       <?rfc include='reference.RFC.7950'?>
+
+      <?rfc include='reference.RFC.7951'?>
 
       <?rfc include='reference.RFC.8174'?>
 
@@ -466,11 +531,35 @@
       <reference anchor="YSR24"
                  target="https://github.com/confluentinc/schema-registry-yang-format/">
         <front>
-          <title>Confluent YANG Schema Registry</title>
+          <title>YANG Schema Registry Extension</title>
 
           <author fullname="Ahmed Elhassany" initials="A." surname="Elhassany"/>
 
           <date month="February" year="2024"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+      <reference anchor="YSRPR24"
+                 target="https://github.com/network-analytics/draft-daisy-kafka-yang-integration/blob/main/YANG%20Schema%20registry%20integration.pdf">
+        <front>
+          <title>YANG Schema Registry Extension Progress Report</title>
+
+          <author fullname="Ahmed Elhassany" initials="A." surname="Elhassany"/>
+
+          <date month="February" year="2024"/>
+        </front>
+      </reference>
+
+      <reference anchor="LYP23"
+                 target="https://github.com/network-analytics/libyangpush/">
+        <front>
+          <title>libyangpush</title>
+
+          <author fullname="Zhuoyao Lin" initials="Z." surname="Lin"/>
+
+          <date month="September" year="2023"/>
         </front>
 
         <refcontent>Apache Software Foundation</refcontent>
