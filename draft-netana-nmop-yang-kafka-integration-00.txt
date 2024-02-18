@@ -93,9 +93,9 @@ Table of Contents
      3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .   9
    4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .   9
    5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  10
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  10
-     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  10
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  11
+     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  11
      7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  11
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
@@ -450,6 +450,25 @@ Graf                     Expires 21 August 2024                 [Page 8]
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
+  curl -X POST -H "Content Type: application/vnd.schemaregistry.v1+json"
+  -d @ietf-interfaces@2018-02-20.json
+  http://localhost:8081/subjects/ietf-interfaces/
+
+    Figure 2: Register ietf-interfaces.yang into YANG Schema Registry
+
+   curl http://localhost:8081/subjects/ ubjects/ | jq
+
+              Figure 3: List all subjects YANG Schema Registry
+
+   curl http://localhost:8081/subjects/ietf-interfaces/versions
+
+     Figure 4: List versions of a given subject in YANG Schema Registry
+
+   curl http://localhost:8081/subjects/ietf-interfaces/versions/1
+
+       Figure 5: Retrieve schema of a specific subject and version in
+                            YANG Schema Registry
+
 3.5.  YANG Kafka Producer
 
    The previously issued Schema ID is prefixed to the previously in
@@ -480,6 +499,13 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    *  [I-D.ietf-netconf-yang-notifications-versioning] extends semantics
       reference in subscription state change notification.
 
+
+
+Graf                     Expires 21 August 2024                 [Page 9]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    IETF 116:
 
    *  YANG module with augmentations can be registered in Confluent
@@ -497,15 +523,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    IETF 118:
 
-
-
-
-
-Graf                     Expires 21 August 2024                 [Page 9]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    *  All relevant YANG modules for a subscribed xpath can be determined
       through the YANG Library [RFC8525] and retrieved throug NETCONF
       <get-schema> rpc calls according to [RFC6022].  Gap in YANG
@@ -514,7 +531,8 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 5.  Open Points
 
-   Text.
+   Lists all current open points to be either further researched and
+   clarified or tested with running code.
 
    Open Point 1:
       Regarding Figure 8 in Section 4.1 of [RFC8641].  Clarify wherever
@@ -535,6 +553,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
       Clarify wherever [RFC7951] is missing the definition how to encode
       xpath1.0 data node in YANG JSON.
 
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 10]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    Open Point 4:
       Test with running code wherever with
       [I-D.ietf-netconf-yang-notifications-versioning] and
@@ -544,7 +571,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 6.  Security Considerations
 
-   TBD.
+   TBD
 
 7.  Implementation Status
 
@@ -554,13 +581,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    Ahmed Elhassany is developing a YANG Schema Extension in Confluent
    Schema Registry.
-
-
-
-Graf                     Expires 21 August 2024                [Page 10]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    The source code can be obtained here: [YSR24], the progress report
    here: [YSRPR24], and was validated at the IETF 117 hackathon.
@@ -591,6 +611,13 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Community and Apache Software Foundation, December 2018,
               <https://github.com/confluentinc/schema-registry/>.
 
+
+
+Graf                     Expires 21 August 2024                [Page 11]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [ConDoc18] Yokota, R., "Confluent Schema Registry Documentation",
               Confluent Community and Apache Software Foundation,
               December 2018,
@@ -603,20 +630,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Internet-Draft, draft-ahuang-netconf-notif-yang-04, 21
               January 2024, <https://datatracker.ietf.org/doc/html/
               draft-ahuang-netconf-notif-yang-04>.
-
-
-
-
-
-
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 11]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    [I-D.ietf-netconf-yang-notifications-versioning]
               Graf, T., Claise, B., and A. H. Feng, "Support of
@@ -652,6 +665,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [Kaf11]    Narkhede, N., "Apache Kafka", Apache Software Foundation,
               January 2011, <https://kafka.apache.org/>.
 
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 12]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [LYP23]    Lin, Z., "libyangpush", Apache Software Foundation,
               September 2023,
               <https://github.com/network-analytics/libyangpush/>.
@@ -664,15 +686,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [RFC6022]  Scott, M. and M. Bjorklund, "YANG Module for NETCONF
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
               <https://www.rfc-editor.org/info/rfc6022>.
-
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 12]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -710,6 +723,13 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 9.2.  Informative References
 
+
+
+Graf                     Expires 21 August 2024                [Page 13]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
@@ -722,14 +742,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
               "Subscription to Distributed Notifications", Work in
               Progress, Internet-Draft, draft-ietf-netconf-distributed-
-
-
-
-Graf                     Expires 21 August 2024                [Page 13]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
               notif-08, 6 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               distributed-notif-08>.
@@ -765,6 +777,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/info/rfc6241>.
 
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 14]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
@@ -777,14 +798,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               and R. Wilton, "YANG Library", RFC 8525,
               DOI 10.17487/RFC8525, March 2019,
               <https://www.rfc-editor.org/info/rfc8525>.
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 14]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
@@ -805,19 +818,6 @@ Author's Address
    CH-8045 Zurich
    Switzerland
    Email: thomas.graf@swisscom.com
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

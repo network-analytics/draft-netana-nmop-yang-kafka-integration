@@ -361,6 +361,36 @@
         Schema with all its augmentations is being registered per YANG-Push
         subscription ID. for each YANG Schema a locally significant Schema ID
         is being issued as described in step (6) in the workflow diagram.</t>
+
+        <figure anchor="YSR_post_ietf-interfaces"
+                title="Register ietf-interfaces.yang into YANG Schema Registry">
+          <artwork><![CDATA[
+curl -X POST -H "Content Type: application/vnd.schemaregistry.v1+json"
+-d @ietf-interfaces@2018-02-20.json 
+http://localhost:8081/subjects/ietf-interfaces/
+        ]]></artwork>
+        </figure>
+
+        <figure anchor="YSR_list_all_subjects"
+                title="List all subjects YANG Schema Registry">
+          <artwork align="left"><![CDATA[
+curl http://localhost:8081/subjects/ ubjects/ | jq
+        ]]></artwork>
+        </figure>
+
+        <figure anchor="YSR_list_versions_of_a_subject"
+                title="List versions of a given subject in YANG Schema Registry">
+          <artwork><![CDATA[
+curl http://localhost:8081/subjects/ietf-interfaces/versions
+        ]]></artwork>
+        </figure>
+
+        <figure anchor="YSR_retrieve_schema_of_subject_version"
+                title="Retrieve schema of a specific subject and version in YANG Schema Registry">
+          <artwork><![CDATA[
+curl http://localhost:8081/subjects/ietf-interfaces/versions/1
+        ]]></artwork>
+        </figure>
       </section>
 
       <section anchor="YANG_Kafka_Producer" title="YANG Kafka Producer">
@@ -428,7 +458,8 @@
     </section>
 
     <section anchor="Open_Points" title="Open Points">
-      <t>Text.</t>
+      <t>Lists all current open points to be either further researched and
+      clarified or tested with running code.</t>
 
       <dl newline="true">
         <dt>Open Point 1:</dt>
@@ -464,7 +495,7 @@
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>TBD.</t>
+      <t>TBD</t>
     </section>
 
     <section anchor="Implementation" title="Implementation Status">
