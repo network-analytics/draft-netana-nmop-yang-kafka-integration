@@ -534,6 +534,8 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Lists all current open points to be either further researched and
    clarified or tested with running code.
 
+   Note to the RFC-Editor: Please remove this section before publishing.
+
    Open Point 1:
       Regarding Figure 8 in Section 4.1 of [RFC8641].  Clarify wherever
       with an anydata statement as a reference, semantics is lost where
@@ -552,8 +554,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Open Point 3:
       Clarify wherever [RFC7951] is missing the definition how to encode
       xpath1.0 data node in YANG JSON.
-
-
 
 
 

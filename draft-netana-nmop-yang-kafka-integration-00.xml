@@ -461,6 +461,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>Lists all current open points to be either further researched and
       clarified or tested with running code.</t>
 
+      <t>Note to the RFC-Editor: Please remove this section before
+      publishing.</t>
+
       <dl newline="true">
         <dt>Open Point 1:</dt>
 
