@@ -282,6 +282,34 @@
         a YANG module which needs to be backward compatible to in step (1) and
         adds the module name, revision and revision-label information into the
         subscription state change notifications in step (2).</t>
+
+        <t><xref target="subscription_modified_notif_example_json_fig"/>
+        provides an example of a JSON encoded, <xref target="RFC8259"/>,
+        subscription state change notification message over HTTPS-based <xref
+        target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
+        target="I-D.ietf-netconf-udp-notif"/> transport for the same
+        subscription.</t>
+
+        <figure anchor="subscription_modified_notif_example_json_fig"
+                title="JSON Push Example for a subscription-modified notification message">
+          <artwork><![CDATA[
+{
+  "ietf-restconf:notification" : {
+    "eventTime": "2023-01-03T10:00:00Z",
+    "ietf-subscribed-notifications:subscription-modified": {
+      "id": 101,
+      "stream-xpath-filter": "/ietf-interfaces:interfaces",
+      "stream": "NETCONF",
+      "ietf-yang-push-revision:module-version": [{
+        "module-name": "ietf-interfaces"
+        "revision": "2018-02-20",
+        "revision-label": "2.0.0",
+      }],
+    }
+  }
+} 
+          ]]></artwork>
+        </figure>
       </section>
 
       <section anchor="YANG_Push_Publisher" title="YANG-Push Publisher">
@@ -305,6 +333,42 @@
         recognize loss from the YANG-Push publisher in step (1) down to the
         Time Series Database Ingestion in step (11).</t>
 
+        <t><xref target="notification_message_example_xml_fig"/> provides an
+        example of a "push-change-update" message with the sysName,
+        messagePublisherId and sequenceNumber. This "push-change-update"
+        message is encoded in XML <xref target="W3C.REC-xml-20081126"/> over
+        the Network Configuration Protocol (NETCONF) as per <xref
+        target="RFC8640"/>.</t>
+
+        <figure anchor="notification_message_example_xml_fig"
+                title="XML Push Example for a subscription-modified notification message">
+          <artwork><![CDATA[
+<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+ <eventTime>2023-02-04T16:30:11.22Z</eventTime>
+ <sysName xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
+  example-router
+ </sysName>
+ <messagePublisherId xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
+  1
+ </messagePublisherId>
+ <sequenceNumber xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
+  187653
+ </sequenceNumber>
+ <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+   <id>1011</id>
+   <datastore-contents>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+       <interface>
+         <name>eth0</name>
+         <oper-status>up</oper-status>
+       </interface>
+     </interfaces>
+   </datastore-contents>
+ </push-update>
+</notification>        
+           ]]></artwork>
+        </figure>
+
         <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
         observation-time or state-changed-observation-time in the YANG-Push
         push-update or push-change-update message, depending on wherever
@@ -312,6 +376,40 @@
         observation-time describes when the operational metrics was obtained
         from the YANG datastore. Where state-changed-observation-time
         describes when the network state change was observed.</t>
+
+        <t><xref target="subscription_modified_example_json_fig"/> provides an
+        example of a JSON encoded, <xref target="RFC8259"/>,
+        "push-change-update" notification message over HTTPS-based <xref
+        target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
+        target="I-D.ietf-netconf-udp-notif"/> transport for the same
+        subscription.</t>
+
+        <figure anchor="subscription_modified_example_json_fig"
+                title="JSON Push Example for a subscription-modified notification message">
+          <artwork><![CDATA[
+{
+   "ietf-notification:notification": {
+      "eventTime": "2023-02-04T16:30:11.22Z",
+      "sysName": "example-router",
+      "sequenceNumber": 187653,
+      "ietf-yang-push:push-update": {
+         "id": 1011,
+         "observation-time": "2023-02-04T16:30:09.44Z",
+         "datastore-xpath-filter": "ietf-interfaces:interfaces",
+         "datastore-contents": {
+            "ietf-interfaces:interface": {
+               "name": {
+                  "eth0": {
+                     "oper-status": "up"
+                  }
+               }
+            }
+         }
+      }
+   }
+}
+          ]]></artwork>
+        </figure>
       </section>
 
       <section anchor="YANG_Push_Receiver" title="YANG-Push Receiver">
@@ -666,6 +764,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.RFC.8525'?>
 
+      <?rfc include='reference.RFC.8259'?>
+
       <?rfc include='reference.RFC.8640'?>
 
       <?rfc include='reference.RFC.9232'?>
@@ -675,6 +775,40 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
+
+      <reference anchor="W3C.REC-xml-20081126"
+                 derivedAnchor="W3C.REC-xml-20081126" quoteTitle="true"
+                 target="https://www.w3.org/TR/2008/REC-xml-20081126">
+        <front>
+          <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
+
+          <author fullname="Tim Bray" initials="T." surname="Bray">
+            <organization showOnFrontPage="true"/>
+          </author>
+
+          <author fullname="Jean Paoli" initials="J." surname="Paoli">
+            <organization showOnFrontPage="true"/>
+          </author>
+
+          <author fullname="Michael Sperberg-McQueen" initials="M."
+                  surname="Sperberg-McQueen">
+            <organization showOnFrontPage="true"/>
+          </author>
+
+          <author fullname="Eve Maler" initials="E." surname="Maler">
+            <organization showOnFrontPage="true"/>
+          </author>
+
+          <author fullname="Francois Yergeau" initials="F." surname="Yergeau">
+            <organization showOnFrontPage="true"/>
+          </author>
+
+          <date month="November" year="2008"/>
+        </front>
+
+        <refcontent>World Wide Web Consortium Recommendation
+        REC-xml-20081126</refcontent>
+      </reference>
 
       <reference anchor="Deh22"
                  target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
