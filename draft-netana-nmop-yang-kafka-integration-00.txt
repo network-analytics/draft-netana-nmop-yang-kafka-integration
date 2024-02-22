@@ -4,8 +4,8 @@
 
 NMOP                                                             T. Graf
 Internet-Draft                                                  Swisscom
-Intended status: Informational                          18 February 2024
-Expires: 21 August 2024
+Intended status: Informational                          22 February 2024
+Expires: 25 August 2024
 
 
        An Architecture for YANG-Push to Apache Kafka Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 August 2024.
+   This Internet-Draft will expire on 25 August 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf                     Expires 21 August 2024                 [Page 1]
+Graf                     Expires 25 August 2024                 [Page 1]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf                     Expires 21 August 2024                 [Page 2]
+Graf                     Expires 25 August 2024                 [Page 2]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -165,7 +165,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 3]
+Graf                     Expires 25 August 2024                 [Page 3]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -221,7 +221,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 4]
+Graf                     Expires 25 August 2024                 [Page 4]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -242,19 +242,20 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 1.4.  Origins of Apache Kafka
 
    Apache Kafka [Kaf11] is a message broker that supports producing and
-   consuming messages from the so called topics.  Each topic has one or
-   more partitions where messages are replicated or loadbalanced to
-   scale out.  With the introduction of Confluent Schema Registry
-   [Con18] a topic can contain one or more subjects.  A subject refers
-   to a schema defining the structure of the message.  The Schema is
-   used to validate messages sent through topics and are idenfied by an
-   Schema ID.  The Schema ID is issued when the Schema is registered to
-   the Confluent Schema Registry.  Once the Schema ID is obtained, it
-   can be prefixed to the message with the Apache Kafka serializer.
-   Messages can then be validated against Schema at the producer or at
-   the consumer from topic to ensure a Schema integrity of the message.
-   The type of Schema evolution scheme can be defined per subject,
-   wherever non backward compatibility changes are allowed or not.
+   consuming messages from so called topics.  Each topic has one or more
+   partitions where messages are replicated or loadbalanced to scale
+   out.  With the introduction of Confluent Schema Registry [Con18] a
+   topic can contain one or more subjects.  A subject refers to a Schema
+   defining the structure of the
+   message.https://raw.githubusercontent.com/network-analytics/draft-
+   netana-nmop-yang-kafka-
+   integration/7045ff4bd3d20408a50b8572bac7c63dd48ddd93/draft-netana-
+   nmop-yang-kafka-integration-00.txtixed to the message with the Apache
+   Kafka serializer.  Messages can then be validated against Schema at
+   the producer or at the consumer from topic to ensure a Schema
+   integrity of the message.  The type of Schema evolution scheme can be
+   defined per subject, wherever non backward compatibility changes are
+   allowed or not.
 
 2.  Motivation
 
@@ -276,8 +277,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-
-Graf                     Expires 21 August 2024                 [Page 5]
+Graf                     Expires 25 August 2024                 [Page 5]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -333,7 +333,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 6]
+Graf                     Expires 25 August 2024                 [Page 6]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -389,7 +389,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 7]
+Graf                     Expires 25 August 2024                 [Page 7]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -445,7 +445,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 8]
+Graf                     Expires 25 August 2024                 [Page 8]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -501,7 +501,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                 [Page 9]
+Graf                     Expires 25 August 2024                 [Page 9]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -557,7 +557,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 10]
+Graf                     Expires 25 August 2024                [Page 10]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -613,7 +613,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 11]
+Graf                     Expires 25 August 2024                [Page 11]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -669,7 +669,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 12]
+Graf                     Expires 25 August 2024                [Page 12]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -725,7 +725,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 13]
+Graf                     Expires 25 August 2024                [Page 13]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -781,7 +781,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 14]
+Graf                     Expires 25 August 2024                [Page 14]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -837,7 +837,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 15]
+Graf                     Expires 25 August 2024                [Page 15]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -893,7 +893,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 16]
+Graf                     Expires 25 August 2024                [Page 16]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -949,7 +949,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 21 August 2024                [Page 17]
+Graf                     Expires 25 August 2024                [Page 17]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -1005,4 +1005,4 @@ Author's Address
 
 
 
-Graf                     Expires 21 August 2024                [Page 18]
+Graf                     Expires 25 August 2024                [Page 18]
