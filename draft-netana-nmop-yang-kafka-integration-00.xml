@@ -183,13 +183,15 @@
         loadbalanced to scale out. With the introduction of <xref
         target="Con18">Confluent Schema Registry</xref> a topic can contain
         one or more subjects. A subject refers to a Schema defining the
-        structure of the
-        message.https://raw.githubusercontent.com/network-analytics/draft-netana-nmop-yang-kafka-integration/7045ff4bd3d20408a50b8572bac7c63dd48ddd93/draft-netana-nmop-yang-kafka-integration-00.txtixed
-        to the message with the Apache Kafka serializer. Messages can then be
-        validated against Schema at the producer or at the consumer from topic
-        to ensure a Schema integrity of the message. The type of Schema
-        evolution scheme can be defined per subject, wherever non backward
-        compatibility changes are allowed or not.</t>
+        structure of the message. The Schema is defining the structure of the
+        used to validate messages sent through topics and are idenfied by an
+        Schema ID. The Schema ID is issued when the Schema is registered to
+        the Confluent Schema Registry. Once the Schema ID is obtained, it can
+        be prefixed to the message with a Apache Kafka serializer. Messages
+        can then be validated against Schema at the producer or at the
+        consumer from a topic to ensure Schema integrity of the message. The
+        type of Schema evolution scheme can be defined per subject, wherever
+        non backward compatibility changes are allowed or not.</t>
       </section>
     </section>
 
