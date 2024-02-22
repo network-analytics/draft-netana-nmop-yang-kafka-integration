@@ -77,22 +77,25 @@
       data.</t>
 
       <t>Even though YANG is intend to ease the handling of data, this promise
-      has not yet been fulfilled for Network Telemetry. From subscribing on a
-      YANG datastore, publishing a YANG modeled notification message from the
-      network and viewing the data in a time series database, manual labor is
+      has not yet been fulfilled for <xref target="RFC9232">Network Telemetry</xref>.
+      From subscribing on a YANG datastore, publishing a YANG modeled notification message
+      from the network and viewing the data in a time series database, manual labor is
       needed to perform a data transformation to make a message broker and its
       data processing components with YANG notifications interoparable.</t>
 
       <section anchor="Document_Scope" title="Document Scope">
-        <t>This document focuses on <xref target="RFC8639">YANG-Push</xref> as
+        <t>This document focuses on <xref target="RFC8641">YANG-Push</xref> as
         the messaging protocol between the network node and the <xref
-        target="RFC9232">Network Telemetry</xref> data collection since YANG
-        push contains a subscription id describing the event stream filter of
-        the subscribed YANG data. For a message broker and schema registry it
+        target="RFC9232">Network Telemetry</xref> data collection. It describes
+        the main components and the aimed architecture for deploying such solution in a
+        production network. Then, hightlights the integration of the <xref target="RFC7950">
+        YANG 1.1</xref> as a schema modeling language within the Apache Kafka and <xref target="Con18">
+        Confluent Schema Registry</xref> environment.</t>
+        <!-- For a message broker and schema registry it
         focuses on Apache Kafka and <xref target="Con18">Confluent Schema
         Registry</xref> due its native capability to support different
         serializers and Schema languages, scales out well and being a de-facto
-        standard for network operators today.</t>
+        standard for network operators today.</t> -->
       </section>
 
       <section anchor="Terminology" title="Terminology">
@@ -162,9 +165,9 @@
         <t>With YANG-Push, as defined in <xref target="RFC8639"/>, <xref
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
         on-change subscriptions to the YANG datastore can be dynamically
-        configured or statically configured. When dynamically configured,
-        messages are being published in the established NETCONF session, where
-        when statically configured messages are being published through <xref
+        configured or statically configured. When notifications are dynamically
+        configured, messages are published over the established NETCONF session, while
+        when it is statically configured messages are published through <xref
         target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
         target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
         Section 3.7 of <xref target="RFC8641"/> describes push-update messages
@@ -176,19 +179,19 @@
 
       <section anchor="Origins_of_Apache_Kafka"
                title="Origins of Apache Kafka">
-        <t><xref target="Kaf11">Apache Kafka</xref> messages can be produced
-        into so called topics and consumed from. Each topic has one or more
-        partitions where messages are replicated or loadbalanced to scale out.
+        <t><xref target="Kaf11">Apache Kafka</xref> is a message broker that supports
+        producing and consuming messages from the so called topics. Each topic has one
+        or more partitions where messages are replicated or loadbalanced to scale out.
         With the introduction of <xref target="Con18">Confluent Schema
         Registry</xref> a topic can contain one or more subjects. A subject
-        refers to a Schema definition. The Schema definition or the Schema ID
-        can be either prefixed to the message with the Apache Kafka
-        serializer. If the Schema ID is prefixed, the Schema needs to be
-        previously be registered through a REST API to the Confluent Schema
-        Registry where a Schema ID is being issued. Messages can be validated
-        against Schema when produced or consumed from topic to ensure Schema
+        refers to a schema defining the structure of the message. The Schema is used to
+        validate messages sent through topics and are idenfied by an Schema ID.
+        The Schema ID is issued when the Schema is registered to the Confluent Schema
+        Registry. Once the Schema ID is obtained, it can be prefixed to the message with the Apache Kafka
+        serializer. Messages can then be validated
+        against Schema at the producer or at the consumer from topic to ensure a Schema
         integrity of the message. The type of Schema evolution scheme can be
-        defined per subject. Wherever non backward Schema changes are allowed
+        defined per subject, wherever non backward compatibility changes are allowed
         or not.</t>
       </section>
     </section>

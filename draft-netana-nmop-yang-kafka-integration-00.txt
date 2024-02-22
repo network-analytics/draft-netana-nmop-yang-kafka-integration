@@ -81,27 +81,27 @@ Table of Contents
      1.4.  Origins of Apache Kafka . . . . . . . . . . . . . . . . .   5
    2.  Motivation  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Preserve Semantics  . . . . . . . . . . . . . . . . . . .   5
-     2.2.  Preserve Semantic Information . . . . . . . . . . . . . .   5
+     2.2.  Preserve Semantic Information . . . . . . . . . . . . . .   6
      2.3.  Standardize Data Processing Integration . . . . . . . . .   6
    3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   6
      3.1.  YANG-Push Subscription  . . . . . . . . . . . . . . . . .   7
-     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .   7
-     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .   9
-     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  10
-     3.5.  YANG Kafka Producer . . . . . . . . . . . . . . . . . . .  11
-     3.6.  YANG Kafka Consumer . . . . . . . . . . . . . . . . . . .  11
-     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  11
-   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  11
-   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .   8
+     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  10
+     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  11
+     3.5.  YANG Kafka Producer . . . . . . . . . . . . . . . . . . .  12
+     3.6.  YANG Kafka Consumer . . . . . . . . . . . . . . . . . . .  12
+     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  12
+   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  12
+   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
    7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  13
-     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  13
-     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  13
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  15
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  17
+     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  14
+     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  14
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  16
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -129,23 +129,22 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    correlate or aggregate, or a time series database to store data.
 
    Even though YANG is intend to ease the handling of data, this promise
-   has not yet been fulfilled for Network Telemetry.  From subscribing
-   on a YANG datastore, publishing a YANG modeled notification message
-   from the network and viewing the data in a time series database,
-   manual labor is needed to perform a data transformation to make a
-   message broker and its data processing components with YANG
-   notifications interoparable.
+   has not yet been fulfilled for Network Telemetry [RFC9232].  From
+   subscribing on a YANG datastore, publishing a YANG modeled
+   notification message from the network and viewing the data in a time
+   series database, manual labor is needed to perform a data
+   transformation to make a message broker and its data processing
+   components with YANG notifications interoparable.
 
 1.1.  Document Scope
 
-   This document focuses on YANG-Push [RFC8639] as the messaging
+   This document focuses on YANG-Push [RFC8641] as the messaging
    protocol between the network node and the Network Telemetry [RFC9232]
-   data collection since YANG push contains a subscription id describing
-   the event stream filter of the subscribed YANG data.  For a message
-   broker and schema registry it focuses on Apache Kafka and Confluent
-   Schema Registry [Con18] due its native capability to support
-   different serializers and Schema languages, scales out well and being
-   a de-facto standard for network operators today.
+   data collection.  It describes the main components and the aimed
+   architecture for deploying such solution in a production network.
+   Then, hightlights the integration of the YANG 1.1 [RFC7950] as a
+   schema modeling language within the Apache Kafka and Confluent Schema
+   Registry [Con18] environment.
 
 1.2.  Terminology
 
@@ -162,6 +161,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    *  Publisher
 
+   *  Receiver
 
 
 
@@ -169,8 +169,6 @@ Graf                     Expires 21 August 2024                 [Page 3]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
-
-   *  Receiver
 
    *  Subscription
 
@@ -210,14 +208,16 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    <get> and NETCONF notifications through <notification> from a YANG
    datastore on a network node.
 
-   With YANG-Push, as defined in [RFC8639], [RFC8640] and [RFC8641],
-   periodical and on-change subscriptions to the YANG datastore can be
-   dynamically configured or statically configured.  When dynamically
-   configured, messages are being published in the established NETCONF
-   session, where when statically configured messages are being
-   published through HTTPS-based [I-D.ietf-netconf-https-notif] or
-   UDP-based [I-D.ietf-netconf-udp-notif] transport.  Section 3.7 of
-   [RFC8641] describes push-update messages where the YANG subscribed
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,25 +226,35 @@ Graf                     Expires 21 August 2024                 [Page 4]
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
-   data is being published, where Section 2.7 of [RFC8639] describes the
+   With YANG-Push, as defined in [RFC8639], [RFC8640] and [RFC8641],
+   periodical and on-change subscriptions to the YANG datastore can be
+   dynamically configured or statically configured.  When notifications
+   are dynamically configured, messages are published over the
+   established NETCONF session, while when it is statically configured
+   messages are published through HTTPS-based
+   [I-D.ietf-netconf-https-notif] or UDP-based
+   [I-D.ietf-netconf-udp-notif] transport.  Section 3.7 of [RFC8641]
+   describes push-update messages where the YANG subscribed data is
+   being published, where Section 2.7 of [RFC8639] describes the
    subscription state change notifications where changes in the
    subscription are being described.
 
 1.4.  Origins of Apache Kafka
 
-   Apache Kafka [Kaf11] messages can be produced into so called topics
-   and consumed from.  Each topic has one or more partitions where
-   messages are replicated or loadbalanced to scale out.  With the
-   introduction of Confluent Schema Registry [Con18] a topic can contain
-   one or more subjects.  A subject refers to a Schema definition.  The
-   Schema definition or the Schema ID can be either prefixed to the
-   message with the Apache Kafka serializer.  If the Schema ID is
-   prefixed, the Schema needs to be previously be registered through a
-   REST API to the Confluent Schema Registry where a Schema ID is being
-   issued.  Messages can be validated against Schema when produced or
-   consumed from topic to ensure Schema integrity of the message.  The
-   type of Schema evolution scheme can be defined per subject.  Wherever
-   non backward Schema changes are allowed or not.
+   Apache Kafka [Kaf11] is a message broker that supports producing and
+   consuming messages from the so called topics.  Each topic has one or
+   more partitions where messages are replicated or loadbalanced to
+   scale out.  With the introduction of Confluent Schema Registry
+   [Con18] a topic can contain one or more subjects.  A subject refers
+   to a schema defining the structure of the message.  The Schema is
+   used to validate messages sent through topics and are idenfied by an
+   Schema ID.  The Schema ID is issued when the Schema is registered to
+   the Confluent Schema Registry.  Once the Schema ID is obtained, it
+   can be prefixed to the message with the Apache Kafka serializer.
+   Messages can then be validated against Schema at the producer or at
+   the consumer from topic to ensure a Schema integrity of the message.
+   The type of Schema evolution scheme can be defined per subject,
+   wherever non backward compatibility changes are allowed or not.
 
 2.  Motivation
 
@@ -259,16 +269,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    only for the user but also for an automated closed loop operation
    action.
 
-2.2.  Preserve Semantic Information
-
-   [RFC7950] defines in Section 7.21.3 and 7.21.4 the description and
-   reference statement.  This information is intended for the user,
-   describing in a human-readable fashion the meaning of a definition.
-   In Data Mesh, this information can be imported from the YANG Schema
-   Registry into a Stream Catalog where subjects within Apache Kafka are
-   identifyable and searchable.  An example of a Stream Catalog is
-   Apache Atlas [Atl15].  It can also be applied for time series data
-   visualization in a similar fashion.
 
 
 
@@ -282,6 +282,17 @@ Graf                     Expires 21 August 2024                 [Page 5]
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
+2.2.  Preserve Semantic Information
+
+   [RFC7950] defines in Section 7.21.3 and 7.21.4 the description and
+   reference statement.  This information is intended for the user,
+   describing in a human-readable fashion the meaning of a definition.
+   In Data Mesh, this information can be imported from the YANG Schema
+   Registry into a Stream Catalog where subjects within Apache Kafka are
+   identifyable and searchable.  An example of a Stream Catalog is
+   Apache Atlas [Atl15].  It can also be applied for time series data
+   visualization in a similar fashion.
+
 2.3.  Standardize Data Processing Integration
 
    Since the YANG Schema is preserved for operational metrics in Apache
@@ -291,6 +302,41 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 3.  Elements of the Architecture
 
    The architecture consists of 6 elements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf                     Expires 21 August 2024                 [Page 6]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    +------------------------------------------------------------+
    |                    Time Series Database                    |
@@ -327,17 +373,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    The workflow diagram (Figure 1) describes the steps from establishing
    the YANG-Push subscription to Time Series Database ingestion.
 
-
-
-
-
-
-
-Graf                     Expires 21 August 2024                 [Page 6]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
 3.1.  YANG-Push Subscription
 
    With step number (1) in the workflow diagram, a YANG-Push
@@ -346,6 +381,18 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    state change notifications are sent according to section 2.7 from the
    YANG-Push publisher to the receiver to inform which event stream
    filter has been applied to which subscription ID.
+
+
+
+
+
+
+
+
+Graf                     Expires 21 August 2024                 [Page 7]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    [I-D.ietf-netconf-yang-notifications-versioning] adds the capability
    to subscribe to a specific YANG module revision or a YANG module
@@ -384,19 +431,24 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    on-change subscription has been established, is sent from the YANG-
    Push publisher to the receiver according to Section 3.7 of [RFC8639].
 
-
-
-
-
-
-Graf                     Expires 21 August 2024                 [Page 7]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    [I-D.ahuang-netconf-notif-yang] defines the NETCONF notification
    header specified in [RFC5277] in YANG to enable JSON and CBOR
    encoding.
+
+
+
+
+
+
+
+
+
+
+
+Graf                     Expires 21 August 2024                 [Page 8]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    [I-D.tgraf-netconf-notif-sequencing] adds sysName, messagePublisherId
    and sequenceNumber in the NETCONF notification header to each message
@@ -442,18 +494,17 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [I-D.tgraf-netconf-yang-push-observation-time] adds observation-time
    or state-changed-observation-time in the YANG-Push push-update or
    push-change-update message, depending on wherever periodical or on-
-
-
-
-Graf                     Expires 21 August 2024                 [Page 8]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    change subscription has been established.  observation-time describes
    when the operational metrics was obtained from the YANG datastore.
    Where state-changed-observation-time describes when the network state
    change was observed.
+
+
+
+Graf                     Expires 21 August 2024                 [Page 9]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    Figure 4 provides an example of a JSON encoded, [RFC8259], "push-
    change-update" notification message over HTTPS-based
@@ -499,17 +550,18 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Library so that not only the submodule but also the augmentation list
    can be obtained.
 
-
-
-Graf                     Expires 21 August 2024                 [Page 9]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    The YANG data model for datastore push subscriptions is defined in
    Section 4.1 in [RFC8641].  Since the subscribed YANG data is
    referenced with datastore-subtree-filter or datastore-xpath-filter
    which where the anydata resp. xpath1.0 statement is used to represent
+
+
+
+Graf                     Expires 21 August 2024                [Page 10]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    an unknown set of nodes as defined in Section 7.10 and subset of a
    namespace as defined in Section 6.4.1 of [RFC7950].  Where the
    namespace is defined in Section 5.3 and Section 6.2.1 of [RFC7950]
@@ -555,15 +607,16 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
+       Figure 8: Retrieve schema of a specific subject and version in
+                            YANG Schema Registry
 
 
-Graf                     Expires 21 August 2024                [Page 10]
+
+
+Graf                     Expires 21 August 2024                [Page 11]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
-
-       Figure 8: Retrieve schema of a specific subject and version in
-                            YANG Schema Registry
 
 3.5.  YANG Kafka Producer
 
@@ -610,15 +663,16 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    *  [I-D.ahuang-netconf-notif-yang] defines the NETCONF notification
       header specified in [RFC5277] in YANG.
 
+   IETF 118:
 
 
 
-Graf                     Expires 21 August 2024                [Page 11]
+
+
+Graf                     Expires 21 August 2024                [Page 12]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
-
-   IETF 118:
 
    *  All relevant YANG modules for a subscribed xpath can be determined
       through the YANG Library [RFC8525] and retrieved throug NETCONF
@@ -663,20 +717,18 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    TBD
 
-
-
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 12]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
 7.  Implementation Status
 
    Note to the RFC-Editor: Please remove this section before publishing.
+
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 13]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
 7.1.  YANG Schema Registry Extension
 
@@ -718,24 +770,21 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               <https://docs.confluent.io/platform/current/schema-
               registry/>.
 
-
-
-
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 13]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    [I-D.ahuang-netconf-notif-yang]
               Feng, A. H., Francois, P., Graf, T., and B. Claise, "YANG
               model for NETCONF Event Notifications", Work in Progress,
               Internet-Draft, draft-ahuang-netconf-notif-yang-04, 21
               January 2024, <https://datatracker.ietf.org/doc/html/
               draft-ahuang-netconf-notif-yang-04>.
+
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 14]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    [I-D.ietf-netconf-yang-notifications-versioning]
               Graf, T., Claise, B., and A. H. Feng, "Support of
@@ -775,17 +824,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               September 2023,
               <https://github.com/network-analytics/libyangpush/>.
 
-
-
-
-
-
-
-Graf                     Expires 21 August 2024                [Page 14]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -794,6 +832,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [RFC6022]  Scott, M. and M. Bjorklund, "YANG Module for NETCONF
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
               <https://www.rfc-editor.org/info/rfc6022>.
+
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 15]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -834,14 +881,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
-
-
-
-Graf                     Expires 21 August 2024                [Page 15]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
@@ -851,6 +890,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
               "Subscription to Distributed Notifications", Work in
               Progress, Internet-Draft, draft-ietf-netconf-distributed-
+
+
+
+Graf                     Expires 21 August 2024                [Page 16]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
               notif-08, 6 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               distributed-notif-08>.
@@ -890,14 +937,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-
-
-
-Graf                     Expires 21 August 2024                [Page 16]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
@@ -906,6 +945,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 17]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
 
    [RFC8525]  Bierman, A., Bjorklund, M., Schoenwaelder, J., Watsen, K.,
               and R. Wilton, "YANG Library", RFC 8525,
@@ -949,4 +996,13 @@ Author's Address
 
 
 
-Graf                     Expires 21 August 2024                [Page 17]
+
+
+
+
+
+
+
+
+
+Graf                     Expires 21 August 2024                [Page 18]
