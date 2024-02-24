@@ -34,7 +34,7 @@
       </address>
     </author>
 
-    <date day="22" month="February" year="2024"/>
+    <date day="24" month="February" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -79,7 +79,7 @@
       <t>Even though YANG is intend to ease the handling of data, this promise
       has not yet been fulfilled for <xref target="RFC9232">Network
       Telemetry</xref>. From subscribing on a YANG datastore, publishing a
-      YANG modeled notification message from the network and viewing the data
+      YANG modeled notifications message from the network and viewing the data
       in a time series database, manual labor is needed to perform a data
       transformation to make a message broker and its data processing
       components with YANG notifications interoparable.</t>
@@ -285,31 +285,91 @@
         adds the module name, revision and revision-label information into the
         subscription state change notifications in step (2).</t>
 
-        <t><xref target="subscription_modified_notif_example_json_fig"/>
-        provides an example of a JSON encoded, <xref target="RFC8259"/>,
-        subscription state change notification message over HTTPS-based <xref
-        target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
-        target="I-D.ietf-netconf-udp-notif"/> transport for the same
+        <t><xref
+        target="netconf_edit_config_establish_subscription_example_xml_fig"/>
+        provides and example how to create a YANG-Push configured subscription
+        with NETCONF in XML <xref target="W3C.REC-xml-20081126"/> with
+        UDP-based <xref target="I-D.ietf-netconf-udp-notif"/> transport</t>
+
+        <figure anchor="netconf_edit_config_establish_subscription_example_xml_fig"
+                title="NETCONF Example to establish configured subscription">
+          <artwork><![CDATA[
+<rpc message-id="101"
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <edit-config>
+    <target>
+      <running/>
+    </target>
+    <config>
+      <subscriptions xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications">
+        <subscription>
+          <id>6666</id>
+          <datastore xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push"
+            xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:operational</datastore>
+          <datastore-xpath-filter xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push"
+            xmlns:if="urn:ietf:params:xml:ns:yang:ietf-interfaces">/if:interfaces</datastore-xpath-filter>
+          <revision xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push-revision">2018-02-20</revision>
+          <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">unt:udp-notif</transport>
+          <encoding>encode-json</encoding>
+          <receivers>
+            <receiver>
+              <name>subscription-specific-receiver-def</name>
+              <receiver-instance-ref xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notif-receivers">global-udp-notif-receiver-def</receiver-instance-ref>
+            </receiver>
+          </receivers>
+          <periodic xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+            <period>6000</period>
+          </periodic>
+        </subscription>
+        <receiver-instances xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notif-receivers">
+          <receiver-instance>
+            <name>global-udp-notif-receiver-def</name>
+            <udp-notif-receiver xmlns="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
+              <address>192.0.5.1</address>
+              <port>12345</port>
+              <enable-segmentation>false</enable-segmentation>
+              <max-segment-size/>
+            </udp-notif-receiver>
+          </receiver-instance>
+        </receiver-instances>
+      </subscriptions>
+    </config>
+  </edit-config>
+</rpc>
+          ]]></artwork>
+        </figure>
+
+        <t><xref target="subscription_started_notif_example_json_fig"/>
+        provides an example of a JSON encoded, <xref target="RFC7951"/>,
+        subscription-started state change notification message over
+        HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/> or UDP-based
+        <xref target="I-D.ietf-netconf-udp-notif"/> transport for the same
         subscription.</t>
 
-        <figure anchor="subscription_modified_notif_example_json_fig"
-                title="JSON Push Example for a subscription-modified notification message">
+        <figure anchor="subscription_started_notif_example_json_fig"
+                title="JSON YANG-Push Example for a subscription-started notification message">
           <artwork><![CDATA[
 {
-  "ietf-restconf:notification" : {
-    "eventTime": "2023-01-03T10:00:00Z",
-    "ietf-subscribed-notifications:subscription-modified": {
-      "id": 101,
-      "stream-xpath-filter": "/ietf-interfaces:interfaces",
-      "stream": "NETCONF",
-      "ietf-yang-push-revision:module-version": [{
-        "module-name": "ietf-interfaces"
-        "revision": "2018-02-20",
-        "revision-label": "2.0.0",
-      }],
+  "ietf-notification:notification": {
+    "eventTime": "2023-03-25T08:30:11.22Z",
+    "ietf-notification-sequencing:sysName": "example-router",
+    "ietf-notification-sequencing:sequenceNumber": 1,
+    "ietf-subscribed-notification:subscription-started": {
+      "id": 6666,
+      "ietf-yang-push:datastore": "ietf-datastores:operational",
+      "ietf-yang-push:datastore-xpath-filter": "/if:interfaces",
+      "ietf-yang-push-revision:revision": "2014-05-08",
+      "ietf-yang-push-revision:module-name": "ietf-interfaces",
+      "ietf-yang-push-revision:revision-label": "",
+      "ietf-distributed-notif:message-observation-domain-id": [1,2],
+      "transport": "ietf-udp-notif-transport:udp-notif",
+      "encoding": "encode-json",
+      "ietf-yang-push:periodic": {
+        "ietf-yang-push:period": 100
+      }
     }
   }
-} 
+}
           ]]></artwork>
         </figure>
       </section>
@@ -335,42 +395,6 @@
         recognize loss from the YANG-Push publisher in step (1) down to the
         Time Series Database Ingestion in step (11).</t>
 
-        <t><xref target="notification_message_example_xml_fig"/> provides an
-        example of a "push-change-update" message with the sysName,
-        messagePublisherId and sequenceNumber. This "push-change-update"
-        message is encoded in XML <xref target="W3C.REC-xml-20081126"/> over
-        the Network Configuration Protocol (NETCONF) as per <xref
-        target="RFC8640"/>.</t>
-
-        <figure anchor="notification_message_example_xml_fig"
-                title="XML Push Example for a subscription-modified notification message">
-          <artwork><![CDATA[
-<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
- <eventTime>2023-02-04T16:30:11.22Z</eventTime>
- <sysName xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  example-router
- </sysName>
- <messagePublisherId xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  1
- </messagePublisherId>
- <sequenceNumber xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  187653
- </sequenceNumber>
- <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
-   <id>1011</id>
-   <datastore-contents>
-      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-       <interface>
-         <name>eth0</name>
-         <oper-status>up</oper-status>
-       </interface>
-     </interfaces>
-   </datastore-contents>
- </push-update>
-</notification>        
-           ]]></artwork>
-        </figure>
-
         <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
         observation-time or state-changed-observation-time in the YANG-Push
         push-update or push-change-update message, depending on wherever
@@ -379,38 +403,83 @@
         from the YANG datastore. Where state-changed-observation-time
         describes when the network state change was observed.</t>
 
-        <t><xref target="subscription_modified_example_json_fig"/> provides an
-        example of a JSON encoded, <xref target="RFC8259"/>,
-        "push-change-update" notification message over HTTPS-based <xref
+        <t><xref target="push_update_notif_example_json_fig"/> provides an
+        example of a JSON encoded, <xref target="RFC7951"/>, push-update
+        notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
         target="I-D.ietf-netconf-udp-notif"/> transport for the same
         subscription.</t>
 
-        <figure anchor="subscription_modified_example_json_fig"
-                title="JSON Push Example for a subscription-modified notification message">
+        <figure anchor="push_update_notif_example_json_fig"
+                title="JSON YANG-Push Example for a push-update notification message">
           <artwork><![CDATA[
 {
-   "ietf-notification:notification": {
-      "eventTime": "2023-02-04T16:30:11.22Z",
-      "sysName": "example-router",
-      "sequenceNumber": 187653,
-      "ietf-yang-push:push-update": {
-         "id": 1011,
-         "observation-time": "2023-02-04T16:30:09.44Z",
-         "datastore-xpath-filter": "ietf-interfaces:interfaces",
-         "datastore-contents": {
-            "ietf-interfaces:interface": {
-               "name": {
-                  "eth0": {
-                     "oper-status": "up"
-                  }
-               }
+  "ietf-notification:notification": {
+    "eventTime": "2023-03-25T08:30:11.22Z",
+    "ietf-notification-sequencing:sysName": "example-router",
+    "ietf-notification-sequencing:sequenceNumber": 1,
+    "ietf-yang-push:push-update": {
+      "id": 6666,
+      "ietf-yang-push-netobs-timestamping:observation-time": "2023-03-25T08:30:11.22Z",
+      "datastore-contents": {
+        "ietf-interfaces:interfaces": [
+          {
+            "interface": {
+              "name": "eth0",
+              "type": "iana-if-type:ethernetCsmacd",
+              "oper-status": "up",
+              "mtu": 1500
             }
-         }
+          }
+        ]
       }
-   }
-}
-          ]]></artwork>
+    }
+  }
+}     
+           ]]></artwork>
+        </figure>
+
+        <t><xref target="push_change_update_notif_example_json_fig"/> provides
+        an example of a JSON encoded, <xref target="RFC7951"/>,
+        push-change-update notification message over HTTPS-based <xref
+        target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
+        target="I-D.ietf-netconf-udp-notif"/> transport for the same
+        subscription.</t>
+
+        <figure anchor="push_change_update_notif_example_json_fig"
+                title="JSON YANG-Push Example for a push-change-update notification message">
+          <artwork><![CDATA[
+{
+  "ietf-notification:notification": {
+    "eventTime": "2023-03-25T08:30:11.22Z",
+    "ietf-notification-sequencing:sysName": "example-router",
+    "ietf-notification-sequencing:sequenceNumber": 1,
+    "ietf-yang-push:push-change-update": {
+      "id": 2222,
+      "ietf-yang-push-netobs-timestamping:state-changed-observation-time": "2023-03-25T08:30:11.22Z",
+      "datastore-contents": {
+        "yang-patch": {
+          "patch-id": "patch_54",
+          "comment": "Changing encoding to JSON and increasing the period to 10 minutes",
+          "edit": [
+            {
+              "edit-id": "id_change_1",
+              "operation": "merge",
+              "target": "/ietf-subscribed-notifications:subscriptions/subscription[id=2222]",
+              "value": {
+                "ietf-subscribed-notifications:encoding": "ietf-subscribed-notifications:encode-json",
+                "ietf-yang-push:periodic": {
+                  "period": 60000
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}    
+           ]]></artwork>
         </figure>
       </section>
 
@@ -428,20 +497,11 @@
         augmentation list can be obtained.</t>
 
         <t>The YANG data model for datastore push subscriptions is defined in
-        Section 4.1 in <xref target="RFC8641"/>. Since the subscribed YANG
-        data is referenced with datastore-subtree-filter or
-        datastore-xpath-filter which where the anydata resp. xpath1.0
-        statement is used to represent an unknown set of nodes as defined in
-        Section 7.10 and subset of a namespace as defined in Section 6.4.1 of
-        <xref target="RFC7950"/>. Where the namespace is defined in Section
-        5.3 and Section 6.2.1 of <xref target="RFC7950"/> defines that all
-        identifiers in a namespace MUST be unique. Section 5.5 in <xref
-        target="RFC7951"/> describes how anydata in notifications are encoded
-        where a description how to encode xpath1.0 is missing. Therefore the
-        current understanding that with the anydata statement as a reference,
-        semantics is lost where with xpath1.0 statement it is not. This will
-        be further clarified in point number (1) in <xref
-        target="Open_Points"/>.</t>
+        Section 4.1 and 5 in <xref target="RFC8641"/>. It is unclear wherever
+        the subscribed data in the YANG datastore is referenced or the portion
+        of the YANG schema with datastore-subtree-filter or
+        datastore-xpath-filter. This will be further clarified in point number
+        (1) in <xref target="Open_Points"/>.</t>
 
         <t>A new YANG module augmenting ietf-notification,
         ietf-subscribed-notifications and the referenced YANG data in
@@ -511,7 +571,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
                title="YANG Time Series Database Ingestion">
         <t>The time series database ingestion specifications are being derived
         with the in <xref target="YANG_Kafka_Consumer"/> already retrieved
-        Schema ID and YANG push-update messages can be now ingested and
+        Schema ID and YANG-Push push-update messages can be now ingested and
         indexed into the database table according to their semantics.</t>
       </section>
     </section>
@@ -567,9 +627,11 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <dl newline="true">
         <dt>Open Point 1:</dt>
 
-        <dd>Regarding Figure 8 in Section 4.1 of <xref target="RFC8641"/>.
-        Clarify wherever with an anydata statement as a reference, semantics
-        is lost where with xpath1.0 statement it is not. Propose solutions how
+        <dd>Regarding Figure 8 in Section 4.1 and YANG module in Section 5 of
+        <xref target="RFC8641"/>. Clarify wherever with an anydata and
+        xpath1.0 statement the subscribed data in the YANG datastore is meant
+        and therefore semantics would be lost or if the subscribed portion of
+        the YANG schema is meant. If semantics are lost, propose solutions how
         semantics can be preserved on YANG-Push Publisher and when not
         preserved on YANG-Push Publisher how it could be restored on YANG-Push
         Receiver.</dd>
@@ -584,8 +646,10 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <dt>Open Point 3:</dt>
 
-        <dd>Clarify wherever <xref target="RFC7951"/> is missing the
-        definition how to encode xpath1.0 data node in YANG JSON.</dd>
+        <dd>Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
+        Section 4.2.10 of <xref target="RFC7950"/>. However specifications for
+        enconding in JSON are missing <xref target="RFC7951"/> Confirm finding
+        and propose how this needs to be addressed.</dd>
 
         <dt>Open Point 4:</dt>
 
@@ -630,9 +694,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Yannick Buchs and Benoit Claise for
-      their review and valuable comments, Ahmed Elhassany and Zhuoyao Lin for
-      contributing code and Alex Huang Feng for providing examples and inputs
-      for the open points.</t>
+      their review and valuable comments. Ahmed Elhassany, Alex Huang Feng,
+      Jean Quilbeuf and Zhuoyao Lin for review and contributing code and
+      providing examples and inputs for the open points.</t>
     </section>
   </middle>
 
@@ -765,8 +829,6 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.RFC.8040'?>
 
       <?rfc include='reference.RFC.8525'?>
-
-      <?rfc include='reference.RFC.8259'?>
 
       <?rfc include='reference.RFC.8640'?>
 

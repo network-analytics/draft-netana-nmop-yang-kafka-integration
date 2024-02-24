@@ -4,8 +4,8 @@
 
 NMOP                                                             T. Graf
 Internet-Draft                                                  Swisscom
-Intended status: Informational                          22 February 2024
-Expires: 25 August 2024
+Intended status: Informational                          24 February 2024
+Expires: 27 August 2024
 
 
        An Architecture for YANG-Push to Apache Kafka Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 August 2024.
+   This Internet-Draft will expire on 27 August 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf                     Expires 25 August 2024                 [Page 1]
+Graf                     Expires 27 August 2024                 [Page 1]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -85,23 +85,23 @@ Table of Contents
      2.3.  Standardize Data Processing Integration . . . . . . . . .   6
    3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   6
      3.1.  YANG-Push Subscription  . . . . . . . . . . . . . . . . .   7
-     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .   8
-     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  10
-     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  11
-     3.5.  YANG Kafka Producer . . . . . . . . . . . . . . . . . . .  12
-     3.6.  YANG Kafka Consumer . . . . . . . . . . . . . . . . . . .  12
-     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  12
-   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  12
-   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  13
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
-   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  13
-     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  14
-     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  14
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  16
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  18
+     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .  10
+     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  12
+     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  13
+     3.5.  YANG Kafka Producer . . . . . . . . . . . . . . . . . . .  14
+     3.6.  YANG Kafka Consumer . . . . . . . . . . . . . . . . . . .  14
+     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  14
+   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  14
+   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  16
+     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  16
+     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  16
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  20
 
 
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf                     Expires 25 August 2024                 [Page 2]
+Graf                     Expires 27 August 2024                 [Page 2]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -131,7 +131,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Even though YANG is intend to ease the handling of data, this promise
    has not yet been fulfilled for Network Telemetry [RFC9232].  From
    subscribing on a YANG datastore, publishing a YANG modeled
-   notification message from the network and viewing the data in a time
+   notifications message from the network and viewing the data in a time
    series database, manual labor is needed to perform a data
    transformation to make a message broker and its data processing
    components with YANG notifications interoparable.
@@ -165,7 +165,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 3]
+Graf                     Expires 27 August 2024                 [Page 3]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -221,7 +221,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 4]
+Graf                     Expires 27 August 2024                 [Page 4]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -277,7 +277,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 5]
+Graf                     Expires 27 August 2024                 [Page 5]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -333,7 +333,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 6]
+Graf                     Expires 27 August 2024                 [Page 6]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -389,7 +389,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 7]
+Graf                     Expires 27 August 2024                 [Page 7]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -400,28 +400,140 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    module name, revision and revision-label information into the
    subscription state change notifications in step (2).
 
-   Figure 2 provides an example of a JSON encoded, [RFC8259],
-   subscription state change notification message over HTTPS-based
-   [I-D.ietf-netconf-https-notif] or UDP-based
+   Figure 2 provides and example how to create a YANG-Push configured
+   subscription with NETCONF in XML [W3C.REC-xml-20081126] with UDP-
+   based [I-D.ietf-netconf-udp-notif] transport
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf                     Expires 27 August 2024                 [Page 8]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
+<rpc message-id="101"
+  xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <edit-config>
+    <target>
+      <running/>
+    </target>
+    <config>
+      <subscriptions xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notifications">
+        <subscription>
+          <id>6666</id>
+          <datastore xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push"
+            xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-datastores">ds:operational</datastore>
+          <datastore-xpath-filter xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push"
+            xmlns:if="urn:ietf:params:xml:ns:yang:ietf-interfaces">/if:interfaces</datastore-xpath-filter>
+          <revision xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push-revision">2018-02-20</revision>
+          <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">unt:udp-notif</transport>
+          <encoding>encode-json</encoding>
+          <receivers>
+            <receiver>
+              <name>subscription-specific-receiver-def</name>
+              <receiver-instance-ref xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notif-receivers">global-udp-notif-receiver-def</receiver-instance-ref>
+            </receiver>
+          </receivers>
+          <periodic xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
+            <period>6000</period>
+          </periodic>
+        </subscription>
+        <receiver-instances xmlns="urn:ietf:params:xml:ns:yang:ietf-subscribed-notif-receivers">
+          <receiver-instance>
+            <name>global-udp-notif-receiver-def</name>
+            <udp-notif-receiver xmlns="urn:ietf:params:xml:ns:yang:ietf-udp-notif-transport">
+              <address>192.0.5.1</address>
+              <port>12345</port>
+              <enable-segmentation>false</enable-segmentation>
+              <max-segment-size/>
+            </udp-notif-receiver>
+          </receiver-instance>
+        </receiver-instances>
+      </subscriptions>
+    </config>
+  </edit-config>
+</rpc>
+
+    Figure 2: NETCONF Example to establish configured subscription
+
+
+
+
+
+
+
+Graf                     Expires 27 August 2024                 [Page 9]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
+   Figure 3 provides an example of a JSON encoded, [RFC7951],
+   subscription-started state change notification message over HTTPS-
+   based [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport for the same subscription.
 
    {
-     "ietf-restconf:notification" : {
-       "eventTime": "2023-01-03T10:00:00Z",
-       "ietf-subscribed-notifications:subscription-modified": {
-         "id": 101,
-         "stream-xpath-filter": "/ietf-interfaces:interfaces",
-         "stream": "NETCONF",
-         "ietf-yang-push-revision:module-version": [{
-           "module-name": "ietf-interfaces"
-           "revision": "2018-02-20",
-           "revision-label": "2.0.0",
-         }],
+     "ietf-notification:notification": {
+       "eventTime": "2023-03-25T08:30:11.22Z",
+       "ietf-notification-sequencing:sysName": "example-router",
+       "ietf-notification-sequencing:sequenceNumber": 1,
+       "ietf-subscribed-notification:subscription-started": {
+         "id": 6666,
+         "ietf-yang-push:datastore": "ietf-datastores:operational",
+         "ietf-yang-push:datastore-xpath-filter": "/if:interfaces",
+         "ietf-yang-push-revision:revision": "2014-05-08",
+         "ietf-yang-push-revision:module-name": "ietf-interfaces",
+         "ietf-yang-push-revision:revision-label": "",
+         "ietf-distributed-notif:message-observation-domain-id": [1,2],
+         "transport": "ietf-udp-notif-transport:udp-notif",
+         "encoding": "encode-json",
+         "ietf-yang-push:periodic": {
+           "ietf-yang-push:period": 100
+         }
        }
      }
    }
 
-          Figure 2: JSON Push Example for a subscription-modified
+        Figure 3: JSON YANG-Push Example for a subscription-started
                             notification message
 
 3.2.  YANG-Push Publisher
@@ -445,7 +557,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                 [Page 8]
+Graf                     Expires 27 August 2024                [Page 10]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -459,38 +571,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    recognize loss from the YANG-Push publisher in step (1) down to the
    Time Series Database Ingestion in step (11).
 
-   Figure 3 provides an example of a "push-change-update" message with
-   the sysName, messagePublisherId and sequenceNumber.  This "push-
-   change-update" message is encoded in XML [W3C.REC-xml-20081126] over
-   the Network Configuration Protocol (NETCONF) as per [RFC8640].
-
-<notification xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
- <eventTime>2023-02-04T16:30:11.22Z</eventTime>
- <sysName xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  example-router
- </sysName>
- <messagePublisherId xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  1
- </messagePublisherId>
- <sequenceNumber xmlns="urn:ietf:params:xml:ns:yang:ietf-notification-sequencing">
-  187653
- </sequenceNumber>
- <push-update xmlns="urn:ietf:params:xml:ns:yang:ietf-yang-push">
-   <id>1011</id>
-   <datastore-contents>
-      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-       <interface>
-         <name>eth0</name>
-         <oper-status>up</oper-status>
-       </interface>
-     </interfaces>
-   </datastore-contents>
- </push-update>
-</notification>
-
-        Figure 3: XML Push Example for a subscription-modified
-                         notification message
-
    [I-D.tgraf-netconf-yang-push-observation-time] adds observation-time
    or state-changed-observation-time in the YANG-Push push-update or
    push-change-update message, depending on wherever periodical or on-
@@ -499,42 +579,83 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Where state-changed-observation-time describes when the network state
    change was observed.
 
+   Figure 4 provides an example of a JSON encoded, [RFC7951], push-
+   update notification message over HTTPS-based
+   [I-D.ietf-netconf-https-notif] or UDP-based
+   [I-D.ietf-netconf-udp-notif] transport for the same subscription.
+
+{
+  "ietf-notification:notification": {
+    "eventTime": "2023-03-25T08:30:11.22Z",
+    "ietf-notification-sequencing:sysName": "example-router",
+    "ietf-notification-sequencing:sequenceNumber": 1,
+    "ietf-yang-push:push-update": {
+      "id": 6666,
+      "ietf-yang-push-netobs-timestamping:observation-time": "2023-03-25T08:30:11.22Z",
+      "datastore-contents": {
+        "ietf-interfaces:interfaces": [
+          {
+            "interface": {
+              "name": "eth0",
+              "type": "iana-if-type:ethernetCsmacd",
+              "oper-status": "up",
+              "mtu": 1500
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+   Figure 4: JSON YANG-Push Example for a push-update notification
+                               message
 
 
-Graf                     Expires 25 August 2024                 [Page 9]
+
+Graf                     Expires 27 August 2024                [Page 11]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
-   Figure 4 provides an example of a JSON encoded, [RFC8259], "push-
-   change-update" notification message over HTTPS-based
+   Figure 5 provides an example of a JSON encoded, [RFC7951], push-
+   change-update notification message over HTTPS-based
    [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport for the same subscription.
 
-   {
-      "ietf-notification:notification": {
-         "eventTime": "2023-02-04T16:30:11.22Z",
-         "sysName": "example-router",
-         "sequenceNumber": 187653,
-         "ietf-yang-push:push-update": {
-            "id": 1011,
-            "observation-time": "2023-02-04T16:30:09.44Z",
-            "datastore-xpath-filter": "ietf-interfaces:interfaces",
-            "datastore-contents": {
-               "ietf-interfaces:interface": {
-                  "name": {
-                     "eth0": {
-                        "oper-status": "up"
-                     }
-                  }
-               }
+{
+  "ietf-notification:notification": {
+    "eventTime": "2023-03-25T08:30:11.22Z",
+    "ietf-notification-sequencing:sysName": "example-router",
+    "ietf-notification-sequencing:sequenceNumber": 1,
+    "ietf-yang-push:push-change-update": {
+      "id": 2222,
+      "ietf-yang-push-netobs-timestamping:state-changed-observation-time": "2023-03-25T08:30:11.22Z",
+      "datastore-contents": {
+        "yang-patch": {
+          "patch-id": "patch_54",
+          "comment": "Changing encoding to JSON and increasing the period to 10 minutes",
+          "edit": [
+            {
+              "edit-id": "id_change_1",
+              "operation": "merge",
+              "target": "/ietf-subscribed-notifications:subscriptions/subscription[id=2222]",
+              "value": {
+                "ietf-subscribed-notifications:encoding": "ietf-subscribed-notifications:encode-json",
+                "ietf-yang-push:periodic": {
+                  "period": 60000
+                }
+              }
             }
-         }
+          ]
+        }
       }
-   }
+    }
+  }
+}
 
-          Figure 4: JSON Push Example for a subscription-modified
-                            notification message
+      Figure 5: JSON YANG-Push Example for a push-change-update
+                         notification message
 
 3.3.  YANG-Push Receiver
 
@@ -546,31 +667,22 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    modules need to be retrieved as described in step (3) in the workflow
    diagram.
 
+
+
+Graf                     Expires 27 August 2024                [Page 12]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [I-D.lincla-netconf-yang-library-augmentation] extends the YANG
    Library so that not only the submodule but also the augmentation list
    can be obtained.
 
    The YANG data model for datastore push subscriptions is defined in
-   Section 4.1 in [RFC8641].  Since the subscribed YANG data is
-   referenced with datastore-subtree-filter or datastore-xpath-filter
-   which where the anydata resp. xpath1.0 statement is used to represent
-
-
-
-Graf                     Expires 25 August 2024                [Page 10]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
-   an unknown set of nodes as defined in Section 7.10 and subset of a
-   namespace as defined in Section 6.4.1 of [RFC7950].  Where the
-   namespace is defined in Section 5.3 and Section 6.2.1 of [RFC7950]
-   defines that all identifiers in a namespace MUST be unique.
-   Section 5.5 in [RFC7951] describes how anydata in notifications are
-   encoded where a description how to encode xpath1.0 is missing.
-   Therefore the current understanding that with the anydata statement
-   as a reference, semantics is lost where with xpath1.0 statement it is
-   not.  This will be further clarified in point number (1) in
+   Section 4.1 and 5 in [RFC8641].  It is unclear wherever the
+   subscribed data in the YANG datastore is referenced or the portion of
+   the YANG schema with datastore-subtree-filter or datastore-xpath-
+   filter.  This will be further clarified in point number (1) in
    Section 5.
 
    A new YANG module augmenting ietf-notification, ietf-subscribed-
@@ -595,25 +707,25 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
   -d @ietf-interfaces@2018-02-20.json
   http://localhost:8081/subjects/ietf-interfaces/
 
-    Figure 5: Register ietf-interfaces.yang into YANG Schema Registry
+    Figure 6: Register ietf-interfaces.yang into YANG Schema Registry
 
    curl http://localhost:8081/subjects/ ubjects/ | jq
 
-              Figure 6: List all subjects YANG Schema Registry
+              Figure 7: List all subjects YANG Schema Registry
 
    curl http://localhost:8081/subjects/ietf-interfaces/versions
 
-     Figure 7: List versions of a given subject in YANG Schema Registry
+     Figure 8: List versions of a given subject in YANG Schema Registry
 
    curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
-       Figure 8: Retrieve schema of a specific subject and version in
+       Figure 9: Retrieve schema of a specific subject and version in
                             YANG Schema Registry
 
 
 
 
-Graf                     Expires 25 August 2024                [Page 11]
+Graf                     Expires 27 August 2024                [Page 13]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -635,9 +747,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 3.7.  YANG Time Series Database Ingestion
 
    The time series database ingestion specifications are being derived
-   with the in Section 3.6 already retrieved Schema ID and YANG push-
-   update messages can be now ingested and indexed into the database
-   table according to their semantics.
+   with the in Section 3.6 already retrieved Schema ID and YANG-Push
+   push-update messages can be now ingested and indexed into the
+   database table according to their semantics.
 
 4.  Project Milestones
 
@@ -669,7 +781,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 25 August 2024                [Page 12]
+Graf                     Expires 27 August 2024                [Page 14]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
@@ -688,12 +800,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    Note to the RFC-Editor: Please remove this section before publishing.
 
    Open Point 1:
-      Regarding Figure 8 in Section 4.1 of [RFC8641].  Clarify wherever
-      with an anydata statement as a reference, semantics is lost where
-      with xpath1.0 statement it is not.  Propose solutions how
-      semantics can be preserved on YANG-Push Publisher and when not
-      preserved on YANG-Push Publisher how it could be restored on YANG-
-      Push Receiver.
+      Regarding Figure 8 in Section 4.1 and YANG module in Section 5 of
+      [RFC8641].  Clarify wherever with an anydata and xpath1.0
+      statement the subscribed data in the YANG datastore is meant and
+      therefore semantics would be lost or if the subscribed portion of
+      the YANG schema is meant.  If semantics are lost, propose
+      solutions how semantics can be preserved on YANG-Push Publisher
+      and when not preserved on YANG-Push Publisher how it could be
+      restored on YANG-Push Receiver.
 
    Open Point 2:
       Test with running code wherever semantics can be restored by
@@ -703,8 +817,10 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
       and their dependencies.
 
    Open Point 3:
-      Clarify wherever [RFC7951] is missing the definition how to encode
-      xpath1.0 data node in YANG JSON.
+      Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
+      Section 4.2.10 of [RFC7950].  However specifications for enconding
+      in JSON are missing [RFC7951] Confirm finding and propose how this
+      needs to be addressed.
 
    Open Point 4:
       Test with running code wherever with
@@ -717,18 +833,18 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    TBD
 
-7.  Implementation Status
-
-   Note to the RFC-Editor: Please remove this section before publishing.
 
 
 
 
-
-Graf                     Expires 25 August 2024                [Page 13]
+Graf                     Expires 27 August 2024                [Page 15]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
+
+7.  Implementation Status
+
+   Note to the RFC-Editor: Please remove this section before publishing.
 
 7.1.  YANG Schema Registry Extension
 
@@ -752,9 +868,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 8.  Acknowledgements
 
    The authors would like to thank Yannick Buchs and Benoit Claise for
-   their review and valuable comments, Ahmed Elhassany and Zhuoyao Lin
-   for contributing code and Alex Huang Feng for providing examples and
-   inputs for the open points.
+   their review and valuable comments.  Ahmed Elhassany, Alex Huang
+   Feng, Jean Quilbeuf and Zhuoyao Lin for review and contributing code
+   and providing examples and inputs for the open points.
 
 9.  References
 
@@ -770,21 +886,24 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               <https://docs.confluent.io/platform/current/schema-
               registry/>.
 
+
+
+
+
+
+
+
+Graf                     Expires 27 August 2024                [Page 16]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [I-D.ahuang-netconf-notif-yang]
               Feng, A. H., Francois, P., Graf, T., and B. Claise, "YANG
               model for NETCONF Event Notifications", Work in Progress,
               Internet-Draft, draft-ahuang-netconf-notif-yang-04, 21
               January 2024, <https://datatracker.ietf.org/doc/html/
               draft-ahuang-netconf-notif-yang-04>.
-
-
-
-
-
-Graf                     Expires 25 August 2024                [Page 14]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    [I-D.ietf-netconf-yang-notifications-versioning]
               Graf, T., Claise, B., and A. H. Feng, "Support of
@@ -824,6 +943,17 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               September 2023,
               <https://github.com/network-analytics/libyangpush/>.
 
+
+
+
+
+
+
+Graf                     Expires 27 August 2024                [Page 17]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -832,15 +962,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [RFC6022]  Scott, M. and M. Bjorklund, "YANG Module for NETCONF
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
               <https://www.rfc-editor.org/info/rfc6022>.
-
-
-
-
-
-Graf                     Expires 25 August 2024                [Page 15]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -881,6 +1002,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
+
+
+
+Graf                     Expires 27 August 2024                [Page 18]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+
+
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
@@ -890,14 +1019,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
               "Subscription to Distributed Notifications", Work in
               Progress, Internet-Draft, draft-ietf-netconf-distributed-
-
-
-
-Graf                     Expires 25 August 2024                [Page 16]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
               notif-08, 6 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               distributed-notif-08>.
@@ -937,22 +1058,17 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
-
-   [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", STD 90, RFC 8259,
-              DOI 10.17487/RFC8259, December 2017,
-              <https://www.rfc-editor.org/info/rfc8259>.
 
 
 
-
-Graf                     Expires 25 August 2024                [Page 17]
+Graf                     Expires 27 August 2024                [Page 19]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
 
    [RFC8525]  Bierman, A., Bjorklund, M., Schoenwaelder, J., Watsen, K.,
               and R. Wilton, "YANG Library", RFC 8525,
@@ -1001,8 +1117,4 @@ Author's Address
 
 
 
-
-
-
-
-Graf                     Expires 25 August 2024                [Page 18]
+Graf                     Expires 27 August 2024                [Page 20]
