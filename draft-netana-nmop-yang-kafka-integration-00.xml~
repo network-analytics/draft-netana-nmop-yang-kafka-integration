@@ -161,10 +161,11 @@
 
         <t>With YANG-Push, as defined in <xref target="RFC8639"/>, <xref
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
-        on-change subscriptions to the YANG datastore can be dynamically or
-        statically configured. When notifications are dynamically configured,
-        messages are published over the established NETCONF session, while
-        when it is statically configured messages are published through <xref
+        on-change subscriptions to the YANG datastore can be dynamically
+        configured or statically configured. When notifications are
+        dynamically configured, messages are published over the established
+        NETCONF session, while when it is statically configured messages are
+        published through <xref
         target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
         target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
         Section 3.7 of <xref target="RFC8641"/> describes push-update messages
@@ -182,21 +183,20 @@
         loadbalanced to scale out. With the introduction of <xref
         target="Con18">Confluent Schema Registry</xref> a topic can contain
         one or more subjects. A subject refers to a Schema defining the
-        structure of the message. The Schema then is used to validate messages
-        sent through topics and are idenfied by an Schema ID. The Schema ID is
-        issued when the Schema is registered to the Confluent Schema Registry.
-        Once the Schema ID is obtained, it can be prefixed to the message with
-        a Apache Kafka serializer. Messages can then be validated against
-        Schema at the producer or at the consumer from a topic to ensure
-        Schema integrity of the message. The type of Schema evolution scheme
-        can be defined per subject, wherever non backward compatibility
-        changes are allowed or not.</t>
+        structure of the message. The Schema is defining the structure of the
+        used to validate messages sent through topics and are idenfied by an
+        Schema ID. The Schema ID is issued when the Schema is registered to
+        the Confluent Schema Registry. Once the Schema ID is obtained, it can
+        be prefixed to the message with a Apache Kafka serializer. Messages
+        can then be validated against Schema at the producer or at the
+        consumer from a topic to ensure Schema integrity of the message. The
+        type of Schema evolution scheme can be defined per subject, wherever
+        non backward compatibility changes are allowed or not.</t>
       </section>
     </section>
 
     <section anchor="Motivation" title="Motivation">
-      <t>There are three main objectives for native YANG-Push notifications
-      and YANG Schema integration into Apache Kafka Message Broker.</t>
+      <t>Text.</t>
 
       <section anchor="Preserve_Semantics" title="Preserve Semantics">
         <t>The preservation of the YANG semantics, that includes the YANG data
@@ -222,7 +222,7 @@
       <section anchor="Standardize_Data_Processing_Integration"
                title="Standardize Data Processing Integration">
         <t>Since the YANG Schema is preserved for operational metrics in
-        Apache Kafka, a standartization for integration between network data
+        Apache Kafka, a standartization for integration betwen network data
         collection and stream processor or time series database is
         implied.</t>
       </section>
@@ -230,8 +230,7 @@
 
     <section anchor="Elements_of_the_Architecture"
              title="Elements of the Architecture">
-      <t>The architecture consists of 6 elements. <xref
-      target="workflow_diagram"/> gives an overview on the workflow.</t>
+      <t>The architecture consists of 6 elements.</t>
 
       <figure anchor="workflow_diagram" title="End to End Workflow">
         <artwork align="center"><![CDATA[
@@ -507,9 +506,8 @@
         <t>A new YANG module augmenting ietf-notification,
         ietf-subscribed-notifications and the referenced YANG data in
         datastore-subtree-filter or datastore-xpath-filter could re-establish
-        semantics, see point number (1) and (2) in <xref
-        target="Open_Points"/>, needed for Schema registration and also enable
-        the possibility to add additional metadata such as the applied event
+        semantics needed for Schema registration and also enable the
+        possibility to add additional metadata such as the applied event
         stream filter, YANG module name, revision and revision-label from the
         subscription state change notifications as described in <xref
         target="YANG_Push_Subscription"/>.</t>
@@ -698,7 +696,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>The authors would like to thank Yannick Buchs and Benoit Claise for
       their review and valuable comments. Ahmed Elhassany, Alex Huang Feng,
       Jean Quilbeuf and Zhuoyao Lin for review and contributing code and
-      providing examples and inputs to the open points.</t>
+      providing examples and inputs for the open points.</t>
     </section>
   </middle>
 
