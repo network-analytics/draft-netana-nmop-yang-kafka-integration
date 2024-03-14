@@ -186,11 +186,11 @@
         sent through topics and are idenfied by an Schema ID. The Schema ID is
         issued when the Schema is registered to the Confluent Schema Registry.
         Once the Schema ID is obtained, it can be prefixed to the message with
-        a Apache Kafka serializer. Messages can then be validated against
-        Schema at the producer or at the consumer from a topic to ensure
-        Schema integrity of the message. The type of Schema evolution scheme
-        can be defined per subject, wherever non backward compatibility
-        changes are allowed or not.</t>
+        a Confluent Schema Registry compatible serializer. Messages can then
+        be validated against Schema at the producer or at the consumer from a
+        topic to ensure Schema integrity of the message. The type of Schema
+        evolution scheme can be defined per subject, wherever non backward
+        compatibility changes are allowed or not.</t>
       </section>
     </section>
 
@@ -629,14 +629,21 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <dl newline="true">
         <dt>Open Point 1:</dt>
 
-        <dd>Regarding Figure 8 in Section 4.1 and YANG module in Section 5 of
-        <xref target="RFC8641"/>. Clarify wherever with an anydata and
-        xpath1.0 statement the subscribed data in the YANG datastore is meant
-        and therefore semantics would be lost or if the subscribed portion of
-        the YANG schema is meant. If semantics are lost, propose solutions how
-        semantics can be preserved on YANG-Push Publisher and when not
-        preserved on YANG-Push Publisher how it could be restored on YANG-Push
-        Receiver.</dd>
+        <dd>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
+        target="RFC8641"/> define the payload of a YANG-push message (either
+        "datastore-contents" or the "value" of a "push-change-update") to be
+        "anydata". <xref target="RFC7950"/> Section 7.10 states that anydata
+        represents an unknown set of nodes that can be modeled with YANG, and
+        the model is not known at design time. Furthermore, <xref
+        target="RFC7950"/> hinted that the model of the unknown set of nodes
+        can be signaled through another protocol. How to exchange the model of
+        the anydata nodes between the node and the collector? Then given that
+        the data nodes contained in anydata subtree is potentially incomplete
+        (filtered out by xpath or subtree), how can a collector validate the
+        content of anydata nodes? <xref
+        target="I-D.aelhassany-anydata-validation"/> addresses the first point
+        by using YANG Library <xref target="RFC8525"/> as mechanism to
+        exchange the YANG model of the nodes contained in anydata.</dd>
 
         <dt>Open Point 2:</dt>
 
@@ -841,6 +848,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
+
+      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
 
       <reference anchor="W3C.REC-xml-20081126"
                  derivedAnchor="W3C.REC-xml-20081126" quoteTitle="true"
