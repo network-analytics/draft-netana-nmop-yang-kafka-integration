@@ -90,7 +90,7 @@
       YANG modelled data from their networks. It is well understood that plain
       text are initially intended for humans and need effort to make it
       machine readable due to the lack of semantics. YANG modeled data is
-      addressing this need.</t>
+      addressing most of these needs.</t>
 
       <t>Increasingly more network operators organizing their data in a <xref
       target="Deh22">Data Mesh</xref> where a message broker such as <xref
@@ -222,8 +222,8 @@
       <t>There are three main objectives for native YANG-Push notifications
       and YANG Schema integration into Apache Kafka Message Broker.</t>
 
-      <section anchor="Preserve_Semantics" title="Preserve Semantics">
-        <t>The preservation of the YANG semantics, that includes the YANG data
+      <section anchor="Preserve_Schema" title="Preserve Schema">
+        <t>The preservation of the YANG schema, that includes the YANG data
         types as defined in <xref target="RFC6991"/> and the nested structure
         of the YANG module, throughout the data processing chain ensures that
         metrics can be processed and visualized as they were originally
@@ -592,7 +592,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <t>The time series database ingestion specifications are being derived
         with the in <xref target="YANG_Kafka_Consumer"/> already retrieved
         Schema ID and YANG-Push push-update messages can be now ingested and
-        indexed into the database table according to their semantics.</t>
+        indexed into the database table according to their schema.</t>
       </section>
     </section>
 
@@ -603,7 +603,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <li>Official Project Kickoff.</li>
 
         <li><xref target="I-D.ietf-netconf-yang-notifications-versioning"/>
-        extends semantics reference in subscription state change
+        extends schema reference in subscription state change
         notification.</li>
       </ul>
 
@@ -634,6 +634,16 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         throug NETCONF &lt;get-schema&gt; rpc calls according to <xref
         target="RFC6022"/>. Gap in YANG library addressed in <xref
         target="I-D.lincla-netconf-yang-library-augmentation"/>.</li>
+      </ul>
+
+      <t>IETF 119:</t>
+
+      <ul>
+        <li><xref target="I-D.aelhassany-anydata-validation"/> addresses that
+        anydata modeled nodes can be validated with YANG Library RFC 8525.
+        6WIND VSR and Huawei VRP YANG-Push and open-source <xref
+        target="I-D.lincla-netconf-yang-library-augmentation"/> implementation
+        validated at hackathon.</li>
       </ul>
     </section>
 
@@ -674,11 +684,10 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <dt>Open Point 3:</dt>
 
-        <dd>Test with running code wherever semantics can be restored by
-        introducing a new YANG module augmenting at the YANG-Push receiver
-        ietf-notification, ietf-subscribed-notifications and
-        datastore-subtree-filter or datastore-xpath-filter referenced YANG
-        modules and their dependencies.</dd>
+        <dd>Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
+        Section 4.2.10 of <xref target="RFC7950"/>. However specifications for
+        enconding in JSON are missing <xref target="RFC7951"/> Confirm finding
+        and propose how this needs to be addressed.</dd>
 
         <dt>Open Point 4:</dt>
 
@@ -719,6 +728,17 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <t>The source code can be obtained here: <xref target="LYP23"/> and
         was validated at the IETF 117 hackathon.</t>
       </section>
+
+      <section anchor="YANG-Library_Augmented-by-Addition"
+               title="YANG Library Augmented-by Addition">
+        <t>Zhuoyao Lin implemented <xref
+        target="I-D.lincla-netconf-yang-library-augmentation"/> in order to
+        discover augmented-by YANG modules in <xref target="RFC8525">YANG
+        Library</xref>.</t>
+
+        <t>The source code can be obtained here: <xref target="YLA24"/> and
+        was validated at the IETF 119 hackathon.</t>
+      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
@@ -755,6 +775,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
 
+      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
+
       <reference anchor="YSR24"
                  target="https://github.com/confluentinc/schema-registry-yang-format/">
         <front>
@@ -787,6 +809,19 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
           <author fullname="Zhuoyao Lin" initials="Z." surname="Lin"/>
 
           <date month="September" year="2023"/>
+        </front>
+
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+      <reference anchor="YLA24"
+                 target="https://github.com/Zephyre777/draft-lincla-netconf-yang-library-augmentation/">
+        <front>
+          <title>libyangpush</title>
+
+          <author fullname="Zhuoyao Lin" initials="Z." surname="Lin"/>
+
+          <date month="March" year="2024"/>
         </front>
 
         <refcontent>Apache Software Foundation</refcontent>
@@ -868,8 +903,6 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
-
-      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
 
       <reference anchor="W3C.REC-xml-20081126"
                  derivedAnchor="W3C.REC-xml-20081126" quoteTitle="true"
