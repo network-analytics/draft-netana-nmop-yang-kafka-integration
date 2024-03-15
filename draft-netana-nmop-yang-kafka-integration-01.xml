@@ -684,10 +684,22 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <dt>Open Point 3:</dt>
 
-        <dd>Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
-        Section 4.2.10 of <xref target="RFC7950"/>. However specifications for
-        enconding in JSON are missing <xref target="RFC7951"/> Confirm finding
-        and propose how this needs to be addressed.</dd>
+        <dd>The NETCONF Notification structure is defined in
+        <xref target="RFC5277"/> using a XSD Schema. For YANG-push
+        <xref target="RFC8641"/>, this XSD Schema has been proposed using
+        YANG 1.1 <xref target="RFC7950"/> modeling language in
+        <xref target="I-D.ahuang-netconf-notif-yang"/>. Examples of
+        notifications encoded in XML are provided in Section 5 of 
+        <xref target="RFC5277"/>. In YANG-JSON <xref target="RFC7951"/>, the
+        specification does not provide any examples on how notifications should
+        be encoded. In YANG-CBOR <xref target="RFC9254"/>, notifications are
+        considered "container-like" instances and examples does not show consistency
+        with XML-based and YANG-JSON encoding notifications. Assumptions are
+        being made in <xref target="I-D.ahuang-netconf-notif-yang"/> providing
+        examples of YANG-JSON and YANG-CBOR encoded notifications.
+        The notification structure needs consistency accross YANG encodings.
+        Confirm findings and propose how to be addressed.
+        </dd>
 
         <dt>Open Point 4:</dt>
 
@@ -764,6 +776,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.RFC.8639'?>
 
       <?rfc include='reference.RFC.8641'?>
+
+      <?rfc include='reference.RFC.9254'?>
 
       <?rfc include='reference.I-D.tgraf-netconf-notif-sequencing'?>
 

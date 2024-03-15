@@ -97,7 +97,7 @@ Table of Contents
    7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  16
      7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  16
      7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  16
-     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  16
+     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  17
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
@@ -843,10 +843,20 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    Open Point 3:
-      Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
-      Section 4.2.10 of [RFC7950].  However specifications for enconding
-      in JSON are missing [RFC7951] Confirm finding and propose how this
-      needs to be addressed.
+      The NETCONF Notification structure is defined in [RFC5277] using a
+      XSD Schema.  For YANG-push [RFC8641], this XSD Schema has been
+      proposed using YANG 1.1 [RFC7950] modeling language in
+      [I-D.ahuang-netconf-notif-yang].  Examples of notifications
+      encoded in XML are provided in Section 5 of [RFC5277].  In YANG-
+      JSON [RFC7951], the specification does not provide any examples on
+      how notifications should be encoded.  In YANG-CBOR [RFC9254],
+      notifications are considered "container-like" instances and
+      examples does not show consistency with XML-based and YANG-JSON
+      encoding notifications.  Assumptions are being made in
+      [I-D.ahuang-netconf-notif-yang] providing examples of YANG-JSON
+      and YANG-CBOR encoded notifications.  The notification structure
+      needs consistency accross YANG encodings.  Confirm findings and
+      propose how to be addressed.
 
    Open Point 4:
       Test with running code wherever with
@@ -879,6 +889,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
    <get-schema> rpc calls [RFC6022] all YANG modules from YANG-Push
    publisher.
 
+
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 16]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
+
+
    The source code can be obtained here: [LYP23] and was validated at
    the IETF 117 hackathon.
 
@@ -890,13 +909,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
    The source code can be obtained here: [YLA24] and was validated at
    the IETF 119 hackathon.
-
-
-
-Graf & Elhassany        Expires 16 September 2024              [Page 16]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
-
 
 8.  Acknowledgements
 
@@ -933,18 +945,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
               January 2024, <https://datatracker.ietf.org/doc/html/
               draft-ahuang-netconf-notif-yang-04>.
 
-   [I-D.ietf-netconf-yang-notifications-versioning]
-              Graf, T., Claise, B., and A. H. Feng, "Support of
-              Versioning in YANG Notifications Subscription", Work in
-              Progress, Internet-Draft, draft-ietf-netconf-yang-
-              notifications-versioning-03, 20 October 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
-              yang-notifications-versioning-03>.
-
-
-
-
-
 
 
 
@@ -953,6 +953,14 @@ Graf & Elhassany        Expires 16 September 2024              [Page 17]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
+
+   [I-D.ietf-netconf-yang-notifications-versioning]
+              Graf, T., Claise, B., and A. H. Feng, "Support of
+              Versioning in YANG Notifications Subscription", Work in
+              Progress, Internet-Draft, draft-ietf-netconf-yang-
+              notifications-versioning-03, 20 October 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
+              yang-notifications-versioning-03>.
 
    [I-D.lincla-netconf-yang-library-augmentation]
               Lin, Z., Claise, B., and I. D. Martinez-Casanueva,
@@ -994,14 +1002,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
               <https://www.rfc-editor.org/info/rfc6022>.
 
-   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
-              RFC 7950, DOI 10.17487/RFC7950, August 2016,
-              <https://www.rfc-editor.org/info/rfc7950>.
-
-   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
-              RFC 7951, DOI 10.17487/RFC7951, August 2016,
-              <https://www.rfc-editor.org/info/rfc7951>.
-
 
 
 
@@ -1009,6 +1009,14 @@ Graf & Elhassany        Expires 16 September 2024              [Page 18]
 
 Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
+
+   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
+              RFC 7950, DOI 10.17487/RFC7950, August 2016,
+              <https://www.rfc-editor.org/info/rfc7950>.
+
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/info/rfc7951>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1022,6 +1030,12 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
    [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
+
+   [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
+              C., and M. Richardson, "Encoding of Data Modeled with YANG
+              in the Concise Binary Object Representation (CBOR)",
+              RFC 9254, DOI 10.17487/RFC9254, July 2022,
+              <https://www.rfc-editor.org/info/rfc9254>.
 
    [Yak24]    Feng, F., "Yangkit", Apache Software Foundation, February
               2024, <https://github.com/yang-central/yangkit/>.
@@ -1045,6 +1059,13 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 19]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
+
+
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
@@ -1057,14 +1078,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
               notif-08, 6 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               distributed-notif-08>.
-
-
-
-
-Graf & Elhassany        Expires 16 September 2024              [Page 19]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
-
 
    [I-D.ietf-netconf-https-notif]
               Jethanandani, M. and K. Watsen, "An HTTPS-based Transport
@@ -1101,6 +1114,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 20]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
+
+
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
@@ -1109,18 +1130,6 @@ Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
               and R. Wilton, "YANG Library", RFC 8525,
               DOI 10.17487/RFC8525, March 2019,
               <https://www.rfc-editor.org/info/rfc8525>.
-
-
-
-
-
-
-
-
-Graf & Elhassany        Expires 16 September 2024              [Page 20]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
-
 
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
@@ -1156,15 +1165,6 @@ Authors' Addresses
    CH- Zuerich 8045
    Switzerland
    Email: ahmed.elhassany@swisscom.com
-
-
-
-
-
-
-
-
-
 
 
 
