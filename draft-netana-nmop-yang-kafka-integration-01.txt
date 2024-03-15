@@ -3,13 +3,13 @@
 
 
 NMOP                                                             T. Graf
-Internet-Draft                                                  Swisscom
-Intended status: Informational                          24 February 2024
-Expires: 27 August 2024
+Internet-Draft                                              A. Elhassany
+Intended status: Informational                                  Swisscom
+Expires: 16 September 2024                                 15 March 2024
 
 
        An Architecture for YANG-Push to Apache Kafka Integration
-              draft-netana-nmop-yang-kafka-integration-00
+              draft-netana-nmop-yang-kafka-integration-01
 
 Abstract
 
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 August 2024.
+   This Internet-Draft will expire on 16 September 2024.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Graf                     Expires 27 August 2024                 [Page 1]
+Graf & Elhassany        Expires 16 September 2024               [Page 1]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
 Copyright Notice
@@ -101,7 +101,7 @@ Table of Contents
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf                     Expires 27 August 2024                 [Page 2]
+Graf & Elhassany        Expires 16 September 2024               [Page 2]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 3]
+Graf & Elhassany        Expires 16 September 2024               [Page 3]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    *  Subscription
@@ -221,9 +221,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 4]
+Graf & Elhassany        Expires 16 September 2024               [Page 4]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    With YANG-Push, as defined in [RFC8639], [RFC8640] and [RFC8641],
@@ -242,11 +242,11 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    Apache Kafka [Kaf11] is a message broker that supports producing and
    consuming messages from so called topics.  Each topic has one or more
-   partitions where messages are replicated or loadbalanced to scale
+   partitions where messages are replicated or load balanced to scale
    out.  With the introduction of Confluent Schema Registry [Con18] a
    topic can contain one or more subjects.  A subject refers to a Schema
    defining the structure of the message.  The Schema then is used to
-   validate messages sent through topics and are idenfied by an Schema
+   validate messages sent through topics and are identified by an Schema
    ID.  The Schema ID is issued when the Schema is registered to the
    Confluent Schema Registry.  Once the Schema ID is obtained, it can be
    prefixed to the message with a Confluent Schema Registry compatible
@@ -277,9 +277,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 5]
+Graf & Elhassany        Expires 16 September 2024               [Page 5]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
 2.2.  Preserve Semantic Information
@@ -289,14 +289,14 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
    describing in a human-readable fashion the meaning of a definition.
    In Data Mesh, this information can be imported from the YANG Schema
    Registry into a Stream Catalog where subjects within Apache Kafka are
-   identifyable and searchable.  An example of a Stream Catalog is
+   identifiable and searchable.  An example of a Stream Catalog is
    Apache Atlas [Atl15].  It can also be applied for time series data
    visualization in a similar fashion.
 
 2.3.  Standardize Data Processing Integration
 
    Since the YANG Schema is preserved for operational metrics in Apache
-   Kafka, a standartization for integration between network data
+   Kafka, a standardization for integration between network data
    collection and stream processor or time series database is implied.
 
 3.  Elements of the Architecture
@@ -333,9 +333,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 6]
+Graf & Elhassany        Expires 16 September 2024               [Page 6]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    +------------------------------------------------------------+
@@ -389,9 +389,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 7]
+Graf & Elhassany        Expires 16 September 2024               [Page 7]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [I-D.ietf-netconf-yang-notifications-versioning] adds the capability
@@ -445,9 +445,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 8]
+Graf & Elhassany        Expires 16 September 2024               [Page 8]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
 <rpc message-id="101"
@@ -501,9 +501,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                 [Page 9]
+Graf & Elhassany        Expires 16 September 2024               [Page 9]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    Figure 3 provides an example of a JSON encoded, [RFC7951],
@@ -557,9 +557,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 10]
+Graf & Elhassany        Expires 16 September 2024              [Page 10]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [I-D.tgraf-netconf-notif-sequencing] adds sysName, messagePublisherId
@@ -613,9 +613,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 11]
+Graf & Elhassany        Expires 16 September 2024              [Page 11]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    Figure 5 provides an example of a JSON encoded, [RFC7951], push-
@@ -669,30 +669,24 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 12]
+Graf & Elhassany        Expires 16 September 2024              [Page 12]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [I-D.lincla-netconf-yang-library-augmentation] extends the YANG
    Library so that not only the submodule but also the augmentation list
    can be obtained.
 
-   The YANG data model for datastore push subscriptions is defined in
-   Section 4.1 and 5 in [RFC8641].  It is unclear wherever the
-   subscribed data in the YANG datastore is referenced or the portion of
-   the YANG schema with datastore-subtree-filter or datastore-xpath-
-   filter.  This will be further clarified in point number (1) in
-   Section 5.
-
-   A new YANG module augmenting ietf-notification, ietf-subscribed-
-   notifications and the referenced YANG data in datastore-subtree-
-   filter or datastore-xpath-filter could re-establish semantics, see
-   point number (1) and (2) in Section 5, needed for Schema registration
-   and also enable the possibility to add additional metadata such as
-   the applied event stream filter, YANG module name, revision and
-   revision-label from the subscription state change notifications as
-   described in Section 3.1.
+   Figure 9 in Section 4.1 and YANG module in Section 5 of [RFC8641]
+   defines the payload of YANG-push notifications where "datastore-
+   contents" or the "value" of a "push-change-update") is "anydata".
+   [RFC7950] Section 7.10 states that anydata represents an unknown set
+   of nodes that can be modeled with YANG, and the model is not known at
+   design time and that the model of the unknown set of nodes can be
+   signaled through another protocol.  This poses and issue in the
+   schema validation of YANG-Push notifications and will be further
+   clarified in point number (1) and (2) in Section 5.
 
 3.4.  YANG Schema Registry
 
@@ -725,9 +719,15 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 13]
+
+
+
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 13]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
 3.5.  YANG Kafka Producer
@@ -781,9 +781,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 14]
+Graf & Elhassany        Expires 16 September 2024              [Page 14]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    *  All relevant YANG modules for a subscribed xpath can be determined
@@ -801,50 +801,47 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
    Open Point 1:
       Figure 9 in Section 4.1 and YANG module in Section 5 of [RFC8641]
-      define the payload of a YANG-push message (either "datastore-
-      contents" or the "value" of a "push-change-update") to be
-      "anydata".  [RFC7950] Section 7.10 states that anydata represents
-      an unknown set of nodes that can be modeled with YANG, and the
-      model is not known at design time.  Furthermore, [RFC7950] hinted
-      that the model of the unknown set of nodes can be signaled through
-      another protocol.  How to exchange the model of the anydata nodes
-      between the node and the collector?  Then given that the data
-      nodes contained in anydata subtree is potentially incomplete
-      (filtered out by xpath or subtree), how can a collector validate
-      the content of anydata nodes?  [I-D.aelhassany-anydata-validation]
-      addresses the first point by using YANG Library [RFC8525] as
-      mechanism to exchange the YANG model of the nodes contained in
-      anydata.
+      defines the payload of YANG-push notifications where "datastore-
+      contents" or the "value" of a "push-change-update") is "anydata".
+      [RFC7950] Section 7.10 states that anydata represents an unknown
+      set of nodes that can be modeled with YANG, and the model is not
+      known at design time and that the model of the unknown set of
+      nodes can be signaled through another protocol.  How to exchange
+      the anydata modeled nodes between the YANG-Push publisher and the
+      receiver given that the data nodes contained in anydata subtree is
+      potentially incomplete (filtered out by xpath or subtree).
+      [I-D.aelhassany-anydata-validation] addresses this by using YANG
+      Library [RFC8525] as mechanism to exchange the YANG model of the
+      nodes contained in anydata.
 
    Open Point 2:
+      Figure 9 in Section 4.1 and YANG module in Section 5 of [RFC8641]
+      defines the payload of YANG-push notifications where "datastore-
+      contents" or the "value" of a "push-change-update") is "anydata".
+      [RFC7950] Section 7.10 states that anydata represents an unknown
+      set of nodes that can be modeled with YANG, and the model is not
+      known at design time and that the model of the unknown set of
+      nodes can be signaled through another protocol.  How can a YANG-
+      Push receiver validate the content of anydata nodes?
+
+   Open Point 3:
       Test with running code wherever semantics can be restored by
       introducing a new YANG module augmenting at the YANG-Push receiver
       ietf-notification, ietf-subscribed-notifications and datastore-
       subtree-filter or datastore-xpath-filter referenced YANG modules
       and their dependencies.
 
-   Open Point 3:
-      Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
-      Section 4.2.10 of [RFC7950].  However specifications for enconding
-      in JSON are missing [RFC7951] Confirm finding and propose how this
-      needs to be addressed.
-
-
-
-
-
-
-
-
-
-Graf                     Expires 27 August 2024                [Page 15]
-
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
-
-
    Open Point 4:
       Test with running code wherever with
       [I-D.ietf-netconf-yang-notifications-versioning] and
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 15]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
+
+
       [I-D.lincla-netconf-yang-library-augmentation] all datastore-
       subtree-filter or datastore-xpath-filter referenced YANG modules
       and their dependencies can be fully indentified.
@@ -879,9 +876,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 8.  Acknowledgements
 
    The authors would like to thank Yannick Buchs and Benoit Claise for
-   their review and valuable comments.  Ahmed Elhassany, Alex Huang
-   Feng, Jean Quilbeuf and Zhuoyao Lin for review and contributing code
-   and providing examples and inputs to the open points.
+   their review and valuable comments.  Alex Huang Feng, Jean Quilbeuf
+   and Zhuoyao Lin for review and contributing code and providing
+   examples and inputs to the open points.
 
 9.  References
 
@@ -893,9 +890,12 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 16]
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 16]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [ConDoc18] Yokota, R., "Confluent Schema Registry Documentation",
@@ -949,9 +949,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 17]
+Graf & Elhassany        Expires 16 September 2024              [Page 17]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [LYP23]    Lin, Z., "libyangpush", Apache Software Foundation,
@@ -1005,9 +1005,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 18]
+Graf & Elhassany        Expires 16 September 2024              [Page 18]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
@@ -1061,9 +1061,9 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
 
 
 
-Graf                     Expires 27 August 2024                [Page 19]
+Graf & Elhassany        Expires 16 September 2024              [Page 19]
 
-Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
 
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
@@ -1102,7 +1102,7 @@ Internet-Draft    YANG-Push to Apache Kafka Integration    February 2024
               xml-20081126, November 2008,
               <https://www.w3.org/TR/2008/REC-xml-20081126>.
 
-Author's Address
+Authors' Addresses
 
    Thomas Graf
    Swisscom
@@ -1117,4 +1117,60 @@ Author's Address
 
 
 
-Graf                     Expires 27 August 2024                [Page 20]
+Graf & Elhassany        Expires 16 September 2024              [Page 20]
+
+Internet-Draft    YANG-Push to Apache Kafka Integration       March 2024
+
+
+   Ahmed Elhassany
+   Swisscom
+   Binzring 17
+   CH- Zuerich 8045
+   Switzerland
+   Email: ahmed.elhassany@swisscom.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany        Expires 16 September 2024              [Page 21]

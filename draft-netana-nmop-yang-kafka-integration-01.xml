@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="info" docName="draft-netana-nmop-yang-kafka-integration-00"
+<rfc category="info" docName="draft-netana-nmop-yang-kafka-integration-01"
      ipr="trust200902">
   <front>
     <title abbrev="YANG-Push to Apache Kafka Integration">An Architecture for
@@ -34,7 +34,31 @@
       </address>
     </author>
 
-    <date day="24" month="February" year="2024"/>
+    <author fullname="Ahmed Elhassany" initials="A" surname="Elhassany">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zuerich 8045</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <phone/>
+
+        <email>ahmed.elhassany@swisscom.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <date day="15" month="March" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -178,19 +202,19 @@
                title="Origins of Apache Kafka">
         <t><xref target="Kaf11">Apache Kafka</xref> is a message broker that
         supports producing and consuming messages from so called topics. Each
-        topic has one or more partitions where messages are replicated or
-        loadbalanced to scale out. With the introduction of <xref
+        topic has one or more partitions where messages are replicated or load
+        balanced to scale out. With the introduction of <xref
         target="Con18">Confluent Schema Registry</xref> a topic can contain
         one or more subjects. A subject refers to a Schema defining the
         structure of the message. The Schema then is used to validate messages
-        sent through topics and are idenfied by an Schema ID. The Schema ID is
-        issued when the Schema is registered to the Confluent Schema Registry.
-        Once the Schema ID is obtained, it can be prefixed to the message with
-        a Confluent Schema Registry compatible serializer. Messages can then
-        be validated against Schema at the producer or at the consumer from a
-        topic to ensure Schema integrity of the message. The type of Schema
-        evolution scheme can be defined per subject, wherever non backward
-        compatibility changes are allowed or not.</t>
+        sent through topics and are identified by an Schema ID. The Schema ID
+        is issued when the Schema is registered to the Confluent Schema
+        Registry. Once the Schema ID is obtained, it can be prefixed to the
+        message with a Confluent Schema Registry compatible serializer.
+        Messages can then be validated against Schema at the producer or at
+        the consumer from a topic to ensure Schema integrity of the message.
+        The type of Schema evolution scheme can be defined per subject,
+        wherever non backward compatibility changes are allowed or not.</t>
       </section>
     </section>
 
@@ -214,7 +238,7 @@
         the user, describing in a human-readable fashion the meaning of a
         definition. In Data Mesh, this information can be imported from the
         YANG Schema Registry into a Stream Catalog where subjects within
-        Apache Kafka are identifyable and searchable. An example of a Stream
+        Apache Kafka are identifiable and searchable. An example of a Stream
         Catalog is <xref target="Atl15">Apache Atlas</xref>. It can also be
         applied for time series data visualization in a similar fashion.</t>
       </section>
@@ -222,7 +246,7 @@
       <section anchor="Standardize_Data_Processing_Integration"
                title="Standardize Data Processing Integration">
         <t>Since the YANG Schema is preserved for operational metrics in
-        Apache Kafka, a standartization for integration between network data
+        Apache Kafka, a standardization for integration between network data
         collection and stream processor or time series database is
         implied.</t>
       </section>
@@ -497,22 +521,16 @@
         extends the YANG Library so that not only the submodule but also the
         augmentation list can be obtained.</t>
 
-        <t>The YANG data model for datastore push subscriptions is defined in
-        Section 4.1 and 5 in <xref target="RFC8641"/>. It is unclear wherever
-        the subscribed data in the YANG datastore is referenced or the portion
-        of the YANG schema with datastore-subtree-filter or
-        datastore-xpath-filter. This will be further clarified in point number
-        (1) in <xref target="Open_Points"/>.</t>
-
-        <t>A new YANG module augmenting ietf-notification,
-        ietf-subscribed-notifications and the referenced YANG data in
-        datastore-subtree-filter or datastore-xpath-filter could re-establish
-        semantics, see point number (1) and (2) in <xref
-        target="Open_Points"/>, needed for Schema registration and also enable
-        the possibility to add additional metadata such as the applied event
-        stream filter, YANG module name, revision and revision-label from the
-        subscription state change notifications as described in <xref
-        target="YANG_Push_Subscription"/>.</t>
+        <t>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
+        target="RFC8641"/> defines the payload of YANG-push notifications
+        where "datastore-contents" or the "value" of a "push-change-update")
+        is "anydata". <xref target="RFC7950"/> Section 7.10 states that
+        anydata represents an unknown set of nodes that can be modeled with
+        YANG, and the model is not known at design time and that the model of
+        the unknown set of nodes can be signaled through another protocol.
+        This poses and issue in the schema validation of YANG-Push
+        notifications and will be further clarified in point number (1) and
+        (2) in <xref target="Open_Points"/>.</t>
       </section>
 
       <section anchor="YANG_Schema_Registry" title="YANG Schema Registry">
@@ -630,35 +648,37 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <dt>Open Point 1:</dt>
 
         <dd>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
-        target="RFC8641"/> define the payload of a YANG-push message (either
-        "datastore-contents" or the "value" of a "push-change-update") to be
-        "anydata". <xref target="RFC7950"/> Section 7.10 states that anydata
-        represents an unknown set of nodes that can be modeled with YANG, and
-        the model is not known at design time. Furthermore, <xref
-        target="RFC7950"/> hinted that the model of the unknown set of nodes
-        can be signaled through another protocol. How to exchange the model of
-        the anydata nodes between the node and the collector? Then given that
-        the data nodes contained in anydata subtree is potentially incomplete
-        (filtered out by xpath or subtree), how can a collector validate the
-        content of anydata nodes? <xref
-        target="I-D.aelhassany-anydata-validation"/> addresses the first point
-        by using YANG Library <xref target="RFC8525"/> as mechanism to
-        exchange the YANG model of the nodes contained in anydata.</dd>
+        target="RFC8641"/> defines the payload of YANG-push notifications
+        where "datastore-contents" or the "value" of a "push-change-update")
+        is "anydata". <xref target="RFC7950"/> Section 7.10 states that
+        anydata represents an unknown set of nodes that can be modeled with
+        YANG, and the model is not known at design time and that the model of
+        the unknown set of nodes can be signaled through another protocol. How
+        to exchange the anydata modeled nodes between the YANG-Push publisher
+        and the receiver given that the data nodes contained in anydata
+        subtree is potentially incomplete (filtered out by xpath or subtree).
+        <xref target="I-D.aelhassany-anydata-validation"/> addresses this by
+        using YANG Library <xref target="RFC8525"/> as mechanism to exchange
+        the YANG model of the nodes contained in anydata.</dd>
 
         <dt>Open Point 2:</dt>
+
+        <dd>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
+        target="RFC8641"/> defines the payload of YANG-push notifications
+        where "datastore-contents" or the "value" of a "push-change-update")
+        is "anydata". <xref target="RFC7950"/> Section 7.10 states that
+        anydata represents an unknown set of nodes that can be modeled with
+        YANG, and the model is not known at design time and that the model of
+        the unknown set of nodes can be signaled through another protocol. How
+        can a YANG-Push receiver validate the content of anydata nodes?</dd>
+
+        <dt>Open Point 3:</dt>
 
         <dd>Test with running code wherever semantics can be restored by
         introducing a new YANG module augmenting at the YANG-Push receiver
         ietf-notification, ietf-subscribed-notifications and
         datastore-subtree-filter or datastore-xpath-filter referenced YANG
         modules and their dependencies.</dd>
-
-        <dt>Open Point 3:</dt>
-
-        <dd>Definitions how NOTIFICAIONS are encoded in NETCONF are defined in
-        Section 4.2.10 of <xref target="RFC7950"/>. However specifications for
-        enconding in JSON are missing <xref target="RFC7951"/> Confirm finding
-        and propose how this needs to be addressed.</dd>
 
         <dt>Open Point 4:</dt>
 
@@ -703,9 +723,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank Yannick Buchs and Benoit Claise for
-      their review and valuable comments. Ahmed Elhassany, Alex Huang Feng,
-      Jean Quilbeuf and Zhuoyao Lin for review and contributing code and
-      providing examples and inputs to the open points.</t>
+      their review and valuable comments. Alex Huang Feng, Jean Quilbeuf and
+      Zhuoyao Lin for review and contributing code and providing examples and
+      inputs to the open points.</t>
     </section>
   </middle>
 
