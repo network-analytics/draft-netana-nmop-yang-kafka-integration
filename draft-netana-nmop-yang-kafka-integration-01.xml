@@ -58,7 +58,7 @@
       </address>
     </author>
 
-    <date day="15" month="March" year="2024"/>
+    <date day="17" month="March" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -178,7 +178,7 @@
         <t>With <xref target="RFC3535"/> the IAB set the requirements for
         Network Management in 2003. From these requirements <xref
         target="RFC6241">NETCONF</xref>, <xref target="RFC5277">NETCONF
-        Notifications</xref> and <xref target="RFC8040">Restconf</xref> has
+        Notifications</xref> and <xref target="RFC8040">RESTCONF</xref> has
         been defined to configure through &lt;edit-config&gt; and retrieve
         operational data through &lt;get&gt; and NETCONF notifications through
         &lt;notification&gt; from a YANG datastore on a network node.</t>
@@ -187,10 +187,10 @@
         target="RFC8640"/> and <xref target="RFC8641"/>, periodical and
         on-change subscriptions to the YANG datastore can be dynamically or
         statically configured. When notifications are dynamically configured,
-        messages are published over the established NETCONF session, while
-        when it is statically configured messages are published through <xref
-        target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or <xref
-        target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
+        messages are published over the initially established NETCONF session,
+        while when it is statically configured messages are published through
+        <xref target="I-D.ietf-netconf-https-notif">HTTPS-based</xref> or
+        <xref target="I-D.ietf-netconf-udp-notif">UDP-based</xref> transport.
         Section 3.7 of <xref target="RFC8641"/> describes push-update messages
         where the YANG subscribed data is being published, where Section 2.7
         of <xref target="RFC8639"/> describes the subscription state change
@@ -219,8 +219,13 @@
     </section>
 
     <section anchor="Motivation" title="Motivation">
-      <t>There are three main objectives for native YANG-Push notifications
-      and YANG Schema integration into Apache Kafka Message Broker.</t>
+      <t>There are four main objectives for native YANG-Push notifications and
+      YANG Schema integration into Apache Kafka Message Broker.</t>
+
+      <section anchor="Automtaic_Onboarding" title="Automatic Onboarding">
+        <t>Automate the Data Mesh onboarding of newly subscribed YANG
+        metrics.</t>
+      </section>
 
       <section anchor="Preserve_Schema" title="Preserve Schema">
         <t>The preservation of the YANG schema, that includes the YANG data
@@ -667,41 +672,30 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         to exchange the anydata modeled nodes between the YANG-Push publisher
         and the receiver given that the data nodes contained in anydata
         subtree is potentially incomplete (filtered out by xpath or subtree).
+        How can a YANG-Push receiver validate the content of anydata nodes?
         <xref target="I-D.aelhassany-anydata-validation"/> addresses this by
         using YANG Library <xref target="RFC8525"/> as mechanism to exchange
         the YANG model of the nodes contained in anydata.</dd>
 
         <dt>Open Point 2:</dt>
 
-        <dd>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
-        target="RFC8641"/> defines the payload of YANG-push notifications
-        where "datastore-contents" or the "value" of a "push-change-update")
-        is "anydata". <xref target="RFC7950"/> Section 7.10 states that
-        anydata represents an unknown set of nodes that can be modeled with
-        YANG, and the model is not known at design time and that the model of
-        the unknown set of nodes can be signaled through another protocol. How
-        can a YANG-Push receiver validate the content of anydata nodes?</dd>
+        <dd>The NETCONF Notification structure is defined in <xref
+        target="RFC5277"/> using a XSD Schema. For YANG-push <xref
+        target="RFC8641"/>, this XSD Schema has been proposed using YANG 1.1
+        <xref target="RFC7950"/> modeling language in <xref
+        target="I-D.ahuang-netconf-notif-yang"/>. Examples of notifications
+        encoded in XML are provided in Section 5 of <xref target="RFC5277"/>.
+        In YANG-JSON <xref target="RFC7951"/>, the specification does not
+        provide any examples on how notifications should be encoded. In
+        YANG-CBOR <xref target="RFC9254"/>, notifications are considered
+        "container-like" instances and examples does not show consistency with
+        XML-based and YANG-JSON encoding notifications. Assumptions are being
+        made in <xref target="I-D.ahuang-netconf-notif-yang"/> providing
+        examples of YANG-JSON and YANG-CBOR encoded notifications. The
+        notification structure needs consistency accross YANG encodings.
+        Confirm findings and propose how to be addressed.</dd>
 
         <dt>Open Point 3:</dt>
-
-        <dd>The NETCONF Notification structure is defined in
-        <xref target="RFC5277"/> using a XSD Schema. For YANG-push
-        <xref target="RFC8641"/>, this XSD Schema has been proposed using
-        YANG 1.1 <xref target="RFC7950"/> modeling language in
-        <xref target="I-D.ahuang-netconf-notif-yang"/>. Examples of
-        notifications encoded in XML are provided in Section 5 of 
-        <xref target="RFC5277"/>. In YANG-JSON <xref target="RFC7951"/>, the
-        specification does not provide any examples on how notifications should
-        be encoded. In YANG-CBOR <xref target="RFC9254"/>, notifications are
-        considered "container-like" instances and examples does not show consistency
-        with XML-based and YANG-JSON encoding notifications. Assumptions are
-        being made in <xref target="I-D.ahuang-netconf-notif-yang"/> providing
-        examples of YANG-JSON and YANG-CBOR encoded notifications.
-        The notification structure needs consistency accross YANG encodings.
-        Confirm findings and propose how to be addressed.
-        </dd>
-
-        <dt>Open Point 4:</dt>
 
         <dd>Test with running code wherever with <xref
         target="I-D.ietf-netconf-yang-notifications-versioning"/> and <xref
