@@ -668,8 +668,16 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <ul>
         <li><xref target="I-D.aelhassany-anydata-validation"/> addresses that
         anydata modeled nodes can be validated with YANG Library RFC 8525.
-        6WIND VSR and Huawei VRP YANG-Push and open-source <xref
+        6WIND VSR and Huawei VRP YANG-Push publisher and open-source <xref
         target="I-D.lincla-netconf-yang-library-augmentation"/> implementation
+        validated at hackathon.</li>
+      </ul>
+
+      <t>IETF 120:</t>
+
+      <ul>
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher and
+        <xref target="I-D.aelhassany-anydata-validation"/> implementation
         validated at hackathon.</li>
       </ul>
     </section>

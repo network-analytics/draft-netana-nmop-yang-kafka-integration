@@ -98,7 +98,7 @@ Table of Contents
    7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  16
      7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  16
      7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  16
-     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  16
+     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  17
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
@@ -796,9 +796,15 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
    *  [I-D.aelhassany-anydata-validation] addresses that anydata modeled
       nodes can be validated with YANG Library RFC 8525.  6WIND VSR and
-      Huawei VRP YANG-Push and open-source
+      Huawei VRP YANG-Push publisher and open-source
       [I-D.lincla-netconf-yang-library-augmentation] implementation
       validated at hackathon.
+
+   IETF 120:
+
+   *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher and
+      [I-D.aelhassany-anydata-validation] implementation validated at
+      hackathon.
 
 5.  Open Points
 
@@ -828,12 +834,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
       XSD Schema.  For YANG-push [RFC8641], this XSD Schema has been
       proposed using YANG 1.1 [RFC7950] modeling language in
       [I-D.ahuang-netconf-notif-yang].  Examples of notifications
-      encoded in XML are provided in Section 5 of [RFC5277].  In YANG-
-      JSON [RFC7951], the specification does not provide any examples on
-      how notifications should be encoded.  In YANG-CBOR [RFC9254],
-      notifications are considered "container-like" instances and
-      examples does not show consistency with XML-based and YANG-JSON
-      encoding notifications.  Assumptions are being made in
 
 
 
@@ -842,6 +842,12 @@ Graf & Elhassany         Expires 22 October 2024               [Page 15]
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
+      encoded in XML are provided in Section 5 of [RFC5277].  In YANG-
+      JSON [RFC7951], the specification does not provide any examples on
+      how notifications should be encoded.  In YANG-CBOR [RFC9254],
+      notifications are considered "container-like" instances and
+      examples does not show consistency with XML-based and YANG-JSON
+      encoding notifications.  Assumptions are being made in
       [I-D.ahuang-netconf-notif-yang] providing examples of YANG-JSON
       and YANG-CBOR encoded notifications.  The notification structure
       needs consistency accross YANG encodings.  Confirm findings and
@@ -881,14 +887,8 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    The source code can be obtained here: [LYP23] and was validated at
    the IETF 117 hackathon.
 
-7.3.  YANG Library Augmented-by Addition
 
-   Zhuoyao Lin implemented
-   [I-D.lincla-netconf-yang-library-augmentation] in order to discover
-   augmented-by YANG modules in YANG Library [RFC8525].
 
-   The source code can be obtained here: [YLA24] and was validated at
-   the IETF 119 hackathon.
 
 
 
@@ -897,6 +897,15 @@ Graf & Elhassany         Expires 22 October 2024               [Page 16]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
+
+7.3.  YANG Library Augmented-by Addition
+
+   Zhuoyao Lin implemented
+   [I-D.lincla-netconf-yang-library-augmentation] in order to discover
+   augmented-by YANG modules in YANG Library [RFC8525].
+
+   The source code can be obtained here: [YLA24] and was validated at
+   the IETF 119 hackathon.
 
 8.  Acknowledgements
 
@@ -937,15 +946,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
               Graf, T., Claise, B., and A. H. Feng, "Support of
               Versioning in YANG Notifications Subscription", Work in
               Progress, Internet-Draft, draft-ietf-netconf-yang-
-              notifications-versioning-04, 14 April 2024,
-              <https://datatracker.ietf.org/api/v1/doc/document/draft-
-              ietf-netconf-yang-notifications-versioning/>.
-
-
-
-
-
-
 
 
 
@@ -953,6 +953,10 @@ Graf & Elhassany         Expires 22 October 2024               [Page 17]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
+
+              notifications-versioning-04, 14 April 2024,
+              <https://datatracker.ietf.org/api/v1/doc/document/draft-
+              ietf-netconf-yang-notifications-versioning/>.
 
    [I-D.lincla-netconf-yang-library-augmentation]
               Lin, Z., Claise, B., and I. D. Martinez-Casanueva,
@@ -998,10 +1002,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
 
-   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
-              RFC 7951, DOI 10.17487/RFC7951, August 2016,
-              <https://www.rfc-editor.org/info/rfc7951>.
-
 
 
 
@@ -1009,6 +1009,10 @@ Graf & Elhassany         Expires 22 October 2024               [Page 18]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
+
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/info/rfc7951>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1051,10 +1055,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
-   [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
-              ISBN 9781492092391, March 2022,
-              <https://www.oreilly.com/library/view/data-
-              mesh/9781492092384/>.
 
 
 
@@ -1065,6 +1065,11 @@ Graf & Elhassany         Expires 22 October 2024               [Page 19]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
+
+   [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
+              ISBN 9781492092391, March 2022,
+              <https://www.oreilly.com/library/view/data-
+              mesh/9781492092384/>.
 
    [I-D.ietf-netconf-distributed-notif]
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
@@ -1109,11 +1114,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
-
-
 
 
 
@@ -1121,6 +1121,10 @@ Graf & Elhassany         Expires 22 October 2024               [Page 20]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
 
    [RFC8525]  Bierman, A., Bjorklund, M., Schoenwaelder, J., Watsen, K.,
               and R. Wilton, "YANG Library", RFC 8525,
@@ -1161,10 +1165,6 @@ Authors' Addresses
    CH- Zuerich 8045
    Switzerland
    Email: ahmed.elhassany@swisscom.com
-
-
-
-
 
 
 
