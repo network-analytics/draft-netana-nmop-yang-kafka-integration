@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="14" month="April" year="2024"/>
+    <date day="20" month="April" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -114,9 +114,9 @@
         the messaging protocol between the network node and the <xref
         target="RFC9232">Network Telemetry</xref> data collection. It
         describes the main components and the aimed architecture for deploying
-        such solution in a production network. Then, examples the integration
-        of the <xref target="RFC7950"> YANG 1.1</xref> as a schema modeling
-        language into the Apache Kafka Message Broker and <xref
+        such solution in a production network. Then, it illustrates the
+        integration of the <xref target="RFC7950"> YANG 1.1</xref> as a schema
+        modeling language into the Apache Kafka Message Broker and <xref
         target="Con18"> Confluent Schema Registry</xref>.</t>
       </section>
 
@@ -127,7 +127,19 @@
         14 <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only
         when, they appear in all capitals, as shown here.</t>
 
-        <t>This document makes use of the terms defined in <xref
+        <t>This document defines the following terms:</t>
+
+        <t>Message Broker: is an intermediary software component that
+        translates messages from the formal messaging protocol of the sender
+        to the formal messaging protocol of the receiver routed in topics.
+        Message brokers are elements in Data Mesh where software applications
+        communicate by exchanging formally-defined messages.</t>
+
+        <t>Stream Catalog: provides a single point of access that allows users
+        to centrally search semantics for information across a Message
+        Broker.</t>
+
+        <t>Additionally it makes use of the terms defined in <xref
         target="RFC8639"/>, <xref target="Kaf11">Apache Kafka</xref> and <xref
         target="ConDoc18">Confluent Schema Registry Documentation</xref>.</t>
 
@@ -208,7 +220,7 @@
         target="Con18">Confluent Schema Registry</xref> a topic can contain
         one or more subjects. A subject refers to a Schema defining the
         structure of the message. The Schema then is used to validate messages
-        sent through topics and are identified by an Schema ID. The Schema ID
+        sent through topics and are identified by a Schema ID. The Schema ID
         is issued when the Schema is registered to the Confluent Schema
         Registry. Once the Schema ID is obtained, it can be prefixed to the
         message with a Confluent Schema Registry compatible serializer.
@@ -274,11 +286,11 @@
    +------------------------------------------------------------+
    |                Time Series Database Ingestion              |
    +------------------------------------------------------------+
-(9) Get  |  ^                                   ^ (8) Validate Broker Message
+(9) Get  |  ^                                   ^ (8) Validate serialized Message
  Schema  |  |                                   | Against Schema on Consumer
          |  |                                   |
          |  |                                   |
-         |  | (10) Issue                        | (7) Produce Broker Message
+         |  | (10) Issue                        | (7) Serialize YANG-Push Message
          v  | Schema             (5) Post       | with Schema ID prefixed
    +--------------------+          Schema  +--------------------+
    |       YANG         | <--------------  |  Data Collection   |
@@ -540,6 +552,12 @@
       </section>
 
       <section anchor="YANG_Schema_Registry" title="YANG Schema Registry">
+        <t>The schema registry SHOULD support YANG as the format for defining
+        schema. For each schema registered into the schema registry, a schema
+        ID is returned. That schema ID can be used when interacting with the
+        Message Broker to indicate the schema to use with the
+        message.&rdquo;</t>
+
         <t>Confluent Schema Registry is pluggable. Currently Supports AVRO,
         JSON Schema and Protobuf. The YANG support is being developed at <xref
         target="Yak24"/> as part of this architecture. Enable to register,

@@ -5,7 +5,7 @@
 NMOP                                                             T. Graf
 Internet-Draft                                              A. Elhassany
 Intended status: Informational                                  Swisscom
-Expires: 16 October 2024                                   14 April 2024
+Expires: 22 October 2024                                   20 April 2024
 
 
       An Architecture for YANG-Push to Message Broker Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 October 2024.
+   This Internet-Draft will expire on 22 October 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf & Elhassany         Expires 16 October 2024                [Page 1]
+Graf & Elhassany         Expires 22 October 2024                [Page 1]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -77,39 +77,39 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.1.  Document Scope  . . . . . . . . . . . . . . . . . . . . .   3
      1.2.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.3.  Origins of YANG-Push  . . . . . . . . . . . . . . . . . .   4
+     1.3.  Origins of YANG-Push  . . . . . . . . . . . . . . . . . .   5
      1.4.  Origins of Apache Kafka . . . . . . . . . . . . . . . . .   5
    2.  Motivation  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     2.1.  Automatic Onboarding  . . . . . . . . . . . . . . . . . .   5
-     2.2.  Preserve Schema . . . . . . . . . . . . . . . . . . . . .   5
-     2.3.  Preserve Semantic Information . . . . . . . . . . . . . .   5
+     2.1.  Automatic Onboarding  . . . . . . . . . . . . . . . . . .   6
+     2.2.  Preserve Schema . . . . . . . . . . . . . . . . . . . . .   6
+     2.3.  Preserve Semantic Information . . . . . . . . . . . . . .   6
      2.4.  Standardize Data Processing Integration . . . . . . . . .   6
    3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   6
      3.1.  YANG-Push Subscription  . . . . . . . . . . . . . . . . .   7
-     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .   9
-     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  11
-     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  12
-     3.5.  YANG Message Broker Producer  . . . . . . . . . . . . . .  13
-     3.6.  YANG Message_Broker Consumer  . . . . . . . . . . . . . .  13
-     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  13
-   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  13
-   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  15
-     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  15
-     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  15
-     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  15
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+     3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .  10
+     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  12
+     3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  13
+     3.5.  YANG Message Broker Producer  . . . . . . . . . . . . . .  14
+     3.6.  YANG Message_Broker Consumer  . . . . . . . . . . . . . .  14
+     3.7.  YANG Time Series Database Ingestion . . . . . . . . . . .  14
+   4.  Project Milestones  . . . . . . . . . . . . . . . . . . . . .  14
+   5.  Open Points . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   7.  Implementation Status . . . . . . . . . . . . . . . . . . . .  16
+     7.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  16
+     7.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  16
+     7.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  16
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 
 
 
 
-Graf & Elhassany         Expires 16 October 2024                [Page 2]
+Graf & Elhassany         Expires 22 October 2024                [Page 2]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -142,9 +142,9 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    protocol between the network node and the Network Telemetry [RFC9232]
    data collection.  It describes the main components and the aimed
    architecture for deploying such solution in a production network.
-   Then, examples the integration of the YANG 1.1 [RFC7950] as a schema
-   modeling language into the Apache Kafka Message Broker and Confluent
-   Schema Registry [Con18].
+   Then, it illustrates the integration of the YANG 1.1 [RFC7950] as a
+   schema modeling language into the Apache Kafka Message Broker and
+   Confluent Schema Registry [Con18].
 
 1.2.  Terminology
 
@@ -154,7 +154,27 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   This document makes use of the terms defined in [RFC8639], Apache
+   This document defines the following terms:
+
+   Message Broker: is an intermediary software component that translates
+   messages from the formal messaging protocol of the sender to the
+   formal messaging protocol of the receiver routed in topics.  Message
+   brokers are elements in Data Mesh where software applications
+   communicate by exchanging formally-defined messages.
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 3]
+
+Internet-Draft   YANG-Push to Message Broker Integration      April 2024
+
+
+   Stream Catalog: provides a single point of access that allows users
+   to centrally search semantics for information across a Message
+   Broker.
+
+   Additionally it makes use of the terms defined in [RFC8639], Apache
    Kafka [Kaf11] and Confluent Schema Registry Documentation [ConDoc18].
 
    The following terms are used as defined in [RFC8639].
@@ -162,13 +182,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    *  Publisher
 
    *  Receiver
-
-
-
-Graf & Elhassany         Expires 16 October 2024                [Page 3]
-
-Internet-Draft   YANG-Push to Message Broker Integration      April 2024
-
 
    *  Subscription
 
@@ -200,6 +213,19 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
    *  Subject
 
+
+
+
+
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 4]
+
+Internet-Draft   YANG-Push to Message Broker Integration      April 2024
+
+
 1.3.  Origins of YANG-Push
 
    With [RFC3535] the IAB set the requirements for Network Management in
@@ -218,14 +244,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport.  Section 3.7 of [RFC8641]
    describes push-update messages where the YANG subscribed data is
-
-
-
-Graf & Elhassany         Expires 16 October 2024                [Page 4]
-
-Internet-Draft   YANG-Push to Message Broker Integration      April 2024
-
-
    being published, where Section 2.7 of [RFC8639] describes the
    subscription state change notifications where changes in the
    subscription are being described.
@@ -238,7 +256,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    out.  With the introduction of Confluent Schema Registry [Con18] a
    topic can contain one or more subjects.  A subject refers to a Schema
    defining the structure of the message.  The Schema then is used to
-   validate messages sent through topics and are identified by an Schema
+   validate messages sent through topics and are identified by a Schema
    ID.  The Schema ID is issued when the Schema is registered to the
    Confluent Schema Registry.  Once the Schema ID is obtained, it can be
    prefixed to the message with a Confluent Schema Registry compatible
@@ -252,6 +270,17 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
    There are four main objectives for native YANG-Push notifications and
    YANG Schema integration into a Message Broker.
+
+
+
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 5]
+
+Internet-Draft   YANG-Push to Message Broker Integration      April 2024
+
 
 2.1.  Automatic Onboarding
 
@@ -274,14 +303,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    In Data Mesh, this information can be imported from the YANG Schema
    Registry into a Stream Catalog where subjects within Message Broker
    are identifiable and searchable.  An example of a Stream Catalog is
-
-
-
-Graf & Elhassany         Expires 16 October 2024                [Page 5]
-
-Internet-Draft   YANG-Push to Message Broker Integration      April 2024
-
-
    Apache Atlas [Atl15].  It can also be applied for time series data
    visualization in a similar fashion.
 
@@ -297,6 +318,26 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    The architecture consists of 6 elements.  Figure 1 gives an overview
    on the workflow.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 6]
+
+Internet-Draft   YANG-Push to Message Broker Integration      April 2024
+
+
    +------------------------------------------------------------+
    |                    Time Series Database                    |
    +------------------------------------------------------------+
@@ -306,11 +347,11 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    +------------------------------------------------------------+
    |                Time Series Database Ingestion              |
    +------------------------------------------------------------+
-(9) Get  |  ^                                   ^ (8) Validate Broker Message
+(9) Get  |  ^                                   ^ (8) Validate serialized Message
  Schema  |  |                                   | Against Schema on Consumer
          |  |                                   |
          |  |                                   |
-         |  | (10) Issue                        | (7) Produce Broker Message
+         |  | (10) Issue                        | (7) Serialize YANG-Push Message
          v  | Schema             (5) Post       | with Schema ID prefixed
    +--------------------+          Schema  +--------------------+
    |       YANG         | <--------------  |  Data Collection   |
@@ -329,15 +370,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
                     Figure 1: End to End Workflow
 
-
-
-
-
-Graf & Elhassany         Expires 16 October 2024                [Page 6]
-
-Internet-Draft   YANG-Push to Message Broker Integration      April 2024
-
-
    The workflow diagram (Figure 1) describes the steps from establishing
    the YANG-Push subscription to Time Series Database ingestion.
 
@@ -349,6 +381,18 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    state change notifications are sent according to section 2.7 from the
    YANG-Push publisher to the receiver to inform which event stream
    filter has been applied to which subscription ID.
+
+
+
+
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 7]
+
+Internet-Draft   YANG-Push to Message Broker Integration      April 2024
+
 
    [I-D.ietf-netconf-yang-notifications-versioning] adds the capability
    to subscribe to a specific YANG module revision or a YANG module
@@ -389,7 +433,19 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024                [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany         Expires 22 October 2024                [Page 8]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -445,7 +501,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024                [Page 8]
+Graf & Elhassany         Expires 22 October 2024                [Page 9]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -501,7 +557,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024                [Page 9]
+Graf & Elhassany         Expires 22 October 2024               [Page 10]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -557,7 +613,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 10]
+Graf & Elhassany         Expires 22 October 2024               [Page 11]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -613,7 +669,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 11]
+Graf & Elhassany         Expires 22 October 2024               [Page 12]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -633,6 +689,12 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
    clarified in point number (1) and (2) in Section 5.
 
 3.4.  YANG Schema Registry
+
+   The schema registry SHOULD support YANG as the format for defining
+   schema.  For each schema registered into the schema registry, a
+   schema ID is returned.  That schema ID can be used when interacting
+   with the Message Broker to indicate the schema to use with the
+   message.”
 
    Confluent Schema Registry is pluggable.  Currently Supports AVRO,
    JSON Schema and Protobuf.  The YANG support is being developed at
@@ -663,13 +725,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-
-
-
-
-
-
-Graf & Elhassany         Expires 16 October 2024               [Page 12]
+Graf & Elhassany         Expires 22 October 2024               [Page 13]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -725,7 +781,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 13]
+Graf & Elhassany         Expires 22 October 2024               [Page 14]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -781,7 +837,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 14]
+Graf & Elhassany         Expires 22 October 2024               [Page 15]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -837,7 +893,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 15]
+Graf & Elhassany         Expires 22 October 2024               [Page 16]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -893,7 +949,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 16]
+Graf & Elhassany         Expires 22 October 2024               [Page 17]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -949,7 +1005,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 17]
+Graf & Elhassany         Expires 22 October 2024               [Page 18]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -1005,7 +1061,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 18]
+Graf & Elhassany         Expires 22 October 2024               [Page 19]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -1061,7 +1117,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 19]
+Graf & Elhassany         Expires 22 October 2024               [Page 20]
 
 Internet-Draft   YANG-Push to Message Broker Integration      April 2024
 
@@ -1117,4 +1173,4 @@ Authors' Addresses
 
 
 
-Graf & Elhassany         Expires 16 October 2024               [Page 20]
+Graf & Elhassany         Expires 22 October 2024               [Page 21]
