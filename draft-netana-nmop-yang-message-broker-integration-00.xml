@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="20" month="April" year="2024"/>
+    <date day="22" month="April" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -291,7 +291,7 @@
          |  |                                   |
          |  |                                   |
          |  | (10) Issue                        | (7) Serialize YANG-Push Message
-         v  | Schema             (5) Post       | with Schema ID prefixed
+         v  | Schema             (5) Post       | annotated Schema ID
    +--------------------+          Schema  +--------------------+
    |       YANG         | <--------------  |  Data Collection   |
    |  Schema Registry   | -------------->  | YANG-Push Receiver |
