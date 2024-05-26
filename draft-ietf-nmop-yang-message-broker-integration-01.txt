@@ -342,13 +342,13 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
       |                    Time Series Database                    |
       +------------------------------------------------------------+
                                      ^
-                                     | (11) Ingest Data
+                                     | (12) Ingest Data
                                      | According to Schema
       +------------------------------------------------------------+
       |                Time Series Database Ingestion              |
       +------------------------------------------------------------+
-   (9) Get  |  ^                                   ^ (8) Validate
-    Schema  |  |                                   | Serialized Message
+   (10) Get |  ^                                   ^ (9) Validate
+     Schema |  |                                   | Serialized Message
             |  |                                   | Schema on Consumer
             |  |                                   |
             |  |                              +--------------------+
@@ -356,21 +356,21 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
             |  |                              |      Broker        |
             |  |                              +--------------------+
             |  |                                   |
-            |  | (10) Issue                        | (7) Serialize
+            |  | (11) Issue                        | (8) Serialize
             |  |                                   | YANG-Push Message
             |  |                                   | annotated Schema
-            v  | Schema             (5) Post       | ID on Producer
+            v  | Schema             (6) Post       | ID on Producer
       +--------------------+          Schema  +--------------------+
       |       YANG         | <--------------  |  Data Collection   |
       |  Schema Registry   | -------------->  | YANG-Push Receiver |
-      +--------------------+ (6) Issue        +--------------------+
-                             Schema ID     (3) Get |  ^ (2) Receive
+      +--------------------+ (7) Issue        +--------------------+
+                             Schema ID     (4) Get |  ^ (3) Receive
                                             Schema |  | YANG-Push
                                                    |  | Subscription
                                                    |  | Start Message
                                                    |  |   ^
                                                    |  |   |
-                                                   |  |   | (4) Publish
+                                                   |  |   | (5) Publish
                                                    |  |   | YANG-Push
                                                    |  |   | Message
                                                    |  |   | with
@@ -398,11 +398,12 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
    With step number (1) in the workflow diagram, the YANG-Push
    notification capabilities are being discovered according to Section 3
-   of [RFC9196], a YANG-Push subscription is according to Section 2.4
-   and 2.5 of [RFC8639] dynamically or statically configured, and with
-   step (2) subscription state change notifications are sent according
-   to section 2.7 from the YANG-Push publisher to the receiver to inform
-   which event stream filter has been applied to which subscription ID.
+   of [RFC9196], in with step (2) a YANG-Push subscription is according
+   to Section 2.4 and 2.5 of [RFC8639] dynamically or statically
+   configured, and with step (3) subscription state change notifications
+   are sent according to section 2.7 from the YANG-Push publisher to the
+   receiver to inform which event stream filter has been applied to
+   which subscription ID.
 
    When the YANG-Push subscription is managed dynamically, the YANG data
    is being received on the same NETCONF session where the subscription
@@ -411,9 +412,9 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
    [I-D.ietf-netconf-yang-notifications-versioning] adds the capability
    to subscribe to a specific YANG module revision or a YANG module
-   which needs to be backward compatible to in step (1) and adds the
+   which needs to be backward compatible to in step (2) and adds the
    module name, revision and revision-label information into the
-   subscription state change notifications in step (2).
+   subscription state change notifications in step (3).
 
    Figure 2 provides and example how to create a YANG-Push configured
    subscription with NETCONF in XML [W3C.REC-xml-20081126] with UDP-
@@ -441,7 +442,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
            <revision xmlns="urn:ietf:params:xml:ns:yang:ietf-yang\
            -push-revision">2018-02-20</revision>
            <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf\
-           -udp-notif-transport">unt:udp-notif</transport>
 
 
 
@@ -450,6 +450,7 @@ Graf & Elhassany        Expires 27 November 2024                [Page 8]
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
+           -udp-notif-transport">unt:udp-notif</transport>
            <encoding>encode-json</encoding>
            <receivers>
              <receiver>
@@ -487,7 +488,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    subscription-started state change notification message over HTTPS-
    based [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport for the same subscription.
-
 
 
 
@@ -548,8 +548,8 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    to [I-D.ietf-netconf-distributed-notif] a network node with
    distributed architecture could have multiple messagePublisherId's,
    the message has been published from.  The sequenceNumber enables to
-   recognize loss from the YANG-Push publisher in step (1) down to the
-   Time Series Database Ingestion in step (11).
+   recognize loss from the YANG-Push publisher in step (2) down to the
+   Time Series Database Ingestion in step (12).
 
 
 
@@ -664,7 +664,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    the workflow diagram, all the YANG module dependencies need to be
    determined through the YANG Library [RFC8525], and then through
    NETCONF <get-schema> rpc calls according to [RFC6022] all YANG
-   modules need to be retrieved as described in step (3) in the workflow
+   modules need to be retrieved as described in step (4) in the workflow
    diagram.
 
 
@@ -702,7 +702,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    compare [YSR24] YANG Schemas.  One YANG Schema with all its
    augmentations is being registered per YANG-Push subscription ID. for
    each YANG Schema a locally significant Schema ID is being issued as
-   described in step (6) in the workflow diagram.
+   described in step (7) in the workflow diagram.
 
   curl -X POST -H "Content Type: application/vnd.schemaregistry.v1+json"
   -d @ietf-interfaces@2018-02-20.json
@@ -734,13 +734,13 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
    The previously issued Schema ID is prefixed to the previously in
    Section 3.3 described metadata augmented YANG push push-update
-   message and serialized to a Message Broker topic in step (7) of the
+   message and serialized to a Message Broker topic in step (8) of the
    workflow diagram.
 
 3.6.  YANG Message_Broker Consumer
 
    From the Message Broker topic the message is being consumed and the
-   prefixed Schema ID is being used in step (9) of the workflow diagram
+   prefixed Schema ID is being used in step (10) of the workflow diagram
    to retrieve the YANG Schema to validate the Schema integrity of the
    message.
 
@@ -749,13 +749,13 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    The time series database ingestion specifications are being derived
    with the in Section 3.6 already retrieved Schema ID and YANG-Push
    push-update messages can be now ingested and indexed into the
-   database table according to their schema.
+   database table according to their schema in step (12).
 
 3.8.  YANG Time Series Database
 
-   The YANG data is being ingested accoring to the previously defined
-   ingestion specification and indexed with the timestamp defined in
-   observation-time as defined in
+   The YANG data is being ingested in step (12)according to the
+   previously defined ingestion specification and indexed with the
+   timestamp defined in observation-time as defined in
    [I-D.tgraf-netconf-yang-push-observation-time].  A network operator
    is now able to query the previously subscribed YANG data.
 
