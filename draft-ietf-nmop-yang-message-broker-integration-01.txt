@@ -374,11 +374,11 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
                                                    |  |   | YANG-Push
                                                    |  |   | Message
                                                    |  |   | with
-                                                   v  |   | Subscr. ID
-      +--------------------+                  +--------------------+
-      |  Manage YANG-Push  | (1) Subscribe    |   Network Node     |
-      |    Subscription    | ---------------> | YANG-Push Publisher|
-      +--------------------+                  +--------------------+
+                             (1) Discover Notif.   v  |   | Subscr. ID
+      +--------------------+ Capabilities     +--------------------+
+      |  Manage YANG-Push  | ---------------> |   Network Node     |
+      |    Subscription    | (2) Subscribe    | YANG-Push Publisher|
+      +--------------------+ ---------------> +--------------------+
 
                        Figure 1: End to End Workflow
 
@@ -396,12 +396,13 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 3.1.  YANG-Push Subscription
 
-   With step number (1) in the workflow diagram, a YANG-Push
-   subscription is according to Section 2.4 and 2.5 of [RFC8639]
-   dynamically or statically configured, and with step (2) subscription
-   state change notifications are sent according to section 2.7 from the
-   YANG-Push publisher to the receiver to inform which event stream
-   filter has been applied to which subscription ID.
+   With step number (1) in the workflow diagram, the YANG-Push
+   notification capabilities are being discovered according to Section 3
+   of [RFC9196], a YANG-Push subscription is according to Section 2.4
+   and 2.5 of [RFC8639] dynamically or statically configured, and with
+   step (2) subscription state change notifications are sent according
+   to section 2.7 from the YANG-Push publisher to the receiver to inform
+   which event stream filter has been applied to which subscription ID.
 
    When the YANG-Push subscription is managed dynamically, the YANG data
    is being received on the same NETCONF session where the subscription
@@ -441,7 +442,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
            -push-revision">2018-02-20</revision>
            <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf\
            -udp-notif-transport">unt:udp-notif</transport>
-           <encoding>encode-json</encoding>
 
 
 
@@ -450,6 +450,7 @@ Graf & Elhassany        Expires 27 November 2024                [Page 8]
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
+           <encoding>encode-json</encoding>
            <receivers>
              <receiver>
                <name>subscription-specific-receiver-def</name>
@@ -486,7 +487,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    subscription-started state change notification message over HTTPS-
    based [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport for the same subscription.
-
 
 
 
@@ -958,6 +958,11 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
               September 2019, <https://www.rfc-editor.org/info/rfc8641>.
 
+   [RFC9196]  Lengyel, B., Clemm, A., and B. Claise, "YANG Modules
+              Describing Capabilities for Systems and Datastore Update
+              Notifications", RFC 9196, DOI 10.17487/RFC9196, February
+              2022, <https://www.rfc-editor.org/info/rfc9196>.
+
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
               in the Concise Binary Object Representation (CBOR)",
@@ -991,6 +996,20 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               <https://www.oreilly.com/library/view/data-
               mesh/9781492092384/>.
 
+
+
+
+
+
+
+
+
+
+Graf & Elhassany        Expires 27 November 2024               [Page 18]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [I-D.ietf-netconf-distributed-notif]
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
               "Subscription to Distributed Notifications", Work in
@@ -1002,14 +1021,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    [I-D.ietf-netconf-https-notif]
               Jethanandani, M. and K. Watsen, "An HTTPS-based Transport
               for YANG Notifications", Work in Progress, Internet-Draft,
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 18]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
-
               draft-ietf-netconf-https-notif-15, 1 February 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               https-notif-15>.
@@ -1047,6 +1058,14 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               RFC 7942, DOI 10.17487/RFC7942, July 2016,
               <https://www.rfc-editor.org/info/rfc7942>.
 
+
+
+
+Graf & Elhassany        Expires 27 November 2024               [Page 19]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
@@ -1055,16 +1074,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               and R. Wilton, "YANG Library", RFC 8525,
               DOI 10.17487/RFC8525, March 2019,
               <https://www.rfc-editor.org/info/rfc8525>.
-
-
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 19]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
@@ -1105,15 +1114,6 @@ Appendix A.  Project Milestones
       push-update or push-change-update message with observation-time or
       state-changed-observation-time.
 
-   *  [I-D.ahuang-netconf-notif-yang] defines the NETCONF notification
-      header specified in [RFC5277] in YANG.
-
-   IETF 118:
-
-
-
-
-
 
 
 
@@ -1121,6 +1121,11 @@ Graf & Elhassany        Expires 27 November 2024               [Page 20]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
+
+   *  [I-D.ahuang-netconf-notif-yang] defines the NETCONF notification
+      header specified in [RFC5277] in YANG.
+
+   IETF 118:
 
    *  All relevant YANG modules for a subscribed xpath can be determined
       through the YANG Library [RFC8525] and retrieved throug NETCONF
@@ -1165,11 +1170,6 @@ Appendix B.  Open Points
       the anydata modeled nodes between the YANG-Push publisher and the
       receiver given that the data nodes contained in anydata subtree is
       potentially incomplete (filtered out by xpath or subtree).  How
-      can a YANG-Push receiver validate the content of anydata nodes?
-      [I-D.aelhassany-anydata-validation] addresses this by using YANG
-      Library [RFC8525] as mechanism to exchange the YANG model of the
-      nodes contained in anydata.
-
 
 
 
@@ -1177,6 +1177,11 @@ Graf & Elhassany        Expires 27 November 2024               [Page 21]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
+
+      can a YANG-Push receiver validate the content of anydata nodes?
+      [I-D.aelhassany-anydata-validation] addresses this by using YANG
+      Library [RFC8525] as mechanism to exchange the YANG model of the
+      nodes contained in anydata.
 
    Open Point 2:
       The NETCONF Notification structure is defined in [RFC5277] using a
@@ -1217,11 +1222,6 @@ Authors' Addresses
    CH- Zuerich 8045
    Switzerland
    Email: ahmed.elhassany@swisscom.com
-
-
-
-
-
 
 
 

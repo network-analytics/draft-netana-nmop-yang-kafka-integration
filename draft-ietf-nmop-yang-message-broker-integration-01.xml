@@ -318,11 +318,11 @@
                                                 |  |   | YANG-Push
                                                 |  |   | Message
                                                 |  |   | with
-                                                v  |   | Subscr. ID
-   +--------------------+                  +--------------------+
-   |  Manage YANG-Push  | (1) Subscribe    |   Network Node     |
-   |    Subscription    | ---------------> | YANG-Push Publisher|
-   +--------------------+                  +--------------------+
+                          (1) Discover Notif.   v  |   | Subscr. ID
+   +--------------------+ Capabilities     +--------------------+
+   |  Manage YANG-Push  | ---------------> |   Network Node     |
+   |    Subscription    | (2) Subscribe    | YANG-Push Publisher|
+   +--------------------+ ---------------> +--------------------+
 ]]></artwork>
       </figure>
 
@@ -331,13 +331,14 @@
       Database ingestion.</t>
 
       <section anchor="YANG_Push_Subscription" title="YANG-Push Subscription">
-        <t>With step number (1) in the workflow diagram, a YANG-Push
-        subscription is according to Section 2.4 and 2.5 of <xref
-        target="RFC8639"/> dynamically or statically configured, and with step
-        (2) subscription state change notifications are sent according to
-        section 2.7 from the YANG-Push publisher to the receiver to inform
-        which event stream filter has been applied to which subscription
-        ID.</t>
+        <t>With step number (1) in the workflow diagram, the YANG-Push
+        notification capabilities are being discovered according to Section 3
+        of <xref target="RFC9196"/>, a YANG-Push subscription is according to
+        Section 2.4 and 2.5 of <xref target="RFC8639"/> dynamically or
+        statically configured, and with step (2) subscription state change
+        notifications are sent according to section 2.7 from the YANG-Push
+        publisher to the receiver to inform which event stream filter has been
+        applied to which subscription ID.</t>
 
         <t>When the YANG-Push subscription is managed dynamically, the YANG
         data is being received on the same NETCONF session where the
@@ -757,6 +758,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.RFC.8639'?>
 
       <?rfc include='reference.RFC.8641'?>
+
+      <?rfc include='reference.RFC.9196'?>
 
       <?rfc include='reference.RFC.9254'?>
 
