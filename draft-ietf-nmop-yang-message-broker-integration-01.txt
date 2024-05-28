@@ -5,7 +5,7 @@
 NMOP                                                             T. Graf
 Internet-Draft                                              A. Elhassany
 Intended status: Informational                                  Swisscom
-Expires: 27 November 2024                                    26 May 2024
+Expires: 29 November 2024                                    28 May 2024
 
 
       An Architecture for YANG-Push to Message Broker Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 November 2024.
+   This Internet-Draft will expire on 29 November 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 1]
+Graf & Elhassany        Expires 29 November 2024                [Page 1]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -87,7 +87,7 @@ Table of Contents
    3.  Elements of the Architecture  . . . . . . . . . . . . . . . .   6
      3.1.  YANG-Push Subscription  . . . . . . . . . . . . . . . . .   8
      3.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .  10
-     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  12
+     3.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  13
      3.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  13
      3.5.  YANG Message Broker Producer  . . . . . . . . . . . . . .  14
      3.6.  YANG Message_Broker Consumer  . . . . . . . . . . . . . .  14
@@ -98,8 +98,8 @@ Table of Contents
      4.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  15
      4.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  15
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+   6.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  18
    Appendix A.  Project Milestones . . . . . . . . . . . . . . . . .  20
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 2]
+Graf & Elhassany        Expires 29 November 2024                [Page 2]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -165,7 +165,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 3]
+Graf & Elhassany        Expires 29 November 2024                [Page 3]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -221,7 +221,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 4]
+Graf & Elhassany        Expires 29 November 2024                [Page 4]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -277,7 +277,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 5]
+Graf & Elhassany        Expires 29 November 2024                [Page 5]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -333,7 +333,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 6]
+Graf & Elhassany        Expires 29 November 2024                [Page 6]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -389,7 +389,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 7]
+Graf & Elhassany        Expires 29 November 2024                [Page 7]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -420,6 +420,8 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    subscription with NETCONF in XML [W3C.REC-xml-20081126] with UDP-
    based [I-D.ietf-netconf-udp-notif] transport
 
+ ========== NOTE: '\' line wrapping per RFC 8792) ===========
+
  <rpc message-id="101"
    xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
    <edit-config>
@@ -440,16 +442,16 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
              xmlns:if="urn:ietf:params:xml:ns:yang:ietf-inter\
              faces">/if:interfaces</datastore-xpath-filter>
            <revision xmlns="urn:ietf:params:xml:ns:yang:ietf-yang\
-           -push-revision">2018-02-20</revision>
-           <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf\
 
 
 
-Graf & Elhassany        Expires 27 November 2024                [Page 8]
+Graf & Elhassany        Expires 29 November 2024                [Page 8]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
+           -push-revision">2018-02-20</revision>
+           <transport xmlns:unt="urn:ietf:params:xml:ns:yang:ietf\
            -udp-notif-transport">unt:udp-notif</transport>
            <encoding>encode-json</encoding>
            <receivers>
@@ -499,9 +501,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-
-
-Graf & Elhassany        Expires 27 November 2024                [Page 9]
+Graf & Elhassany        Expires 29 November 2024                [Page 9]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -557,7 +557,7 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-Graf & Elhassany        Expires 27 November 2024               [Page 10]
+Graf & Elhassany        Expires 29 November 2024               [Page 10]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
@@ -572,6 +572,8 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    update notification message over HTTPS-based
    [I-D.ietf-netconf-https-notif] or UDP-based
    [I-D.ietf-netconf-udp-notif] transport for the same subscription.
+
+   ========== NOTE: '\' line wrapping per RFC 8792) ===========
 
    {
      "ietf-notification:notification": {
@@ -611,12 +613,12 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
 
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 11]
+Graf & Elhassany        Expires 29 November 2024               [Page 11]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
+
+   ========== NOTE: '\' line wrapping per RFC 8792) ===========
 
    {
      "ietf-notification:notification": {
@@ -657,6 +659,21 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
          Figure 5: JSON YANG-Push Example for a push-change-update
                             notification message
 
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 12]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
 3.3.  YANG-Push Receiver
 
    For all the YANG modules and revisions of each subscription ID in the
@@ -666,13 +683,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    NETCONF <get-schema> rpc calls according to [RFC6022] all YANG
    modules need to be retrieved as described in step (4) in the workflow
    diagram.
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 12]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [I-D.lincla-netconf-yang-library-augmentation] extends the YANG
    Library so that not only the submodule but also the augmentation list
@@ -712,6 +722,14 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
    curl http://localhost:8081/subjects/ ubjects/ | jq
 
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 13]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
               Figure 7: List all subjects YANG Schema Registry
 
    curl http://localhost:8081/subjects/ietf-interfaces/versions
@@ -722,13 +740,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
        Figure 9: Retrieve schema of a specific subject and version in
                             YANG Schema Registry
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 13]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
 3.5.  YANG Message Broker Producer
 
@@ -767,6 +778,14 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    protocol defined by this specification at the time of posting of this
    Internet-Draft, and is based on a proposal described in [RFC7942].
    The description of implementations in this section is intended to
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 14]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    assist the IETF in its decision processes in progressing drafts to
    RFCs.  Please note that the listing of any individual implementation
    here does not imply endorsement by the IETF.  Furthermore, no effort
@@ -775,16 +794,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    be construed to be, a catalog of available implementations or their
    features.  Readers are advised to note that other implementations may
    exist.
-
-
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 14]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    According to [RFC7942], "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
@@ -825,6 +834,14 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
    TBD
 
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 15]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
 6.  Acknowledgements
 
    The authors would like to thank Yannick Buchs and Benoit Claise for
@@ -833,14 +850,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    examples and inputs to the open points.
 
 7.  References
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 15]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
 7.1.  Normative References
 
@@ -876,6 +885,19 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               yang-notifications-versioning-04>.
 
+
+
+
+
+
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 16]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [I-D.lincla-netconf-yang-library-augmentation]
               Lin, Z., Claise, B., and I. D. Martinez-Casanueva,
               "Augmented-by Addition into the IETF-YANG-Library", Work
@@ -883,20 +905,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               library-augmentation-01, 4 March 2024,
               <https://datatracker.ietf.org/doc/html/draft-lincla-
               netconf-yang-library-augmentation-01>.
-
-
-
-
-
-
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 16]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [I-D.tgraf-netconf-notif-sequencing]
               Graf, T., Quilbeuf, J., and A. H. Feng, "Support of
@@ -938,6 +946,14 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
 
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 17]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -946,13 +962,6 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               E., and A. Tripathy, "Subscription to YANG Notifications",
               RFC 8639, DOI 10.17487/RFC8639, September 2019,
               <https://www.rfc-editor.org/info/rfc8639>.
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 17]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [RFC8641]  Clemm, A. and E. Voit, "Subscription to YANG Notifications
               for Datastore Updates", RFC 8641, DOI 10.17487/RFC8641,
@@ -991,24 +1000,20 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
+
+
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 18]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
               mesh/9781492092384/>.
-
-
-
-
-
-
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 18]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [I-D.ietf-netconf-distributed-notif]
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
@@ -1053,18 +1058,18 @@ Internet-Draft   YANG-Push to Message Broker Integration        May 2024
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
+
+
+
+Graf & Elhassany        Expires 29 November 2024               [Page 19]
+
+Internet-Draft   YANG-Push to Message Broker Integration        May 2024
+
+
    [RFC7942]  Sheffer, Y. and A. Farrel, "Improving Awareness of Running
               Code: The Implementation Status Section", BCP 205,
               RFC 7942, DOI 10.17487/RFC7942, July 2016,
               <https://www.rfc-editor.org/info/rfc7942>.
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 19]
-
-Internet-Draft   YANG-Push to Message Broker Integration        May 2024
-
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
@@ -1110,17 +1115,16 @@ Appendix A.  Project Milestones
    *  [I-D.tgraf-netconf-notif-sequencing] extends NETCONF notification
       header with sysName, messagePublisherId and sequenceNumber.
 
-   *  [I-D.tgraf-netconf-yang-push-observation-time] extends YANG-Push
-      push-update or push-change-update message with observation-time or
-      state-changed-observation-time.
 
 
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 20]
+Graf & Elhassany        Expires 29 November 2024               [Page 20]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
+
+   *  [I-D.tgraf-netconf-yang-push-observation-time] extends YANG-Push
+      push-update or push-change-update message with observation-time or
+      state-changed-observation-time.
 
    *  [I-D.ahuang-netconf-notif-yang] defines the NETCONF notification
       header specified in [RFC5277] in YANG.
@@ -1166,18 +1170,18 @@ Appendix B.  Open Points
       [RFC7950] Section 7.10 states that anydata represents an unknown
       set of nodes that can be modeled with YANG, and the model is not
       known at design time and that the model of the unknown set of
-      nodes can be signaled through another protocol.  How to exchange
-      the anydata modeled nodes between the YANG-Push publisher and the
-      receiver given that the data nodes contained in anydata subtree is
-      potentially incomplete (filtered out by xpath or subtree).  How
 
 
 
-Graf & Elhassany        Expires 27 November 2024               [Page 21]
+Graf & Elhassany        Expires 29 November 2024               [Page 21]
 
 Internet-Draft   YANG-Push to Message Broker Integration        May 2024
 
 
+      nodes can be signaled through another protocol.  How to exchange
+      the anydata modeled nodes between the YANG-Push publisher and the
+      receiver given that the data nodes contained in anydata subtree is
+      potentially incomplete (filtered out by xpath or subtree).  How
       can a YANG-Push receiver validate the content of anydata nodes?
       [I-D.aelhassany-anydata-validation] addresses this by using YANG
       Library [RFC8525] as mechanism to exchange the YANG model of the
@@ -1225,8 +1229,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-Graf & Elhassany        Expires 27 November 2024               [Page 22]
+Graf & Elhassany        Expires 29 November 2024               [Page 22]
