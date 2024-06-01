@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="28" month="May" year="2024"/>
+    <date day="01" month="June" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -109,7 +109,8 @@
       schema from the network and creating a transformation or ingestion
       specification into a time series database, is needed to make a Message
       Broker and its data processing components with YANG notifications
-      interoparable. Since YANG modules can change over time, this process
+      interoparable. Since YANG modules can change over time, for example when
+      a router is being upgraded to a newer software release, this process
       needs to be adjusted contionously, leading often to errors in the data
       chain if dependencies are not properly tracked and schema changes
       adjusted simultaneously.</t>
@@ -423,8 +424,11 @@
         provides an example of a JSON encoded, <xref target="RFC7951"/>,
         subscription-started state change notification message over
         HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/> or UDP-based
-        <xref target="I-D.ietf-netconf-udp-notif"/> transport for the same
-        subscription.</t>
+        <xref target="I-D.ietf-netconf-udp-notif"/> transport with <xref
+        target="I-D.tgraf-netconf-notif-sequencing"/>, <xref
+        target="I-D.tgraf-netconf-yang-push-observation-time"/> and <xref
+        target="I-D.ietf-netconf-yang-notifications-versioning"/> as
+        extensions for the same subscription.</t>
 
         <figure anchor="subscription_started_notif_example_json_fig"
                 title="JSON YANG-Push Example for a subscription-started notification message">
@@ -486,8 +490,10 @@
         example of a JSON encoded, <xref target="RFC7951"/>, push-update
         notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
-        target="I-D.ietf-netconf-udp-notif"/> transport for the same
-        subscription.</t>
+        target="I-D.ietf-netconf-udp-notif"/> transport with <xref
+        target="I-D.tgraf-netconf-notif-sequencing"/> and <xref
+        target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
+        for the same subscription.</t>
 
         <figure anchor="push_update_notif_example_json_fig"
                 title="JSON YANG-Push Example for a push-update notification message">
@@ -526,8 +532,10 @@
         an example of a JSON encoded, <xref target="RFC7951"/>,
         push-change-update notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
-        target="I-D.ietf-netconf-udp-notif"/> transport for the same
-        subscription.</t>
+        target="I-D.ietf-netconf-udp-notif"/> transport with <xref
+        target="I-D.tgraf-netconf-notif-sequencing"/> and <xref
+        target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
+        for the same subscription.</t>
 
         <figure anchor="push_change_update_notif_example_json_fig"
                 title="JSON YANG-Push Example for a push-change-update notification message">
