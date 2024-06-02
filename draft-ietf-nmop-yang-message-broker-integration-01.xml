@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="01" month="June" year="2024"/>
+    <date day="02" month="June" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -509,7 +509,8 @@
       "id": 6666,
       "ietf-yang-push-observation-timestamp:observation-time": \
       "2023-03-25T08:30:11.22Z",
-      "ietf-yang-push-observation-timestamp:point-in-time": 0,
+      "ietf-yang-push-observation-timestamp:point-in-time": \
+      "state-changed",
       "datastore-contents": {
         "ietf-interfaces:interfaces": [
           {
@@ -551,7 +552,8 @@
       "id": 2222,
       "ietf-yang-push-observation-timestamp:observation-time": \
       "2023-03-25T08:30:11.22Z",
-      "ietf-yang-push-observation-timestamp:point-in-time": 0,
+      "ietf-yang-push-observation-timestamp:point-in-time": \
+      "state-changed",
       "datastore-contents": {
         "yang-patch": {
           "patch-id": "patch_54",
