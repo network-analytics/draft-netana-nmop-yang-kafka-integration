@@ -849,10 +849,10 @@ Internet-Draft   YANG-Push to Message Broker Integration       June 2024
 7.  Acknowledgements
 
    The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
-   Boucadair and Holger Keller for their review and valuable comments.
-   Alex Huang Feng, Jean Quilbeuf and Zhuoyao Lin for review and
-   contributing code and providing examples and inputs to the open
-   points.
+   Boucadair, Dhruv Dhody, Qin Wu, Andy Bierman, Feng Chong and Holger
+   Keller for their review and valuable comments.  Alex Huang Feng, Jean
+   Quilbeuf and Zhuoyao Lin for review and contributing code and
+   providing examples and inputs to the open points.
 
 8.  References
 
