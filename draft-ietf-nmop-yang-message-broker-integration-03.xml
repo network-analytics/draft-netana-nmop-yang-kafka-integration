@@ -758,10 +758,10 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>The authors would like to thank Yannick Buchs and Benoit Claise for
-      their review and valuable comments. Alex Huang Feng, Jean Quilbeuf and
-      Zhuoyao Lin for review and contributing code and providing examples and
-      inputs to the open points.</t>
+      <t>The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
+      Boucadair and Holger Keller for their review and valuable comments. Alex
+      Huang Feng, Jean Quilbeuf and Zhuoyao Lin for review and contributing
+      code and providing examples and inputs to the open points.</t>
     </section>
   </middle>
 

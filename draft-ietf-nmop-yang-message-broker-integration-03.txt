@@ -848,10 +848,11 @@ Internet-Draft   YANG-Push to Message Broker Integration       June 2024
 
 7.  Acknowledgements
 
-   The authors would like to thank Yannick Buchs and Benoit Claise for
-   their review and valuable comments.  Alex Huang Feng, Jean Quilbeuf
-   and Zhuoyao Lin for review and contributing code and providing
-   examples and inputs to the open points.
+   The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
+   Boucadair and Holger Keller for their review and valuable comments.
+   Alex Huang Feng, Jean Quilbeuf and Zhuoyao Lin for review and
+   contributing code and providing examples and inputs to the open
+   points.
 
 8.  References
 
@@ -887,9 +888,8 @@ Internet-Draft   YANG-Push to Message Broker Integration       June 2024
               <https://datatracker.ietf.org/doc/html/draft-lincla-
               netconf-yang-library-augmentation-01>.
 
-   [I-D.tgraf-netconf-notif-sequencing]
-              Graf, T., Quilbeuf, J., and A. H. Feng, "Support of
-              Hostname and Sequencing in YANG Notifications", Work in
+
+
 
 
 
@@ -898,6 +898,9 @@ Graf & Elhassany        Expires 23 December 2024               [Page 16]
 Internet-Draft   YANG-Push to Message Broker Integration       June 2024
 
 
+   [I-D.tgraf-netconf-notif-sequencing]
+              Graf, T., Quilbeuf, J., and A. H. Feng, "Support of
+              Hostname and Sequencing in YANG Notifications", Work in
               Progress, Internet-Draft, draft-tgraf-netconf-notif-
               sequencing-04, 28 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-tgraf-
@@ -941,9 +944,6 @@ Internet-Draft   YANG-Push to Message Broker Integration       June 2024
               Describing Capabilities for Systems and Datastore Update
               Notifications", RFC 9196, DOI 10.17487/RFC9196, February
               2022, <https://www.rfc-editor.org/info/rfc9196>.
-
-
-
 
 
 
