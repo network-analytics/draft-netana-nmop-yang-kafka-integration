@@ -697,9 +697,9 @@ Internet-Draft   YANG-Push to Message Broker Integration       June 2024
    [RFC7950] Section 7.10 states that anydata represents an unknown set
    of nodes that can be modeled with YANG, and the model is not known at
    design time and that the model of the unknown set of nodes can be
-   signaled through another rotocol.  This poses and issue in the schema
-   validation of YANG-Push notifications and will be further clarified
-   in point number (1) and (2) in Appendix B.
+   signaled through another protocol.  This poses and issue in the
+   schema validation of YANG-Push notifications and will be further
+   clarified in point number (1) and (2) in Appendix B.
 
 4.4.  YANG Schema Registry
 
