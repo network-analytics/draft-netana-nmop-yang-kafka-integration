@@ -588,7 +588,7 @@ Internet-Draft   YANG-Push to Message Broker Integration       July 2024
          "ietf-yp-observation:timestamp": \
          "2023-03-25T08:30:11.22Z",
          "ietf-yp-observation:point-in-time": \
-         "state-changed",
+         "current-accounting",
          "datastore-contents": {
            "ietf-interfaces:interfaces": [
              {
