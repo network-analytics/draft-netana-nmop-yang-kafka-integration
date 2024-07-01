@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="21" month="June" year="2024"/>
+    <date day="01" month="July" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -485,9 +485,9 @@
         Time Series Database Ingestion in step (12).</t>
 
         <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
-        observation-time and point-in-time in the YANG-Push push-update or
-        push-change-update message. observation-time contains the timestamp
-        and point-in-time when the metrics where observed. See <xref
+        observation timestamp and point-in-time in the YANG-Push push-update
+        or push-change-update message. observation timestamp contains the
+        timestamp and point-in-time when the metrics where observed. See <xref
         section="3" sectionFormat="of"
         target="I-D.tgraf-netconf-yang-push-observation-time"/> for more
         details.</t>
@@ -513,9 +513,9 @@
     "ietf-notification-sequencing:sequenceNumber": 1,
     "ietf-yang-push:push-update": {
       "id": 6666,
-      "ietf-yang-push-observation-timestamp:observation-time": \
+      "ietf-yp-observation:timestamp": \
       "2023-03-25T08:30:11.22Z",
-      "ietf-yang-push-observation-timestamp:point-in-time": \
+      "ietf-yp-observation:point-in-time": \
       "state-changed",
       "datastore-contents": {
         "ietf-interfaces:interfaces": [
@@ -556,9 +556,9 @@
     "ietf-notification-sequencing:sequenceNumber": 1,
     "ietf-yang-push:push-change-update": {
       "id": 2222,
-      "ietf-yang-push-observation-timestamp:observation-time": \
+      "ietf-yp-observation:timestamp": \
       "2023-03-25T08:30:11.22Z",
-      "ietf-yang-push-observation-timestamp:point-in-time": \
+      "ietf-yp-observation:point-in-time": \
       "state-changed",
       "datastore-contents": {
         "yang-patch": {
@@ -689,7 +689,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
                title="YANG Time Series Database">
         <t>The YANG data is being ingested in step (12)according to the
         previously defined ingestion specification and indexed with the
-        timestamp defined in observation-time as defined in <xref
+        timestamp defined in observation timestamp as defined in <xref
         target="I-D.tgraf-netconf-yang-push-observation-time"/>. A network
         operator is now able to query the previously subscribed YANG data.</t>
       </section>
@@ -779,6 +779,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.RFC.8639'?>
 
       <?rfc include='reference.RFC.8641'?>
+
+      <?rfc include='reference.RFC.8792'?>
 
       <?rfc include='reference.RFC.9196'?>
 
@@ -1060,9 +1062,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
         merges both timestamps for periodical and on-change YANG-Push
-        subscriptions into one observation-time timestamp and adding a
-        decleration point-in-time to describe when the observation was
-        obesreved.</li>
+        subscriptions into one observation timestamp and adding a decleration
+        point-in-time to describe when the observation was observed.</li>
       </ul>
     </section>
 
