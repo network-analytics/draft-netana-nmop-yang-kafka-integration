@@ -442,7 +442,7 @@
                 title="JSON YANG-Push Example for a subscription-started notification message">
           <artwork><![CDATA[
 {
-  "ietf-yp-notification:notification-envelope": {
+  "ietf-yp-notification:envelope": {
     "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
@@ -512,7 +512,7 @@
 ========== NOTE: '\' line wrapping per RFC 8792) ===========
 
 {
-  "ietf-yp-notification:notification-envelope": {
+  "ietf-yp-notification:envelope": {
     "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
@@ -557,7 +557,7 @@
 ========== NOTE: '\' line wrapping per RFC 8792) ===========
 
 {
-  "ietf-yp-notification:notification-envelope": {
+  "ietf-yp-notification:envelope": {
     "event-time": "2023-03-25T08:30:11.22Z",
     "hostname": "example-router",
     "sequence-number": 1,
