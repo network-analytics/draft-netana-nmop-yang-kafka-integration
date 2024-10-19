@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="18" month="October" year="2024"/>
+    <date day="19" month="October" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -340,7 +340,7 @@
 		notification transport capabilities are being discovered according to
 		<xref target="I-D.netana-netconf-yp-transport-capabilities"/>, 
 		notification capabilities according to <xref
-		target="I-D.ahuang-netconf-notif-yang"/> and notification subscription
+		target="I-D.netana-netconf-notif-envelope"/> and notification subscription
 		capabilities according to <xref section="3" sectionFormat="of"
 		target="RFC9196"/>, in with step (2) a YANG-Push subscription is
 		according to Section 2.4 and 2.5 of <xref target="RFC8639"/>
@@ -433,7 +433,7 @@
         subscription-started state change notification message over
         HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/> or UDP-based
         <xref target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.tgraf-netconf-notif-sequencing"/>, <xref
+        target="I-D.netana-netconf-notif-envelope"/>, <xref
         target="I-D.tgraf-netconf-yang-push-observation-time"/> and <xref
         target="I-D.ietf-netconf-yang-notifications-versioning"/> as
         extensions for the same subscription.</t>
@@ -475,7 +475,7 @@
         from the YANG-Push publisher to the receiver according to <xref
         section="3.7" sectionFormat="of" target="RFC8639"/>.</t>
 
-        <t><xref target="I-D.ahuang-netconf-notif-yang"/> defines the
+        <t><xref target="I-D.netana-netconf-notif-envelope"/> defines the
 		YANG-Push notification header in YANG with event-time, hostname
 		and sequence-number to enable a YANG data consumer to recognize
 		with the hostname from which network node the message was
@@ -502,7 +502,7 @@
         notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
         target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.ahuang-netconf-notif-yang"/> and <xref
+        target="I-D.netana-netconf-notif-envelope"/> and <xref
         target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
         for the same subscription.</t>
 
@@ -547,7 +547,7 @@
         push-change-update notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
         target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.ahuang-netconf-notif-yang"/> and <xref
+        target="I-D.netana-netconf-notif-envelope"/> and <xref
         target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
         for the same subscription.</t>
 
@@ -800,17 +800,15 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.RFC.9254'?>
 
-      <?rfc include='reference.I-D.netana-netconf-yp-transport-capabilities'?>
+      <?rfc include='reference.I-D.netana-netconf-notif-envelope'?>
 
-      <?rfc include='reference.I-D.tgraf-netconf-notif-sequencing'?>
-
-      <?rfc include='reference.I-D.tgraf-netconf-yang-push-observation-time'?>
-
-      <?rfc include='reference.I-D.lincla-netconf-yang-library-augmentation'?>
-
-      <?rfc include='reference.I-D.ahuang-netconf-notif-yang'?>
+      <?rfc include='reference.I-D.tgraf-netconf-yang-push-observation-time'?>	  
 
       <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
+
+      <?rfc include='reference.I-D.netana-netconf-yp-transport-capabilities'?>
+
+      <?rfc include='reference.I-D.lincla-netconf-yang-library-augmentation'?>
 
       <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
     </references>
@@ -1036,15 +1034,15 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <li>YANG module with augmentations can be registered in Confluent
         Schema Registry with YANG extension <xref target="Yak24"/>.</li>
 
-        <li><xref target="I-D.tgraf-netconf-notif-sequencing"/> extends
+        <li>draft-tgraf-netconf-notif-sequencing extends
         NETCONF notification header with sysName, messagePublisherId and
-        sequenceNumber.</li>
+        sequencedraft-tgraf-netconf-notif-sequencing Number.</li>
 
         <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
         extends YANG-Push push-update or push-change-update message with
         observation-time or state-changed-observation-time.</li>
 
-        <li><xref target="I-D.ahuang-netconf-notif-yang"/> defines the NETCONF
+        <li>draft-ahuang-netconf-notif-yang defines the NETCONF
         notification header specified in <xref target="RFC5277"/> in
         YANG.</li>
       </ul>
@@ -1072,14 +1070,48 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>IETF 120:</t>
 
       <ul>
-        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher and
-        <xref target="I-D.aelhassany-anydata-validation"/> implementation
-        validated at hackathon.</li>
-
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
+		implementations validated at hackathon.</li>
+	  
         <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
         merges both timestamps for periodical and on-change YANG-Push
         subscriptions into one observation timestamp and adding a decleration
         point-in-time to describe when the observation was observed.</li>
+      </ul>
+
+      <t>IETF 121:</t>
+
+      <ul>
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
+		implementation supporting, <xref target="I-D.ietf-netconf-udp-notif"/>,
+		<xref target="I-D.ietf-netconf-distributed-notif"/>, <xref target="I-D.tgraf-netconf-yang-push-observation-time"/> and <xref
+        target="I-D.ietf-netconf-yang-notifications-versioning"/> validated at
+		hackathon.</li>
+		
+		<li><xref target="I-D.aelhassany-anydata-validation"/> with YANG schema
+		registry and message broker YANG data producer and consumer
+		implementation validated at hackathon.</li>
+		
+		<li>Validated at hackathon based on <xref
+		target="I-D.ietf-netconf-yang-notifications-versioning"/> that with
+		<xref target="I-D.lincla-netconf-yang-library-augmentation"/> all
+        datastore-subtree-filter or datastore-xpath-filter referenced YANG
+        modules and their dependencies can be fully indentified.</li>
+      </ul>
+
+      <t>IETF 122:</t>
+
+      <ul>
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
+		implementation supporting, <xref target="I-D.ietf-netconf-udp-notif"/>,
+		<xref target="I-D.ietf-netconf-distributed-notif"/>, <xref
+		target="I-D.netana-netconf-notif-envelope"/>, <xref target="I-D.tgraf-netconf-yang-push-observation-time"/>, <xref
+        target="I-D.ietf-netconf-yang-notifications-versioning"/> and
+        <xref target="I-D.lincla-netconf-yang-library-augmentation"/>
+		validated at hackathon.</li>
+		
+		<li>Validate from Manage YANG-Push Subscription to YANG Data Consumer
+		end to end all components of this architecture.</li>
       </ul>
     </section>
 
@@ -1111,19 +1143,17 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <dt>Open Point 2:</dt>
 
         <dd>The NETCONF Notification structure is defined in <xref
-        target="RFC5277"/> using a XSD Schema. For YANG-push <xref
-        target="RFC8641"/>, this XSD Schema has been proposed using YANG 1.1
-        <xref target="RFC7950"/> modeling language in <xref
-        target="I-D.ahuang-netconf-notif-yang"/>. Examples of notifications
-        encoded in XML are provided in Section 5 of <xref target="RFC5277"/>.
-        In YANG-JSON <xref target="RFC7951"/>, the specification does not
-        provide any examples on how notifications should be encoded. In
-        YANG-CBOR <xref target="RFC9254"/>, notifications are considered
-        "container-like" instances and examples does not show consistency with
-        XML-based and YANG-JSON encoding notifications. Assumptions are being
-        made in <xref target="I-D.ahuang-netconf-notif-yang"/> providing
-        examples of YANG-JSON and YANG-CBOR encoded notifications. The
-        notification structure needs consistency accross YANG encodings.
+        target="RFC5277"/> using a XSD schema. In YANG-JSON <xref
+		target="RFC7951"/>, the specification does not provide any examples
+		on how notifications should be encoded. In YANG-CBOR <xref
+		target="RFC9254"/>, notifications are considered "container-like"
+		instances and examples does not show consistency with XML-based and
+		YANG-JSON encoding notifications. For YANG-Push <xref
+        target="RFC8641"/>, a YANG schema has been proposed with <xref
+        target="I-D.netana-netconf-notif-envelope"/> to resolve described
+		issues. <xref target="I-D.netana-netconf-notif-envelope"/> providing
+        examples of YANG-XML, YANG-JSON and YANG-CBOR encoded notifications.
+		The notification structure needs consistency accross YANG encodings.
         Confirm findings and propose how to be addressed.</dd>
 
         <dt>Open Point 3:</dt>
@@ -1133,6 +1163,12 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         target="I-D.lincla-netconf-yang-library-augmentation"/> all
         datastore-subtree-filter or datastore-xpath-filter referenced YANG
         modules and their dependencies can be fully indentified.</dd>
+
+        <dt>Open Point 4:</dt>
+
+        <dd>Validate <xref target="I-D.netana-netconf-notif-envelope"/>
+		which replaces and consolidates draft-ahuang-netconf-notif-yang
+		and draft-tgraf-netconf-notif-sequencing.</dd>
       </dl>
     </section>
   </back>
