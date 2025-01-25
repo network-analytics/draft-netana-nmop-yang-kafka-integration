@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="29" month="October" year="2024"/>
+    <date day="25" month="January" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -238,6 +238,21 @@
 
             <t>Subject</t>
           </list></t>
+
+        <t>The following terms are used as defined in <xref target="Deh22">
+		Data Mesh</xref>:</t>
+
+        <t><list style="symbols">
+            <t>Data Product: A logical unit that contains all components to
+			publish, process and store domain data for analytical or
+			data-intensive use cases.</t>
+
+            <t>Service Level Objective: Is a target value or range of values
+			for a service level that is measured by an service level indicator.</t>
+
+            <t>Service Level Indicator: Is a measure of a service level provided
+			by a service provider to a customer.</t>
+          </list></t>
       </section>
     </section>
 
@@ -313,11 +328,11 @@
    |       YANG         | <--------------  |  Data Collection   |
    |  Schema Registry   | -------------->  | YANG-Push Receiver |
    +--------------------+ (7) Issue        +--------------------+
-                          Schema ID     (4) Get |  ^ (3) Receive
-                                         Schema |  | YANG-Push
-                                                |  | Subscription
-                                                |  | Start Message
-                                                |  |   ^
+                          Schema   (4) Discover |  ^ (3) Receive
+                          ID             Schema |  | YANG-Push
+                                   Dependencies |  | Subscription
+                                     and Obtain |  | Start Message
+                                        Schemas |  |   ^
                                                 |  |   |
                                                 |  |   | (5) Publish
                                                 |  |   | YANG-Push
@@ -340,14 +355,18 @@
 		notification transport capabilities are being discovered according to
 		<xref target="I-D.netana-netconf-yp-transport-capabilities"/>, 
 		notification capabilities according to <xref
-		target="I-D.netana-netconf-notif-envelope"/> and notification subscription
-		capabilities according to <xref section="3" sectionFormat="of"
-		target="RFC9196"/>, in with step (2) a YANG-Push subscription is
-		according to Section 2.4 and 2.5 of <xref target="RFC8639"/>
-		dynamically or statically configured, and with step (3) subscription
-		state change notifications are sent according to section 2.7 from the
-		YANG-Push publisher to the receiver to inform which event stream filter
-		has been applied to which subscription ID.</t>
+		target="I-D.netana-netconf-notif-envelope"/> and notification
+		subscription capabilities according to <xref section="3"
+		sectionFormat="of" target="RFC9196"/>.</t>
+		
+		<t>With step (2) a YANG-Push subscription according to Section 2.4 and
+		2.5 of <xref target="RFC8639"/> is dynamically or statically
+		configured.</t>
+		
+		<t>With step (3) subscription state change notifications are sent
+		according to section 2.7 from the YANG-Push publisher to the receiver
+		to inform which event stream filter has been applied to which
+		subscription ID.</t>
 
         <t>When the YANG-Push subscription is managed dynamically, the YANG
         data is being received on the same NETCONF session where the
@@ -358,9 +377,10 @@
         <t><xref target="I-D.ietf-netconf-yang-notifications-versioning"/>
         adds the capability to subscribe to a specific YANG module revision or
         a YANG module which needs to be backward compatible to in step (2) and
-        adds the module name, revision and revision-label information into the
+        adds the module name, revision, revision-label and 
+		yang-library-content-id information into the
         subscription state change notifications in step (3).</t>
-
+		
         <t><xref
         target="netconf_edit_config_establish_subscription_example_xml_fig"/>
         provides and example how to create a YANG-Push configured subscription
@@ -612,6 +632,16 @@
         extends the YANG Library so that not only the submodule but also the
         augmentation list can be obtained.</t>
 
+		<t>A change in xpath or sub-tree filter or module name in the
+		subscription state change notifications indicates that the subscribed
+		path has changed. A change in revision indicates that the version of
+		the yang module of the subscribed path has changed, where
+		revision-label indicates wherever the revision was backward compatible
+		or not. Yang Libary content-id changes indicates that there were
+		potential semantic changes in the augmented or imported yang modules
+		of the subscribed xpath or sub-tree. If no change to previous
+		subscription state is observed, step 4 can be omitted.</t>
+
         <t>Figure 9 in Section 4.1 and YANG module in Section 5 of <xref
         target="RFC8641"/> defines the payload of YANG-push notifications
         where "datastore-contents" or the "value" of a "push-change-update")
@@ -697,6 +727,17 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         Schema ID and YANG-Push push-update messages can be now ingested and
         indexed into the data storage table according to their schema in step
         (12).</t>
+
+        <t>By tracking the YANG-Push notification sequence-number for a given
+		hostname as defined in <xref section="3.4" sectionFormat="of" target="I-D.netana-netconf-notif-envelope"/> loss can be recognized accross
+		the YANG data processing chain. By taking the event-time in the
+		YANG-Push notification header and the time the YANG-Push notification
+		messages was consumed into account, the serialization delay between
+		YANG-Push publisher and YANG Data Consumer can be measured.</t>
+		
+		<t>The loss rate and delay for a given hostname can be used as a
+		Service Level Indicator for the YANG data product in the <xref
+		target="Deh22">Data Mesh</xref>.</t>
       </section>
 
       <section anchor="YANG_Data_Storage" title="YANG Data Storage">
@@ -774,7 +815,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
       Boucadair, Dhruv Dhody, Qin Wu, Andy Bierman, Feng Chong, Holger Keller,
       Kristian Larsson and Ignacio Dominguez Martinez-Casanueva for their
-      review and valuable comments. Alex Huang Feng, Jean Quilbeuf and huoyao
+      review and valuable comments. Alex Huang Feng, Jean Quilbeuf and Huoyao
       Lin for review and contributing code and providing examples and inputs
       to the open points.</t>
     </section>
