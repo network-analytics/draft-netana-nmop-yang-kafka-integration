@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="25" month="January" year="2025"/>
+    <date day="01" month="February" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -453,8 +453,7 @@
         subscription-started state change notification message over
         HTTPS-based <xref target="I-D.ietf-netconf-https-notif"/> or UDP-based
         <xref target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.netana-netconf-notif-envelope"/>, <xref
-        target="I-D.tgraf-netconf-yang-push-observation-time"/> and <xref
+        target="I-D.netana-netconf-notif-envelope"/> and <xref
         target="I-D.ietf-netconf-yang-notifications-versioning"/> as
         extensions for the same subscription.</t>
 
@@ -509,22 +508,20 @@
 		a YANG data consumer to recognize from which YANG-Push publisher
 		process the message was published from.</t>
 
-        <t><xref target="I-D.tgraf-netconf-yang-push-observation-time"/> adds
-        observation timestamp and point-in-time in the YANG-Push push-update
-        or push-change-update message. observation timestamp contains the
-        timestamp and point-in-time when the metrics where observed. See <xref
-        section="3" sectionFormat="of"
-        target="I-D.tgraf-netconf-yang-push-observation-time"/> for more
-        details.</t>
+        <t><xref section="3.5.1" sectionFormat="of"
+		target="I-D.netana-netconf-notif-envelope"/> adds observation
+		timestamp and point-in-time in the YANG-Push push-update or
+		push-change-update message. observation timestamp contains the
+		timestamp and point-in-time when the metrics where observed.</t>
 
         <t><xref target="push_update_notif_example_json_fig"/> provides an
         example of a JSON encoded, <xref target="RFC7951"/>, push-update
         notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
-        target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.netana-netconf-notif-envelope"/> and <xref
-        target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
-        for the same subscription.</t>
+        target="I-D.ietf-netconf-udp-notif"/> transport and <xref
+        target="I-D.netana-netconf-notif-envelope"/> with 
+		hostname, sequence-number, observation timestamp and point-in-time
+		as extensions.</t>
 
         <figure anchor="push_update_notif_example_json_fig"
                 title="JSON YANG-Push Example for a push-update notification message">
@@ -566,10 +563,10 @@
         an example of a JSON encoded, <xref target="RFC7951"/>,
         push-change-update notification message over HTTPS-based <xref
         target="I-D.ietf-netconf-https-notif"/> or UDP-based <xref
-        target="I-D.ietf-netconf-udp-notif"/> transport with <xref
-        target="I-D.netana-netconf-notif-envelope"/> and <xref
-        target="I-D.tgraf-netconf-yang-push-observation-time"/> as extensions
-        for the same subscription.</t>
+        target="I-D.ietf-netconf-udp-notif"/> transport and <xref
+		target="I-D.netana-netconf-notif-envelope"/> with hostname,
+		sequence-number, observation timestamp and point-in-time as
+		extensions.</t>
 
         <figure anchor="push_change_update_notif_example_json_fig"
                 title="JSON YANG-Push Example for a push-change-update notification message">
@@ -744,8 +741,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <t>The YANG data is being ingested in step (12)according to the
         previously defined ingestion specification and indexed with the
         timestamp defined in observation timestamp as defined in <xref
-        target="I-D.tgraf-netconf-yang-push-observation-time"/>. A network
-        operator is now able to query the previously subscribed YANG data.</t>
+		section="3.5.1" sectionFormat="of"
+		target="I-D.netana-netconf-notif-envelope"/>. A network operator
+		is now able to query the previously subscribed YANG data.</t>
       </section>
     </section>
 
@@ -841,17 +839,13 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.RFC.9254'?>
 
-      <?rfc include='reference.I-D.netana-netconf-notif-envelope'?>
-
-      <?rfc include='reference.I-D.tgraf-netconf-yang-push-observation-time'?>	  
+      <?rfc include='reference.I-D.netana-netconf-notif-envelope'?> 
 
       <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
 
       <?rfc include='reference.I-D.netana-netconf-yp-transport-capabilities'?>
 
       <?rfc include='reference.I-D.ietf-netconf-yang-library-augmentedby'?>
-
-      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
     </references>
 
     <references title="Informative References">
@@ -880,6 +874,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <?rfc include='reference.I-D.ietf-netconf-udp-notif'?>
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
+
+      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
 
       <reference anchor="W3C.REC-xml-20081126"
                  derivedAnchor="W3C.REC-xml-20081126" quoteTitle="true"
@@ -1079,7 +1075,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         NETCONF notification header with sysName, messagePublisherId and
         sequencedraft-tgraf-netconf-notif-sequencing Number.</li>
 
-        <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
+        <li>draft-tgraf-netconf-yang-push-observation-time
         extends YANG-Push push-update or push-change-update message with
         observation-time or state-changed-observation-time.</li>
 
@@ -1114,7 +1110,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
 		implementations validated at hackathon.</li>
 	  
-        <li><xref target="I-D.tgraf-netconf-yang-push-observation-time"/>
+        <li>draft-tgraf-netconf-yang-push-observation-time
         merges both timestamps for periodical and on-change YANG-Push
         subscriptions into one observation timestamp and adding a decleration
         point-in-time to describe when the observation was observed.</li>
@@ -1125,7 +1121,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <ul>
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
 		implementation supporting, <xref target="I-D.ietf-netconf-udp-notif"/>,
-		<xref target="I-D.ietf-netconf-distributed-notif"/>, <xref target="I-D.tgraf-netconf-yang-push-observation-time"/> and <xref
+		<xref target="I-D.ietf-netconf-distributed-notif"/>,
+		draft-tgraf-netconf-yang-push-observation-time and <xref
         target="I-D.ietf-netconf-yang-notifications-versioning"/> validated at
 		hackathon.</li>
 		
@@ -1146,7 +1143,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
 		implementation supporting, <xref target="I-D.ietf-netconf-udp-notif"/>,
 		<xref target="I-D.ietf-netconf-distributed-notif"/>, <xref
-		target="I-D.netana-netconf-notif-envelope"/>, <xref target="I-D.tgraf-netconf-yang-push-observation-time"/>, <xref
+		target="I-D.netana-netconf-notif-envelope"/>, <xref
         target="I-D.ietf-netconf-yang-notifications-versioning"/> and
         <xref target="I-D.ietf-netconf-yang-library-augmentedby"/>
 		validated at hackathon.</li>
@@ -1208,8 +1205,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <dt>Open Point 4:</dt>
 
         <dd>Validate <xref target="I-D.netana-netconf-notif-envelope"/>
-		which replaces and consolidates draft-ahuang-netconf-notif-yang
-		and draft-tgraf-netconf-notif-sequencing.</dd>
+		which replaces and consolidates draft-ahuang-netconf-notif-yang,
+		draft-tgraf-netconf-notif-sequencing and
+		draft-tgraf-netconf-yang-push-observation-time.</dd>
       </dl>
     </section>
   </back>
