@@ -82,8 +82,8 @@ Table of Contents
      2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Motivation  . . . . . . . . . . . . . . . . . . . . . . . . .   6
      3.1.  Automatic Onboarding  . . . . . . . . . . . . . . . . . .   6
-     3.2.  Preserve Schema . . . . . . . . . . . . . . . . . . . . .   6
-     3.3.  Preserve Semantic Information . . . . . . . . . . . . . .   6
+     3.2.  Preserve Schema . . . . . . . . . . . . . . . . . . . . .   7
+     3.3.  Preserve Semantic Information . . . . . . . . . . . . . .   7
      3.4.  Standardize Data Processing Integration . . . . . . . . .   7
    4.  Elements of the Architecture  . . . . . . . . . . . . . . . .   7
      4.1.  YANG-Push Subscription  . . . . . . . . . . . . . . . . .   9
@@ -91,21 +91,21 @@ Table of Contents
      4.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  15
      4.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  15
      4.5.  YANG Message Broker Producer  . . . . . . . . . . . . . .  16
-     4.6.  YANG Message_Broker Consumer  . . . . . . . . . . . . . .  16
-     4.7.  YANG Data Consumer  . . . . . . . . . . . . . . . . . . .  17
-     4.8.  YANG Data Storage . . . . . . . . . . . . . . . . . . . .  17
-   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  17
-     5.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  18
-     5.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  18
-     5.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  18
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
-   Appendix A.  Project Milestones . . . . . . . . . . . . . . . . .  23
-   Appendix B.  Open Points  . . . . . . . . . . . . . . . . . . . .  25
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
+     4.6.  YANG Message Broker Consumer  . . . . . . . . . . . . . .  16
+     4.7.  YANG Data Consumer  . . . . . . . . . . . . . . . . . . .  18
+     4.8.  YANG Data Storage . . . . . . . . . . . . . . . . . . . .  18
+   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  18
+     5.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  19
+     5.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  19
+     5.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  19
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  20
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  21
+   Appendix A.  Project Milestones . . . . . . . . . . . . . . . . .  24
+   Appendix B.  Open Points  . . . . . . . . . . . . . . . . . . . .  26
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
 
 
 
@@ -240,8 +240,9 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    to centrally search semantics for information across a Message
    Broker.
 
-   Additionally it makes use of the terms defined in [RFC8639], Apache
-   Kafka [Kaf11] and Confluent Schema Registry Documentation [ConDoc18].
+   Additionally it makes use of the terms defined in [RFC8639],
+   [RFC7950], Apache Kafka [Kaf11], Confluent Schema Registry
+   Documentation [ConDoc18] and Data Mesh [Deh22].
 
    The following terms are used as defined in [RFC8639]:
 
@@ -256,6 +257,32 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    *  Event stream filter
 
    *  Notification message
+
+   The following terms are used as defined in [RFC7950] for schema node
+   and schema tree but refines data node and data tree to be more
+   precise.
+
+   *  data node: A node in the schema tree that can be instantiated in a
+      data tree.  One of container, leaf, leaf-list, list, anydata, and
+      anyxml.  This document does not change how YANG handles anyxml
+      data nodes.
+
+   *  instantiated data node: an instantiated instance of a data node
+      that contains before fully qualified name (module namespace +
+      identifier) for the data node and the data modeled within YANG.
+
+   *  instantiated data tree: is what [RFC7950] defines as "data tree".
+      Adding the term "instantiated" precisely indicates that this tree
+      is an instance of specific data modeled with YANG.
+
+
+
+Graf & Elhassany          Expires 5 August 2025                 [Page 5]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
+   *  data tree: a tree of data nodes (with no values).
 
    The following terms are used as defined in Apache Kafka Message
    Broker [Kaf11]:
@@ -274,13 +301,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    *  Schema
 
    *  Schema ID
-
-
-
-Graf & Elhassany          Expires 5 August 2025                 [Page 5]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
    *  Schema Registry
 
@@ -307,6 +327,17 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    Automate the Data Mesh onboarding of newly subscribed YANG metrics.
 
+
+
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                 [Page 6]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
 3.2.  Preserve Schema
 
    The preservation of the YANG schema, that includes the YANG data
@@ -326,18 +357,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    Apache Atlas [Atl15].  It can also be applied for time series data
    visualization in a similar fashion.
 
-
-
-
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                 [Page 6]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
-
 3.4.  Standardize Data Processing Integration
 
    Since the YANG Schema is preserved for operational metrics in the
@@ -349,25 +368,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    The architecture consists of 6 elements.  Figure 1 gives an overview
    on the workflow.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -876,7 +876,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    message and serialized to a Message Broker topic in step (8) of the
    workflow diagram.
 
-4.6.  YANG Message_Broker Consumer
+4.6.  YANG Message Broker Consumer
 
    From the Message Broker topic the message is being consumed and the
    prefixed Schema ID is being used in step (10) of the workflow diagram
@@ -885,8 +885,8 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    In order to valida Schema integrity, the event stream filter of the
    subscription ID in the subscription started or modified message is
-   needed to apply [I-D.aelhassany-anydata-validation] on the YANG
-   schema tree.
+   needed to apply "anydata-subtree-validation" on the YANG schema tree
+   as described in the next sub section Section 4.6.1.
 
 
 
@@ -897,6 +897,71 @@ Graf & Elhassany          Expires 5 August 2025                [Page 16]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
+
+4.6.1.  Validating anydata Data Tree
+
+   Section 7.10 of [RFC7950] defines the "anydata" statement to
+   represent an unknown set of YANG nodes for which the data model is
+   not known at module design time.  However, [RFC7950] left the
+   verification of the "anydata" tree open to be done using external
+   means.  Several IETF models, e.g., [RFC8526], [RFC9144], [RFC8639],
+   [RFC8641], and [RFC8040], use "anydata" in their definitions.
+   Current YANG implementations accept syntactically valid YANG data
+   nodes as children of an "anydata" node but do not check the data type
+   of these data nodes against a YANG schema.  This creates a real
+   problem for any consumer of these models, such as a YANG Message
+   Broker Consumer when validating all leaves of the YANG data tree.
+
+   [RFC8528]allows mounting complete data models at implementation and
+   run time.  While powerful, schema mount cannot address use cases
+   where the user selects an arbitrary subset of an instantiated data
+   tree, such as [RFC8641].  A current proposed approach, YANG Full
+   Include [I-D.jouqui-netmod-yang-full-include], complements YANG
+   Schema Mount and applies at design time, yet cannot address dynamic
+   filtering of an instantiated YANG data tree.
+
+   The current YANG encodings, XML, JSON, and CBOR, encode instantiated
+   data nodes with fully qualified name using the module's namespace and
+   a local name.  The module's namespace can be either explicit or
+   assumed from a default namespace defined in the top data tree.
+
+   This document proposes a new YANG validation option called "anydata-
+   subtree-validation" using the [RFC8525] to define the context in
+   which anydata trees are validated.  This requires the YANG tooling to
+   implement an optional flag that enables a flag for validating
+   "anydata" subtrees in the context of a YANG Library.
+
+   In this "anydata-subtree-validation" mode, a YANG data parser MUST
+   accept a YANG Library as input along the YANG data file.  When this
+   option is enabled, any instantiated data node (NodeB) that is a child
+   of anydata node (NodeA) is accepted to be valid only if (i) the
+   qualified name of the node NodeB is found in one of the data trees
+   defined by the YANG library AND (ii) the instantiated data tree
+   rooted by NodeB is valid incomplete instantiated data tree according
+   to the data node of NodeB.
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 17]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
+   The first condition ensures the completeness of the YANG Library, and
+   no subtree can be included as a child of anydata node unless a schema
+   is defined for all the children of anydata subtree and specified in
+   the YANG Library.  The second condition applies a regular YANG
+   validation against the subtree of anydata, considering that the
+   subtree of anydata could be generated using an XPath [RFC8641] or a
+   subtree filter [RFC6241].  Thus, the validator MUST consider this
+   subtree incomplete and ignore any missing leaves.
 
 4.7.  YANG Data Consumer
 
@@ -937,22 +1002,17 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    here does not imply endorsement by the IETF.  Furthermore, no effort
    has been spent to verify the information presented here that was
    supplied by IETF contributors.  This is not intended as, and must not
-   be construed to be, a catalog of available implementations or their
-   features.  Readers are advised to note that other implementations may
-   exist.
 
 
 
-
-
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 17]
+Graf & Elhassany          Expires 5 August 2025                [Page 18]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
+
+   be construed to be, a catalog of available implementations or their
+   features.  Readers are advised to note that other implementations may
+   exist.
 
    According to [RFC7942], "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
@@ -993,6 +1053,19 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    TBD
 
+
+
+
+
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 19]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
 7.  Acknowledgements
 
    The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
@@ -1001,14 +1074,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    their review and valuable comments.  Alex Huang Feng, Jean Quilbeuf
    and Huoyao Lin for review and contributing code and providing
    examples and inputs to the open points.
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 18]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
 8.  References
 
@@ -1046,6 +1111,17 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
               <https://datatracker.ietf.org/doc/html/draft-netana-
               netconf-yp-transport-capabilities-01>.
 
+
+
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 20]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -1058,13 +1134,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 19]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1100,6 +1169,15 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    [Atl15]    Hortonworks, "Apache Atlas", Apache Software Foundation,
               May 2015, <https://atlas.apache.org/>.
 
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 21]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
    [Con18]    Yokota, R., "Confluent Schema Registry", Confluent
               Community and Apache Software Foundation, December 2018,
               <https://github.com/confluentinc/schema-registry/>.
@@ -1114,20 +1192,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
               mesh/9781492092384/>.
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 20]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
-
-   [I-D.aelhassany-anydata-validation]
-              Elhassany, A., "Validating anydata in YANG Library
-              context", Work in Progress, Internet-Draft, draft-
-              aelhassany-anydata-validation-01, 17 March 2024,
-              <https://datatracker.ietf.org/doc/html/draft-aelhassany-
-              anydata-validation-01>.
 
    [I-D.ietf-netconf-distributed-notif]
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
@@ -1152,8 +1216,23 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               udp-notif-18>.
 
+   [I-D.jouqui-netmod-yang-full-include]
+              Quilbeuf, J., Claise, B., and T. Joubert, "YANG Full
+              Embed", Work in Progress, Internet-Draft, draft-jouqui-
+              netmod-yang-full-include-02, 5 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-jouqui-
+              netmod-yang-full-include-02>.
+
    [Kaf11]    Narkhede, N., "Apache Kafka", Apache Software Foundation,
               January 2011, <https://kafka.apache.org/>.
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 22]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
 
    [LYP23]    Lin, Z., "libyangpush", Apache Software Foundation,
               September 2023,
@@ -1169,14 +1248,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    [RFC5277]  Chisholm, S. and H. Trevino, "NETCONF Event
               Notifications", RFC 5277, DOI 10.17487/RFC5277, July 2008,
               <https://www.rfc-editor.org/info/rfc5277>.
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 21]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
@@ -1205,11 +1276,34 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
               DOI 10.17487/RFC8525, March 2019,
               <https://www.rfc-editor.org/info/rfc8525>.
 
+   [RFC8526]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
+              and R. Wilton, "NETCONF Extensions to Support the Network
+              Management Datastore Architecture", RFC 8526,
+              DOI 10.17487/RFC8526, March 2019,
+              <https://www.rfc-editor.org/info/rfc8526>.
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 23]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
+   [RFC8528]  Bjorklund, M. and L. Lhotka, "YANG Schema Mount",
+              RFC 8528, DOI 10.17487/RFC8528, March 2019,
+              <https://www.rfc-editor.org/info/rfc8528>.
+
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
               and Datastores over NETCONF", RFC 8640,
               DOI 10.17487/RFC8640, September 2019,
               <https://www.rfc-editor.org/info/rfc8640>.
+
+   [RFC9144]  Clemm, A., Qu, Y., Tantsura, J., and A. Bierman,
+              "Comparison of Network Management Datastore Architecture
+              (NMDA) Datastores", RFC 9144, DOI 10.17487/RFC9144,
+              December 2021, <https://www.rfc-editor.org/info/rfc9144>.
 
    [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
               A. Wang, "Network Telemetry Framework", RFC 9232,
@@ -1225,14 +1319,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    [Yak24]    Feng, F., "Yangkit", Apache Software Foundation, February
               2024, <https://github.com/yang-central/yangkit/>.
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 22]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
    [YLA24]    Lin, Z., "libyangpush", Apache Software Foundation, March
               2024, <https://github.com/Zephyre777/draft-lincla-netconf-
@@ -1251,6 +1337,14 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 Appendix A.  Project Milestones
 
    IETF 115:
+
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 24]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
 
    *  Official Project Kickoff.
 
@@ -1282,17 +1376,9 @@ Appendix A.  Project Milestones
 
    IETF 119:
 
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 23]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
-
-   *  [I-D.aelhassany-anydata-validation] addresses that anydata modeled
-      nodes can be validated with YANG Library RFC 8525.  6WIND VSR and
-      Huawei VRP YANG-Push publisher and open-source
+   *  Section 4.6.1 addresses that anydata modeled nodes can be
+      validated with YANG Library RFC 8525.  6WIND VSR and Huawei VRP
+      YANG-Push publisher and open-source
       [I-D.ietf-netconf-yang-library-augmentedby] implementation
       validated at hackathon.
 
@@ -1308,6 +1394,14 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
    IETF 121:
 
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 25]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
    *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
       implementation supporting, [I-D.ietf-netconf-udp-notif],
       [I-D.ietf-netconf-distributed-notif], draft-tgraf-netconf-yang-
@@ -1315,9 +1409,8 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
       [I-D.ietf-netconf-yang-notifications-versioning] validated at
       hackathon.
 
-   *  [I-D.aelhassany-anydata-validation] with YANG schema registry and
-      message broker YANG data producer and consumer implementation
-      validated at hackathon.
+   *  Section 4.6.1 with YANG schema registry and message broker YANG
+      data producer and consumer implementation validated at hackathon.
 
    *  Validated at hackathon based on
       [I-D.ietf-netconf-yang-notifications-versioning] that with
@@ -1338,14 +1431,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    *  Validate from Manage YANG-Push Subscription to YANG Data Consumer
       end to end all components of this architecture.
 
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 24]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
-
 Appendix B.  Open Points
 
    Lists all current open points to be either further researched and
@@ -1365,9 +1450,17 @@ Appendix B.  Open Points
       receiver given that the data nodes contained in anydata subtree is
       potentially incomplete (filtered out by xpath or subtree).  How
       can a YANG-Push receiver validate the content of anydata nodes?
-      [I-D.aelhassany-anydata-validation] addresses this by using YANG
-      Library [RFC8525] as mechanism to exchange the YANG model of the
-      nodes contained in anydata.
+
+
+
+Graf & Elhassany          Expires 5 August 2025                [Page 26]
+
+Internet-Draft   YANG-Push to Message Broker Integration   February 2025
+
+
+      Section 4.6.1 addresses this by using YANG Library [RFC8525] as
+      mechanism to exchange the YANG model of the nodes contained in
+      anydata.
 
    Open Point 2:
       The NETCONF Notification structure is defined in [RFC5277] using a
@@ -1389,18 +1482,6 @@ Appendix B.  Open Points
       [I-D.ietf-netconf-yang-library-augmentedby] all datastore-subtree-
       filter or datastore-xpath-filter referenced YANG modules and their
       dependencies can be fully indentified.
-
-
-
-
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 25]
-
-Internet-Draft   YANG-Push to Message Broker Integration   February 2025
-
 
    Open Point 4:
       Validate [I-D.netana-netconf-notif-envelope] which replaces and
@@ -1428,29 +1509,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf & Elhassany          Expires 5 August 2025                [Page 26]
+Graf & Elhassany          Expires 5 August 2025                [Page 27]
