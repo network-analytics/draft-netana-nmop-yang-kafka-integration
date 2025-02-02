@@ -5,7 +5,7 @@
 NMOP                                                             T. Graf
 Internet-Draft                                              A. Elhassany
 Intended status: Informational                                  Swisscom
-Expires: 5 August 2025                                   1 February 2025
+Expires: 6 August 2025                                   2 February 2025
 
 
       An Architecture for YANG-Push to Message Broker Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 August 2025.
+   This Internet-Draft will expire on 6 August 2025.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 1]
+Graf & Elhassany          Expires 6 August 2025                 [Page 1]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 2]
+Graf & Elhassany          Expires 6 August 2025                 [Page 2]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -165,7 +165,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 3]
+Graf & Elhassany          Expires 6 August 2025                 [Page 3]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -221,7 +221,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 4]
+Graf & Elhassany          Expires 6 August 2025                 [Page 4]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -277,7 +277,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 5]
+Graf & Elhassany          Expires 6 August 2025                 [Page 5]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -333,7 +333,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 6]
+Graf & Elhassany          Expires 6 August 2025                 [Page 6]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -389,7 +389,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 7]
+Graf & Elhassany          Expires 6 August 2025                 [Page 7]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -445,7 +445,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 8]
+Graf & Elhassany          Expires 6 August 2025                 [Page 8]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -501,7 +501,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                 [Page 9]
+Graf & Elhassany          Expires 6 August 2025                 [Page 9]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -557,7 +557,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 10]
+Graf & Elhassany          Expires 6 August 2025                [Page 10]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -613,7 +613,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 11]
+Graf & Elhassany          Expires 6 August 2025                [Page 11]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -669,7 +669,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 12]
+Graf & Elhassany          Expires 6 August 2025                [Page 12]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -725,7 +725,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 13]
+Graf & Elhassany          Expires 6 August 2025                [Page 13]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -781,7 +781,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 14]
+Graf & Elhassany          Expires 6 August 2025                [Page 14]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -803,9 +803,9 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
    A change in xpath or sub-tree filter or module name in the
    subscription state change notifications indicates that the subscribed
    path has changed.  A change in revision indicates that the version of
-   the yang module of the subscribed path has changed, where revision-
+   the YANG module of the subscribed path has changed, where revision-
    label indicates wherever the revision was backward compatible or not.
-   Yang Libary content-id changes indicates that there were potential
+   YANG Libary content-id changes indicates that there were potential
    semantic changes in the augmented or imported yang modules of the
    subscribed xpath or sub-tree.  If no change to previous subscription
    state is observed, step 4 can be omitted.
@@ -837,7 +837,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 15]
+Graf & Elhassany          Expires 6 August 2025                [Page 15]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -893,7 +893,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 16]
+Graf & Elhassany          Expires 6 August 2025                [Page 16]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -949,7 +949,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 17]
+Graf & Elhassany          Expires 6 August 2025                [Page 17]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 18]
+Graf & Elhassany          Expires 6 August 2025                [Page 18]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 19]
+Graf & Elhassany          Expires 6 August 2025                [Page 19]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1117,7 +1117,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 20]
+Graf & Elhassany          Expires 6 August 2025                [Page 20]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 21]
+Graf & Elhassany          Expires 6 August 2025                [Page 21]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 22]
+Graf & Elhassany          Expires 6 August 2025                [Page 22]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 23]
+Graf & Elhassany          Expires 6 August 2025                [Page 23]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1341,7 +1341,7 @@ Appendix A.  Project Milestones
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 24]
+Graf & Elhassany          Expires 6 August 2025                [Page 24]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 25]
+Graf & Elhassany          Expires 6 August 2025                [Page 25]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1453,7 +1453,7 @@ Appendix B.  Open Points
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 26]
+Graf & Elhassany          Expires 6 August 2025                [Page 26]
 
 Internet-Draft   YANG-Push to Message Broker Integration   February 2025
 
@@ -1509,4 +1509,4 @@ Authors' Addresses
 
 
 
-Graf & Elhassany          Expires 5 August 2025                [Page 27]
+Graf & Elhassany          Expires 6 August 2025                [Page 27]

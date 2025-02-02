@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="01" month="February" year="2025"/>
+    <date day="02" month="February" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -656,9 +656,9 @@
 		<t>A change in xpath or sub-tree filter or module name in the
 		subscription state change notifications indicates that the subscribed
 		path has changed. A change in revision indicates that the version of
-		the yang module of the subscribed path has changed, where
+		the YANG module of the subscribed path has changed, where
 		revision-label indicates wherever the revision was backward compatible
-		or not. Yang Libary content-id changes indicates that there were
+		or not. YANG Libary content-id changes indicates that there were
 		potential semantic changes in the augmented or imported yang modules
 		of the subscribed xpath or sub-tree. If no change to previous
 		subscription state is observed, step 4 can be omitted.</t>
