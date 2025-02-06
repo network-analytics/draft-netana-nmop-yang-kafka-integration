@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="02" month="February" year="2025"/>
+    <date day="06" month="February" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -214,28 +214,6 @@
 
             <t>Notification message</t>
           </list></t>
-
-        <t>The following terms are used as defined in <xref target="RFC7950"/>
-		for schema node and schema tree but refines data node and data tree
-		to be more precise.</t>
-
-        <ul>
-          <li>data node: A node in the schema tree that can be instantiated in a
-          data tree. One of container, leaf, leaf-list, list, anydata, and
-          anyxml. This document does not change how YANG handles anyxml data
-          nodes.</li>
-
-          <li>instantiated data node: an instantiated instance of a data node
-          that contains before fully qualified name (module namespace +
-          identifier) for the data node and the data modeled within YANG.</li>
-
-          <li>instantiated data tree: is what <xref target="RFC7950"/>
-          defines as "data tree". Adding the term "instantiated" precisely
-          indicates that this tree is an instance of specific data modeled with
-          YANG.</li>
-
-          <li>data tree: a tree of data nodes (with no values).</li>
-        </ul>
 
         <t>The following terms are used as defined in <xref
         target="Kaf11">Apache Kafka Message Broker</xref>:</t>
@@ -738,65 +716,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <t>In order to valida Schema integrity, the event stream filter of the
         subscription ID in the subscription started or modified message is
-        needed to apply "anydata-subtree-validation" on the YANG schema tree
-		as described in the next sub section <xref
-		target="Validating_anydata_Data_Tree"/>.</t>
-		
-        <section anchor="Validating_anydata_Data_Tree"
-               title="Validating anydata Data Tree">
-
-          <t><xref section="7.10" sectionFormat="of" target="RFC7950"/> defines
-	      the "anydata" statement to represent an unknown set of YANG nodes for
-	      which the data model is not known at module design time. However,
-	      <xref target="RFC7950"/> left the verification of the "anydata" tree
-	      open to be done using external means. Several IETF models, e.g.,
-	      <xref target="RFC8526"/>, <xref target="RFC9144"/>, <xref
-	      target="RFC8639"/>, <xref target="RFC8641"/>, and <xref
-	      target="RFC8040"/>, use "anydata" in their definitions. Current
-	      YANG implementations accept syntactically valid YANG data nodes as
-	      children of an "anydata" node but do not check the data type of these
-	      data nodes against a YANG schema. This creates a real problem for any
-	      consumer of these models, such as a YANG Message Broker Consumer when
-	      validating all leaves of the YANG data tree.</t>
-
-          <t><xref target="RFC8528"/>allows mounting complete data models at
-	      implementation and run time. While powerful, schema mount cannot
-	      address use cases where the user selects an arbitrary subset of an
-	      instantiated data tree, such as <xref target="RFC8641"/>. A current
-	      proposed approach, YANG Full Include <xref
-	      target="I-D.jouqui-netmod-yang-full-include"/>, complements YANG
-	      Schema Mount and applies at design time, yet cannot address dynamic
-	      filtering of an instantiated YANG data tree.</t>
-
-          <t>The current YANG encodings, XML, JSON, and CBOR, encode instantiated
-          data nodes with fully qualified name using the module's namespace and a
-          local name. The module's namespace can be either explicit or assumed
-          from a default namespace defined in the top data tree.</t>
-
-          <t>This document proposes a new YANG validation option called 
-	      "anydata-subtree-validation" using the <xref target="RFC8525"/> to
-	      define the context in which anydata trees are validated. This requires
-	      the YANG tooling to implement an optional flag that enables a flag for
-	      validating "anydata" subtrees in the context of a YANG Library.</t>
-
-          <t>In this "anydata-subtree-validation" mode, a YANG data parser MUST
-	      accept a YANG Library as input along the YANG data file. When this
-	      option is enabled, any instantiated data node (NodeB) that is a child
-	      of anydata node (NodeA) is accepted to be valid only if (i) the
-	      qualified name of the node NodeB is found in one of the data trees
-	      defined by the YANG library AND (ii) the instantiated data tree rooted
-	      by NodeB is valid incomplete instantiated data tree according to the
-	      data node of NodeB.</t>
-
-          <t>The first condition ensures the completeness of the YANG Library, and
-          no subtree can be included as a child of anydata node unless a schema is
-          defined for all the children of anydata subtree and specified in the
-          YANG Library. The second condition applies a regular YANG validation
-          against the subtree of anydata, considering that the subtree of anydata
-          could be generated using an XPath <xref target="RFC8641"/> or a subtree
-          filter <xref target="RFC6241"/>. Thus, the validator MUST consider this
-          subtree incomplete and ignore any missing leaves.</t>
-        </section>		
+        needed to apply <xref target="I-D.aelhassany-anydata-validation"/> on
+        the YANG schema tree.</t>
       </section>
 
       <section anchor="YANG_Data_Consumer" title="YANG Data Consumer">
@@ -963,7 +884,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.I-D.ietf-netconf-distributed-notif'?>
 
-      <?rfc include='reference.I-D.jouqui-netmod-yang-full-include'?>
+      <?rfc include='reference.I-D.aelhassany-anydata-validation'?>
 
       <reference anchor="W3C.REC-xml-20081126"
                  derivedAnchor="W3C.REC-xml-20081126" quoteTitle="true"
@@ -1185,7 +1106,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>IETF 119:</t>
 
       <ul>
-        <li><xref target="Validating_anydata_Data_Tree"/> addresses that
+        <li><xref target="I-D.aelhassany-anydata-validation"/> addresses that
         anydata modeled nodes can be validated with YANG Library RFC 8525.
         6WIND VSR and Huawei VRP YANG-Push publisher and open-source <xref
         target="I-D.ietf-netconf-yang-library-augmentedby"/> implementation
@@ -1214,7 +1135,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         target="I-D.ietf-netconf-yang-notifications-versioning"/> validated at
 		hackathon.</li>
 		
-		<li><xref target="Validating_anydata_Data_Tree"/> with YANG schema
+		<li><xref target="I-D.aelhassany-anydata-validation"/> with YANG schema
 		registry and message broker YANG data producer and consumer
 		implementation validated at hackathon.</li>
 		
@@ -1262,7 +1183,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         the receiver given that the data nodes contained in anydata subtree is
         potentially incomplete (filtered out by xpath or subtree). How can a
         YANG-Push receiver validate the content of anydata nodes? <xref
-		target="Validating_anydata_Data_Tree"/> addresses this by using
+		target="I-D.aelhassany-anydata-validation"/> addresses this by using
         YANG Library <xref target="RFC8525"/> as mechanism to exchange the
         YANG model of the nodes contained in anydata.</dd>
 
