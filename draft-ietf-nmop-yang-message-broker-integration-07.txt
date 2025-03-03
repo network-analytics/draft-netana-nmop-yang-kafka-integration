@@ -5,7 +5,7 @@
 NMOP                                                             T. Graf
 Internet-Draft                                              A. Elhassany
 Intended status: Informational                                  Swisscom
-Expires: 2 September 2025                                   1 March 2025
+Expires: 4 September 2025                                   3 March 2025
 
 
       An Architecture for YANG-Push to Message Broker Integration
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 1]
+Graf & Elhassany        Expires 4 September 2025                [Page 1]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 2]
+Graf & Elhassany        Expires 4 September 2025                [Page 2]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -165,7 +165,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 3]
+Graf & Elhassany        Expires 4 September 2025                [Page 3]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -221,7 +221,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 4]
+Graf & Elhassany        Expires 4 September 2025                [Page 4]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -277,7 +277,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 5]
+Graf & Elhassany        Expires 4 September 2025                [Page 5]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -333,7 +333,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 6]
+Graf & Elhassany        Expires 4 September 2025                [Page 6]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -389,7 +389,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 7]
+Graf & Elhassany        Expires 4 September 2025                [Page 7]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -445,7 +445,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 8]
+Graf & Elhassany        Expires 4 September 2025                [Page 8]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -501,7 +501,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025                [Page 9]
+Graf & Elhassany        Expires 4 September 2025                [Page 9]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -557,7 +557,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 10]
+Graf & Elhassany        Expires 4 September 2025               [Page 10]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -613,7 +613,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 11]
+Graf & Elhassany        Expires 4 September 2025               [Page 11]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -669,7 +669,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 12]
+Graf & Elhassany        Expires 4 September 2025               [Page 12]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -725,7 +725,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 13]
+Graf & Elhassany        Expires 4 September 2025               [Page 13]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -781,7 +781,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 14]
+Graf & Elhassany        Expires 4 September 2025               [Page 14]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -837,7 +837,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 15]
+Graf & Elhassany        Expires 4 September 2025               [Page 15]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -877,8 +877,8 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
    workflow diagram in the I-D.netana-message-broker-telemetry-message
    defined format.
 
-   Section 2 of I-D.netana-message-broker-telemetry-message describes
-   the facilitation of different types of provenance metadata.
+   Section 2 of [I-D.netana-nmop-message-broker-telemetry-message]
+   describes the facilitation of different types of provenance metadata.
 
 4.6.  YANG Message Broker Consumer
 
@@ -893,7 +893,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 16]
+Graf & Elhassany        Expires 4 September 2025               [Page 16]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -949,7 +949,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 17]
+Graf & Elhassany        Expires 4 September 2025               [Page 17]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
 
 
-Graf & Elhassany        Expires 2 September 2025               [Page 18]
+Graf & Elhassany        Expires 4 September 2025               [Page 18]
 
 Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
@@ -1046,10 +1046,25 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               <https://datatracker.ietf.org/doc/html/draft-netana-
               netconf-yp-transport-capabilities-01>.
 
+   [I-D.netana-nmop-message-broker-telemetry-message]
+              Elhassany, A. and T. Graf, "Extensible YANG Model for
+              Network Telemetry Notifications", Work in Progress,
+              Internet-Draft, draft-netana-nmop-message-broker-
+              telemetry-message-00, 1 March 2025,
+              <https://datatracker.ietf.org/api/v1/doc/document/draft-
+              netana-nmop-message-broker-telemetry-message/>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 19]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
 
    [RFC6022]  Scott, M. and M. Bjorklund, "YANG Module for NETCONF
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
@@ -1058,13 +1073,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 19]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -1104,6 +1112,16 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               Community and Apache Software Foundation, December 2018,
               <https://github.com/confluentinc/schema-registry/>.
 
+
+
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 20]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
    [ConDoc18] Yokota, R., "Confluent Schema Registry Documentation",
               Confluent Community and Apache Software Foundation,
               December 2018,
@@ -1114,13 +1132,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
               mesh/9781492092384/>.
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 20]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    [I-D.aelhassany-anydata-validation]
               Elhassany, A., "Validating anydata in YANG Library
@@ -1133,9 +1144,9 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               Zhou, T., Zheng, G., Voit, E., Graf, T., and P. Francois,
               "Subscription to Distributed Notifications", Work in
               Progress, Internet-Draft, draft-ietf-netconf-distributed-
-              notif-11, 26 February 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
-              distributed-notif-11>.
+              notif-13, 1 March 2025,
+              <https://datatracker.ietf.org/api/v1/doc/document/draft-
+              ietf-netconf-distributed-notif/>.
 
    [I-D.ietf-netconf-https-notif]
               Jethanandani, M. and K. Watsen, "An HTTPS-based Transport
@@ -1159,6 +1170,14 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               September 2023,
               <https://github.com/network-analytics/libyangpush/>.
 
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 21]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
    [Rab07]    VMware, "RabbitMQ", Mozilla Public License, February 2007,
               <https://rabbitmq.com/>.
 
@@ -1169,14 +1188,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
    [RFC5277]  Chisholm, S. and H. Trevino, "NETCONF Event
               Notifications", RFC 5277, DOI 10.17487/RFC5277, July 2008,
               <https://www.rfc-editor.org/info/rfc5277>.
-
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 21]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
@@ -1215,6 +1226,14 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               RFC 8528, DOI 10.17487/RFC8528, March 2019,
               <https://www.rfc-editor.org/info/rfc8528>.
 
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 22]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
               and Datastores over NETCONF", RFC 8640,
@@ -1225,14 +1244,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
               "Comparison of Network Management Datastore Architecture
               (NMDA) Datastores", RFC 9144, DOI 10.17487/RFC9144,
               December 2021, <https://www.rfc-editor.org/info/rfc9144>.
-
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 22]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
               A. Wang, "Network Telemetry Framework", RFC 9232,
@@ -1272,6 +1283,13 @@ Appendix A.  Project Milestones
    *  [I-D.ietf-netconf-yang-notifications-versioning] extends schema
       reference in subscription state change notification.
 
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 23]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
    IETF 116:
 
    *  YANG module with augmentations can be registered in Confluent
@@ -1280,15 +1298,6 @@ Appendix A.  Project Milestones
    *  draft-tgraf-netconf-notif-sequencing extends NETCONF notification
       header with sysName, messagePublisherId and sequencedraft-tgraf-
       netconf-notif-sequencing Number.
-
-
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 23]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    *  draft-tgraf-netconf-yang-push-observation-time extends YANG-Push
       push-update or push-change-update message with observation-time or
@@ -1324,6 +1333,19 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
 
    IETF 121:
 
+
+
+
+
+
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 24]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
    *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
       implementation supporting, [I-D.ietf-netconf-udp-notif],
       [I-D.ietf-netconf-distributed-notif], draft-tgraf-netconf-yang-
@@ -1334,17 +1356,6 @@ Internet-Draft   YANG-Push to Message Broker Integration      March 2025
    *  [I-D.aelhassany-anydata-validation] with YANG schema registry and
       message broker YANG data producer and consumer implementation
       validated at hackathon.
-
-
-
-
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 24]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
 
    *  Validated at hackathon based on
       [I-D.ietf-netconf-yang-notifications-versioning] that with
@@ -1383,6 +1394,14 @@ Appendix B.  Open Points
       the anydata modeled nodes between the YANG-Push publisher and the
       receiver given that the data nodes contained in anydata subtree is
       potentially incomplete (filtered out by xpath or subtree).  How
+
+
+
+Graf & Elhassany        Expires 4 September 2025               [Page 25]
+
+Internet-Draft   YANG-Push to Message Broker Integration      March 2025
+
+
       can a YANG-Push receiver validate the content of anydata nodes?
       [I-D.aelhassany-anydata-validation] addresses this by using YANG
       Library [RFC8525] as mechanism to exchange the YANG model of the
@@ -1394,14 +1413,6 @@ Appendix B.  Open Points
       provide any examples on how notifications should be encoded.  In
       YANG-CBOR [RFC9254], notifications are considered "container-like"
       instances and examples does not show consistency with XML-based
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 25]
-
-Internet-Draft   YANG-Push to Message Broker Integration      March 2025
-
-
       and YANG-JSON encoding notifications.  For YANG-Push [RFC8641], a
       YANG schema has been proposed with
       [I-D.netana-netconf-notif-envelope] to resolve described issues.
@@ -1442,15 +1453,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Graf & Elhassany        Expires 2 September 2025               [Page 26]
+Graf & Elhassany        Expires 4 September 2025               [Page 26]

@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="01" month="March" year="2025"/>
+    <date day="03" month="March" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -710,9 +710,10 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         step (8) of the workflow diagram in the 
 		I-D.netana-message-broker-telemetry-message defined format.</t>
 
-		<t>Section 2 of I-D.netana-message-broker-telemetry-message 
-		describes the facilitation of different types of provenance
-		metadata.</t>
+				<t><xref section="2" sectionFormat="of"
+				target="I-D.netana-nmop-message-broker-telemetry-message"/> 
+				describes the facilitation of different types of provenance
+				metadata.</t>
       </section>
 
       <section anchor="YANG_Message_Broker_Consumer"
@@ -850,6 +851,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <?rfc include='reference.RFC.9254'?>
 
+      <?rfc include='reference.I-D.netana-nmop-message-broker-telemetry-message'?> 
+			
       <?rfc include='reference.I-D.netana-netconf-notif-envelope'?> 
 
       <?rfc include='reference.I-D.ietf-netconf-yang-notifications-versioning'?>
