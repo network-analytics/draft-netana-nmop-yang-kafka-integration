@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="04" month="July" year="2025"/>
+    <date day="06" month="September" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -637,7 +637,7 @@
       </section>
 
       <section anchor="YANG_Push_Receiver" title="YANG-Push Receiver">
-        <t>For all the YANG modules and revisions of each sysName and
+        <t>For all the YANG modules and revisions of each hostname and
         subscription ID in the subscription state change notification
 				received in step number (3) in the workflow diagram, all the
 				YANG module dependencies need to be determined through the <xref
