@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="07" month="September" year="2025"/>
+    <date day="20" month="September" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -97,7 +97,7 @@
       <t>Increasingly more network operators organizing their data in a 
 			<xref target="Deh22">Data Mesh</xref> where a Message Broker such 
 			as <xref target="Kaf11">Apache Kafka</xref> or <xref
-			target="Rab07">RabbitMQ</xref> facilitates the exchange of
+			target="Pul16">Apache Pulsar</xref> facilitates the exchange of
 			messages among data processing components like a stream processor
 			to filter, enrich, correlate or aggregate, or a time series
 			database to store data.</t>
@@ -968,16 +968,18 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <refcontent>O'Reilly Media</refcontent>
       </reference>
 
-      <reference anchor="Rab07" target="https://rabbitmq.com/">
+      <reference anchor="Pul16" target="https://pulsar.apache.org/">
         <front>
-          <title>RabbitMQ</title>
+          <title>Apache Pulsar</title>
 
-          <author fullname="VMware"/>
+          <author fullname="Sijie Guo" initials="S." surname="Guo"/>
+ 
+          <author fullname="Matteo  Merli" initials="M." surname="Merli"/>
 
-          <date month="February" year="2007"/>
+          <date month="January" year="2016"/>
         </front>
 
-        <refcontent>Mozilla Public License</refcontent>
+        <refcontent>Apache Software Foundation</refcontent>
       </reference>
 
       <reference anchor="Atl15" target="https://atlas.apache.org/">
