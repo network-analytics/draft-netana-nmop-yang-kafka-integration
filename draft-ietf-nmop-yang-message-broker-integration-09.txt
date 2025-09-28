@@ -204,8 +204,8 @@ Internet-Draft   YANG-Push to Message Broker Integration  September 2025
 1.3.  Document Scope
 
    This document focuses on YANG-Push [RFC8641] as the messaging
-   protocol between the network node and the Network Telemetry [RFC9232]
-   data collection.  It describes the main components and the aimed
+   protocol between network nodes and Network Telemetry [RFC9232] data
+   collection.  It describes the main components and the aimed
    architecture for deploying such solution in a production network.
    Then, it illustrates the integration of the YANG 1.1 [RFC7950] as a
    schema modeling language into the Apache Kafka Message Broker and
@@ -342,7 +342,7 @@ Internet-Draft   YANG-Push to Message Broker Integration  September 2025
 
    Since the YANG Schema is preserved for operational metrics in the
    Message Broker, a standardization for integration between network
-   data collection and stream processor or time series database is
+   data collection and stream processors or time series databases is
    implied.
 
 4.  Elements of the Architecture

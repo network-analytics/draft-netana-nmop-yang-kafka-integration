@@ -168,7 +168,7 @@
       <section anchor="Document_Scope" title="Document Scope">
         <t>This document focuses on <xref
 				target="RFC8641">YANG-Push</xref> as the messaging protocol
-				between the network node and the <xref target="RFC9232">Network
+				between network nodes and <xref target="RFC9232">Network
 				Telemetry</xref> data collection. It describes the main
 				components and the aimed architecture for deploying such
 				solution in a production network. Then, it illustrates the
@@ -307,8 +307,8 @@
                title="Standardize Data Processing Integration">
         <t>Since the YANG Schema is preserved for operational metrics in
 				the Message Broker, a standardization for integration between
-				network data collection and stream processor or time series
-				database is implied.</t>
+				network data collection and stream processors or time series
+				databases is implied.</t>
       </section>
     </section>
 
