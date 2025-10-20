@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="20" month="September" year="2025"/>
+    <date day="20" month="October" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -345,13 +345,13 @@
       |       YANG         | <--------------- |  Data Collection   |
       |  Schema Registry   | ---------------> | YANG-Push Receiver |
       +--------------------+  (7) Issue       +--------------------+
-                                  Schema ID        |  ^ (3) Receive
-                                                   |  | YANG-Push
-                                      (4) Discover |  | Subscription
-                                            Schema |  | Start Message
-                                      Dependencies |  |   ^
-                                        and Obtain |  |   | (5) Publish
-                                           Schemas |  |   | YANG-Push
+            |                     Schema ID        |  ^ (3) Receive
+            |                                      |  | YANG-Push
+            v                         (4) Discover |  | Subscription
+      +--------------------+                Schema |  | Start Message
+      |      Stream        |          Dependencies |  |   ^
+      |      Catalog       |            and Obtain |  |   | (5) Publish
+      +--------------------+               Schemas |  |   | YANG-Push
                                                    |  |   | Message
                                                    |  |   | with
                              (1) Discover          |  |   | Subscriber
@@ -718,6 +718,12 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions
 curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         ]]></artwork>
         </figure>
+      </section>
+
+      <section anchor="Stream_Catalog" title="Stream Catalog">
+        <t>The YANG schemas in the YANG schema registry are made
+				accessible to the Stream Catalog where users have an overview
+				and search on available semantics in the Message Broker.</t>
       </section>
 
       <section anchor="YANG_Message_Broker_Producer"
