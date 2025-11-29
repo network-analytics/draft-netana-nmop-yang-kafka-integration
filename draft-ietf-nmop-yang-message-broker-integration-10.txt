@@ -90,19 +90,19 @@ Table of Contents
      4.2.  YANG-Push Publisher . . . . . . . . . . . . . . . . . . .  11
      4.3.  YANG-Push Receiver  . . . . . . . . . . . . . . . . . . .  14
      4.4.  YANG Schema Registry  . . . . . . . . . . . . . . . . . .  14
-     4.5.  Stream Catalog  . . . . . . . . . . . . . . . . . . . . .  15
-     4.6.  YANG Message Broker Producer  . . . . . . . . . . . . . .  15
+     4.5.  Stream Catalog  . . . . . . . . . . . . . . . . . . . . .  16
+     4.6.  YANG Message Broker Producer  . . . . . . . . . . . . . .  16
      4.7.  YANG Message Broker Consumer  . . . . . . . . . . . . . .  16
-     4.8.  YANG Data Consumer  . . . . . . . . . . . . . . . . . . .  16
-     4.9.  YANG Data Storage . . . . . . . . . . . . . . . . . . . .  16
-   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  16
-     5.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  17
-     5.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  17
-     5.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  17
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
+     4.8.  YANG Data Consumer  . . . . . . . . . . . . . . . . . . .  17
+     4.9.  YANG Data Storage . . . . . . . . . . . . . . . . . . . .  17
+   5.  Implementation Status . . . . . . . . . . . . . . . . . . . .  17
+     5.1.  YANG Schema Registry Extension  . . . . . . . . . . . . .  18
+     5.2.  YANG-Push Receiver Parsing Library  . . . . . . . . . . .  18
+     5.3.  YANG Library Augmented-by Addition  . . . . . . . . . . .  18
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
    Appendix A.  Project Milestones . . . . . . . . . . . . . . . . .  23
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
@@ -741,8 +741,11 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    module dependencies need to be determined through the YANG Library
    [RFC8525], and then through NETCONF <get-schema> rpc calls according
    to [RFC6022] all YANG modules need to be retrieved as described in
-   step (4) in the workflow diagram.
+   step (4) in the workflow diagram.  The dependencies include: imports,
+   augments, deviations and features being used for each YANG module.
 
+   YANG Library [RFC8525] already supports the discovery of imports,
+   deviations and features but misses augments.
    [I-D.ietf-netconf-yang-library-augmentedby] extends the YANG Library
    so that not only submodules but also the list of YANG modules which
    have direct augmentations are listed.
@@ -767,17 +770,14 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
 4.4.  YANG Schema Registry
 
    The schema registry SHOULD support YANG as the format for defining
-   schema.  For each schema registered into the schema registry, a
-   schema ID is returned.  That schema ID can be used when interacting
-   with the Message Broker to indicate the schema to use with the
-   message.”
+   schema and has the ability to store metadata along with the schema.
+   For each schema registered into the schema registry, a schema ID is
+   returned.  That schema ID can be used when interacting with the
+   Message Broker to indicate the schema to use with the message.
 
-
-
-
-
-
-
+   Confluent Schema Registry is pluggable.  Currently Supports AVRO,
+   JSON Schema and Protobuf.  The YANG support is being developed at
+   [Yak24] as part of this architecture.  Enable to register, obtain and
 
 
 
@@ -786,17 +786,33 @@ Graf & Elhassany           Expires 2 June 2026                 [Page 14]
 Internet-Draft   YANG-Push to Message Broker Integration   November 2025
 
 
-   Confluent Schema Registry is pluggable.  Currently Supports AVRO,
-   JSON Schema and Protobuf.  The YANG support is being developed at
-   [Yak24] as part of this architecture.  Enable to register, obtain and
    compare [YSR24] YANG Schemas.  One YANG Schema with all its
-   augmentations is being registered per YANG-Push subscription ID.  For
-   each YANG Schema a locally significant Schema ID is being issued as
-   described in step (7) in the workflow diagram.
+   augmentations is being registered per YANG-Push subscription ID along
+   with metadata describing which YANG features were enabled for the
+   registered YANG schema.  For each YANG Schema a locally significant
+   Schema ID is being issued as described in step (7) in the workflow
+   diagram.
 
   curl -X POST -H "Content Type: application/vnd.schemaregistry.v1+json"
   -d @ietf-interfaces@2018-02-20.json
   http://localhost:8081/subjects/ietf-interfaces/
+
+  {
+   "schemaType": "YANG",
+   "references": [
+    {
+     "name": "ietf-interfaces",
+     "subject": "ietf-interfaces",
+     "version": "2018-02-20",
+    }
+   ],
+    "metadata": {
+      "tags": {
+        "features": ["arbitrary-names", "if-mib"]
+      }
+    },
+   "schema": "... yang schema text"
+  }
 
     Figure 6: Register ietf-interfaces.yang into YANG Schema Registry
 
@@ -809,6 +825,43 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
      Figure 8: List versions of a given subject in YANG Schema Registry
 
    curl http://localhost:8081/subjects/ietf-interfaces/versions/1
+
+
+
+
+
+
+
+
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 15]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
+
+   {
+    "schemaType": "YANG",
+    "subject": "ietf-interfaces",
+    "version": 2018-02-20,
+    "id": 1,
+    "references": [
+     {
+      "name": "ietf-yang-types",
+      "subject": "ietf-yang-types",
+      "version": "2013-07-15",
+     }
+    ],
+     "metadata": {
+       "tags": {
+         "features": ["arbitrary-names", "if-mib"]
+       }
+     },
+
+    "schema": "... yang schema text"
+   }
 
        Figure 9: Retrieve schema of a specific subject and version in
                             YANG Schema Registry
@@ -830,24 +883,20 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    the envelope schema of the message facilitating the YANG-Push and
    different types of provenance metadata.
 
-
-
-
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 15]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
 4.7.  YANG Message Broker Consumer
 
    From the Message Broker topic the message is being consumed and the
    prefixed Schema ID is being used in step (10) of the workflow diagram
    to retrieve the YANG Schema to validate the Schema integrity of the
    message.
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 16]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    In order to validate Schema integrity, the event stream filter of the
    subscription ID in the subscription started or modified message is
@@ -890,14 +939,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    Internet-Draft, and is based on a proposal described in [RFC7942].
    The description of implementations in this section is intended to
    assist the IETF in its decision processes in progressing drafts to
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 16]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    RFCs.  Please note that the listing of any individual implementation
    here does not imply endorsement by the IETF.  Furthermore, no effort
    has been spent to verify the information presented here that was
@@ -905,6 +946,13 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    be construed to be, a catalog of available implementations or their
    features.  Readers are advised to note that other implementations may
    exist.
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 17]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    According to [RFC7942], "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
@@ -945,15 +993,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
 
    TBD
 
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 17]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
 7.  Acknowledgements
 
    The authors would like to thank Yannick Buchs, Benoit Claise, Mohamed
@@ -963,6 +1002,13 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    Alex Huang Feng, Jean Quilbeuf and Huoyao Lin for review and
    contributing code and providing examples and inputs to the open
    points.
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 18]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
 8.  References
 
@@ -1000,16 +1046,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               yp-transport-capabilities-05>.
 
-
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 18]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    [I-D.ietf-nmop-message-broker-telemetry-message]
               Elhassany, A. and T. Graf, "Extensible YANG Model for
               Network Telemetry Messages", Work in Progress, Internet-
@@ -1022,6 +1058,13 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 19]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    [RFC6022]  Scott, M. and M. Bjorklund, "YANG Module for NETCONF
               Monitoring", RFC 6022, DOI 10.17487/RFC6022, October 2010,
@@ -1054,18 +1097,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               Notifications", RFC 9196, DOI 10.17487/RFC9196, February
               2022, <https://www.rfc-editor.org/info/rfc9196>.
 
-
-
-
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 19]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    [RFC9254]  Veillette, M., Ed., Petrov, I., Ed., Pelov, A., Bormann,
               C., and M. Richardson, "Encoding of Data Modeled with YANG
               in the Concise Binary Object Representation (CBOR)",
@@ -1080,6 +1111,16 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    [Con18]    Yokota, R., "Confluent Schema Registry", Confluent
               Community and Apache Software Foundation, December 2018,
               <https://github.com/confluentinc/schema-registry/>.
+
+
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 20]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    [ConDoc18] Yokota, R., "Confluent Schema Registry Documentation",
               Confluent Community and Apache Software Foundation,
@@ -1115,13 +1156,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               <https://datatracker.ietf.org/doc/html/draft-ietf-netconf-
               udp-notif-24>.
 
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 20]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    [I-D.netana-nmop-yang-anydata-validation]
               Elhassany, A. and T. Graf, "Validating anydata in YANG
               Library context", Work in Progress, Internet-Draft, draft-
@@ -1135,6 +1169,14 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    [LYP23]    Lin, Z., "libyangpush", Apache Software Foundation,
               September 2023,
               <https://github.com/network-analytics/libyangpush/>.
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 21]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    [Pul16]    Guo, S. and M. Merli, "Apache Pulsar", Apache Software
               Foundation, January 2016, <https://pulsar.apache.org/>.
@@ -1169,15 +1211,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
 
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 21]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    [RFC8525]  Bierman, A., Bjorklund, M., Schoenwaelder, J., Watsen, K.,
               and R. Wilton, "YANG Library", RFC 8525,
               DOI 10.17487/RFC8525, March 2019,
@@ -1192,6 +1225,14 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    [RFC8528]  Bjorklund, M. and L. Lhotka, "YANG Schema Mount",
               RFC 8528, DOI 10.17487/RFC8528, March 2019,
               <https://www.rfc-editor.org/info/rfc8528>.
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 22]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    [RFC8640]  Voit, E., Clemm, A., Gonzalez Prieto, A., Nilsen-Nygaard,
               E., and A. Tripathy, "Dynamic Subscription to YANG Events
@@ -1223,17 +1264,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
               2024, <https://github.com/Zephyre777/draft-lincla-netconf-
               yang-library-augmentation/>.
 
-
-
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 22]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    [YSR24]    Elhassany, A., "YANG Schema Registry Extension", Apache
               Software Foundation, February 2024,
               <https://github.com/confluentinc/schema-registry-yang-
@@ -1252,6 +1282,13 @@ Appendix A.  Project Milestones
 
    *  [I-D.ietf-netconf-yang-notifications-versioning] extends schema
       reference in subscription state change notification.
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 23]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    IETF 116:
 
@@ -1278,18 +1315,6 @@ Appendix A.  Project Milestones
 
    IETF 119:
 
-
-
-
-
-
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 23]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
    *  [I-D.netana-nmop-yang-anydata-validation] addresses that anydata
       modeled nodes can be validated with YANG Library RFC 8525. 6WIND
       VSR and Huawei VRP YANG-Push publisher and open-source
@@ -1307,6 +1332,19 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
       decalaration to describe when the observation was observed.
 
    IETF 121:
+
+
+
+
+
+
+
+
+
+Graf & Elhassany           Expires 2 June 2026                 [Page 24]
+
+Internet-Draft   YANG-Push to Message Broker Integration   November 2025
+
 
    *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
       implementation supporting, [I-D.ietf-netconf-udp-notif],
@@ -1339,13 +1377,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   November 2025
    *  Validate from Manage YANG-Push Subscription to YANG Data Consumer
       end to end all components of this architecture.
 
-
-
-Graf & Elhassany           Expires 2 June 2026                 [Page 24]
-
-Internet-Draft   YANG-Push to Message Broker Integration   November 2025
-
-
 Authors' Addresses
 
    Thomas Graf
@@ -1362,37 +1393,6 @@ Authors' Addresses
    CH- Zuerich 8045
    Switzerland
    Email: ahmed.elhassany@swisscom.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
