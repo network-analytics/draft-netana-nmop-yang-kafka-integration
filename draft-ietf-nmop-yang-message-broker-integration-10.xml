@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="29" month="November" year="2025"/>
+    <date day="18" month="January" year="2026"/>
 
     <area>Operations and Management</area>
 
@@ -350,13 +350,15 @@
       <figure anchor="workflow_diagram" title="End to End Workflow">
         <artwork align="center"><![CDATA[
       +------------------------------------------------------------+
-      |                       Data Storage                         |
+      |                     YANG Data Storage                      |
       +------------------------------------------------------------+
                                      ^
                                      | (12) Ingest Data
                                      | According to Schema
       +------------------------------------------------------------+
-      |                       Data Consumer                        |
+      |                    YANG Data Consumer                      |
+      +------------------------------------------------------------+
+      |               YANG Message Broker Consumer                 |
       +------------------------------------------------------------+
             |  ^                                   ^ 
    (10) Get |  |                                   | (9) Validate
@@ -368,9 +370,14 @@
             |  |                              +--------------------+
             |  |                                   ^
             |  |                                   | (8) Serialize
-            |  | (11) Issue                        | YANG-Push Message
-            |  |      Schema                       | annotated Schema
-            v  |                  (6) Post         | ID on Producer
+            |  |                                   | YANG-Push Message
+            |  |                                   | annotated Schema
+            |  |                                   | ID on Producer
+            |  |                                   |
+            |  |                                   |
+            |  | (11) Issue                   +--------------------+
+            |  |      Schema                  |    YANG Message    |
+            v  |                  (6) Post    |   Broker Consumer  |
       +--------------------+          Schema  +--------------------+
       |       YANG         | <--------------- |  Data Collection   |
       |  Schema Registry   | ---------------> | YANG-Push Receiver |
