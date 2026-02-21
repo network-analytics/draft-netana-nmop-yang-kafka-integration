@@ -1422,8 +1422,8 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2026
 
    IETF 120:
 
-   *  6WIND VSR, Huawei VRP and Cisco IOS XR Section 4.2 implementations
-      validated at hackathon.
+   *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push Publisher
+      (Section 4.2) implementations validated at hackathon.
 
    *  draft-tgraf-netconf-yang-push-observation-time merges both
       timestamps for periodical and on-change YANG-Push subscriptions
@@ -1432,8 +1432,9 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2026
 
    IETF 121:
 
-   *  6WIND VSR, Huawei VRP and Cisco IOS XR Section 4.2 implementations
-      supporting, [I-D.ietf-netconf-udp-notif],
+   *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push Publisher
+      (Section 4.2) implementations supporting,
+      [I-D.ietf-netconf-udp-notif],
       [I-D.ietf-netconf-distributed-notif], draft-tgraf-netconf-yang-
       push-observation-time and
       [I-D.ietf-netconf-yang-notifications-versioning] validated at
@@ -1449,7 +1450,6 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2026
       filter or datastore-xpath-filter referenced YANG modules and their
       dependencies can be fully identified.
 
-   IETF 122,123 and 124:
 
 
 
@@ -1458,8 +1458,11 @@ Graf & Elhassany         Expires 25 August 2026                [Page 26]
 Internet-Draft   YANG-Push to Message Broker Integration   February 2026
 
 
-   *  6WIND VSR, Huawei VRP and Cisco IOS XR Section 4.2 implementations
-      supporting, [I-D.ietf-netconf-udp-notif],
+   IETF 122,123 and 124:
+
+   *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push Publisher
+      (Section 4.2) implementations supporting,
+      [I-D.ietf-netconf-udp-notif],
       [I-D.ietf-netconf-distributed-notif],
       [I-D.ietf-netconf-yp-transport-capabilities],
       [I-D.ietf-netconf-notif-envelope],
@@ -1472,37 +1475,34 @@ Internet-Draft   YANG-Push to Message Broker Integration   February 2026
 
    IETF 125:
 
-   *  6WIND VSR, Huawei VRP and Cisco IOS XR Section 4.2 implementations
-      supporting, [I-D.ietf-netconf-udp-notif],
+   *  6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push Publisher
+      (Section 4.2) implementations supporting,
+      [I-D.ietf-netconf-udp-notif],
       [I-D.ietf-netconf-distributed-notif],
       [I-D.ietf-netconf-yp-transport-capabilities],
       [I-D.ietf-netconf-notif-envelope],
       [I-D.ietf-netconf-yang-notifications-versioning] and
       [I-D.ietf-netconf-yang-library-augmentedby].
 
-   *  Arrcus Arcos Section 4.2 implementation supporting,
-      [I-D.ietf-netconf-udp-notif] and
+   *  Arrcus Arcos YANG-Push Publisher (Section 4.2) implementation
+      supporting, [I-D.ietf-netconf-udp-notif] and
       [I-D.ietf-netconf-notif-envelope].
 
    *  NetGauze Network Telemetry data collection [Netgauze_Github]
-      supporting Section 4.3, Section 4.6 and Section 4.7.
+      supporting YANG-Push Receiver (Section 4.3), YANG Message Broker
+      Producer (Section 4.6) and YANG Message Broker Consumer
+      (Section 4.7).
 
-   *  Ciena Blue Planet UAA supporting Section 4.7.
+   *  Ciena Blue Planet UAA supporting YANG Message Broker Consumer
+      (Section 4.7).
 
-   *  Confluent YANG Schema Registry plugin [Yak24] supporting
-      Section 4.4.
+   *  Confluent YANG Schema Registry plugin [Yak24] supporting YANG
+      Schema Registry (Section 4.4).
 
    *  Validate from Manage YANG-Push Subscription to YANG Data Consumer
       end to end all components of this architecture.
 
 Authors' Addresses
-
-   Thomas Graf
-   Swisscom
-   Binzring 17
-   CH-8045 Zurich
-   Switzerland
-   Email: thomas.graf@swisscom.com
 
 
 
@@ -1514,20 +1514,20 @@ Graf & Elhassany         Expires 25 August 2026                [Page 27]
 Internet-Draft   YANG-Push to Message Broker Integration   February 2026
 
 
+   Thomas Graf
+   Swisscom
+   Binzring 17
+   CH-8045 Zurich
+   Switzerland
+   Email: thomas.graf@swisscom.com
+
+
    Ahmed Elhassany
    Swisscom
    Binzring 17
    CH- Zuerich 8045
    Switzerland
    Email: ahmed.elhassany@swisscom.com
-
-
-
-
-
-
-
-
 
 
 

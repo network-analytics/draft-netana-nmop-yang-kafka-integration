@@ -1265,8 +1265,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <ul>
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
-				target="YANG_Push_Publisher"/> implementations validated at
-				hackathon.</li>
+				target="YANG_Push_Publisher">YANG-Push Publisher</xref>
+				implementations validated at hackathon.</li>
     
         <li>draft-tgraf-netconf-yang-push-observation-time
         merges both timestamps for periodical and on-change YANG-Push
@@ -1279,7 +1279,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <ul>
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
-				target="YANG_Push_Publisher"/> implementations supporting, <xref
+				target="YANG_Push_Publisher">YANG-Push Publisher</xref>
+				implementations supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/>, <xref
 				target="I-D.ietf-netconf-distributed-notif"/>,
 				draft-tgraf-netconf-yang-push-observation-time and <xref
@@ -1302,7 +1303,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <ul>
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
-				target="YANG_Push_Publisher"/> implementations supporting, <xref
+				target="YANG_Push_Publisher">YANG-Push Publisher</xref>
+				implementations supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/>, <xref
 				target="I-D.ietf-netconf-distributed-notif"/>, <xref
 				target="I-D.ietf-netconf-yp-transport-capabilities"/>, <xref
@@ -1319,7 +1321,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
       <ul>
         <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
-				target="YANG_Push_Publisher"/> implementations supporting, <xref
+				target="YANG_Push_Publisher">YANG-Push Publisher</xref>
+				implementations supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/>, <xref
 				target="I-D.ietf-netconf-distributed-notif"/>, <xref
 				target="I-D.ietf-netconf-yp-transport-capabilities"/>, <xref
@@ -1328,22 +1331,27 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         <xref target="I-D.ietf-netconf-yang-library-augmentedby"/>.
 				</li>
 
-        <li>Arrcus Arcos <xref target="YANG_Push_Publisher"/>
+        <li>Arrcus Arcos <xref
+				target="YANG_Push_Publisher">YANG-Push Publisher</xref>
 				implementation supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/> and <xref
         target="I-D.ietf-netconf-notif-envelope"/>.</li>
 
         <li>NetGauze Network Telemetry data collection <xref
 				target="Netgauze_Github"/> supporting <xref
-				target="YANG_Push_Receiver"/>, <xref
-				target="YANG_Message_Broker_Producer"/> and <xref
-				target="YANG Message_Broker_Consumer"/>.</li>
+				target="YANG_Push_Receiver">YANG-Push Receiver</xref>, <xref
+				target="YANG_Message_Broker_Producer">YANG Message Broker
+				Producer</xref> and <xref
+				target="YANG Message_Broker_Consumer">YANG Message Broker
+				Consumer</xref>.</li>
 
         <li>Ciena Blue Planet UAA supporting <xref
-				target="YANG_Message_Broker_Consumer"/>.</li>
+				target="YANG Message_Broker_Consumer">YANG Message Broker
+				Consumer</xref>.</li>
 
         <li>Confluent YANG Schema Registry plugin <xref target="Yak24"/>
-				supporting <xref target="YANG_Schema_Registry"/>.</li>
+				supporting <xref target="YANG_Schema_Registry">YANG Schema
+				Registry</xref>.</li>
     
         <li>Validate from Manage YANG-Push Subscription to YANG Data
 				Consumer end to end all components of this architecture.</li>
