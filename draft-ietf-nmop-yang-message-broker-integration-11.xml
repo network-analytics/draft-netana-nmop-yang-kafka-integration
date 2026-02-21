@@ -59,7 +59,7 @@
       </address>
     </author>
 
-    <date day="15" month="February" year="2026"/>
+    <date day="21" month="February" year="2026"/>
 
     <area>Operations and Management</area>
 
@@ -80,7 +80,7 @@
       target="https://mailarchive.ietf.org/arch/browse/nmop/"/>.</t>
 
       <t>Source for this draft and an issue tracker can be found at <eref
-      target="https://github.com/network-analytics/draft-daisy-kafka-yang-integration/"/>.</t>
+      target="https://github.com/network-analytics/draft-ietf-nmop-yang-message-broker-integration/"/>.</t>
     </note>
   </front>
 
@@ -835,9 +835,13 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 				Schema integrity of the message.</t>
 
         <t>In order to validate Schema integrity, the event stream
-				filter of the Subscription ID in the subscription started or
-				modified message is needed to apply
-				<xref target="I-D.netana-nmop-yang-anydata-validation"/> on
+				filter of the Subscription ID in the subscription started 
+				notification <xref section="4.3.1" sectionFormat="of"
+        target="RFC8641"/> or telemetry message <xref section="3"
+				sectionFormat="of"
+				target="I-D.ietf-nmop-message-broker-telemetry-message"/> is
+				needed to apply <xref
+				target="I-D.netana-nmop-yang-anydata-validation"/> on
         the YANG schema tree.</t>
       </section>
 
@@ -904,7 +908,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
 
         <t>The source code can be obtained here: <xref target="YSR24"/>,
 				the progress report here: <xref target="YSRPR24"/>, and was
-				validated at the IETF 117 hackathon.</t>
+				validated at the IETF 117 and 123 hackathon.</t>
       </section>
 
       <section anchor="YANG-Push_Receiver_Parsing_Library"
@@ -1089,11 +1093,12 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       </reference>
 
       <reference anchor="YSR24"
-                 target="https://github.com/confluentinc/schema-registry-yang-format/">
+                 target="https://github.com/network-analytics/yang-kafka-integration">
         <front>
           <title>YANG Schema Registry Extension</title>
 
           <author fullname="Ahmed Elhassany" initials="A." surname="Elhassany"/>
+          <author fullname="Alex Huang-Feng" initials="A." surname="Huang-Feng"/>
 
           <date month="February" year="2024"/>
         </front>
@@ -1102,13 +1107,13 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       </reference>
 
       <reference anchor="YSRPR24"
-                 target="https://github.com/network-analytics/draft-daisy-kafka-yang-integration/blob/main/YANG%20Schema%20registry%20integration.pdf">
+                 target="https://github.com/network-analytics/ietf-network-analytics-document-status/blob/main/123/Hackathon/ietf-123-hackathon-validate-yang-push-publisher.pdf">
         <front>
           <title>YANG Schema Registry Extension Progress Report</title>
 
           <author fullname="Ahmed Elhassany" initials="A." surname="Elhassany"/>
 
-          <date month="February" year="2024"/>
+          <date month="July" year="2025"/>
         </front>
       </reference>
 
@@ -1139,7 +1144,7 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       </reference>
 
       <reference anchor="Yak24"
-                 target="https://github.com/yang-central/yangkit/">
+                 target="https://github.com/network-analytics/yang-kafka-integration">
         <front>
           <title>Yangkit</title>
 
@@ -1149,6 +1154,18 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         </front>
 
         <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+      <reference anchor="Netgauze_Github"
+                 target="https://github.com/NetGauze/NetGauze/">
+        <front>
+          <title>Netgauze open source Network Telemetry Data
+          Collection</title>
+ 
+          <author/>
+ 
+          <date/>
+        </front>
       </reference>
 
       <reference anchor="Kaf11" target="https://kafka.apache.org/">
@@ -1247,8 +1264,9 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>IETF 120:</t>
 
       <ul>
-        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
-        implementations validated at hackathon.</li>
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
+				target="YANG_Push_Publisher"/> implementations validated at
+				hackathon.</li>
     
         <li>draft-tgraf-netconf-yang-push-observation-time
         merges both timestamps for periodical and on-change YANG-Push
@@ -1260,8 +1278,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>IETF 121:</t>
 
       <ul>
-        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
-        implementation supporting, <xref
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
+				target="YANG_Push_Publisher"/> implementations supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/>, <xref
 				target="I-D.ietf-netconf-distributed-notif"/>,
 				draft-tgraf-netconf-yang-push-observation-time and <xref
@@ -1283,8 +1301,8 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
       <t>IETF 122,123 and 124:</t>
 
       <ul>
-        <li>6WIND VSR, Huawei VRP and Cisco IOS XR YANG-Push publisher
-        implementation supporting, <xref
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
+				target="YANG_Push_Publisher"/> implementations supporting, <xref
 				target="I-D.ietf-netconf-udp-notif"/>, <xref
 				target="I-D.ietf-netconf-distributed-notif"/>, <xref
 				target="I-D.ietf-netconf-yp-transport-capabilities"/>, <xref
@@ -1292,6 +1310,40 @@ curl http://localhost:8081/subjects/ietf-interfaces/versions/1
         target="I-D.ietf-netconf-yang-notifications-versioning"/> and
         <xref target="I-D.ietf-netconf-yang-library-augmentedby"/>
         validated at hackathon.</li>
+    
+        <li>Validate from Manage YANG-Push Subscription to YANG Data
+				Consumer end to end all components of this architecture.</li>
+      </ul>
+
+      <t>IETF 125:</t>
+
+      <ul>
+        <li>6WIND VSR, Huawei VRP and Cisco IOS XR <xref
+				target="YANG_Push_Publisher"/> implementations supporting, <xref
+				target="I-D.ietf-netconf-udp-notif"/>, <xref
+				target="I-D.ietf-netconf-distributed-notif"/>, <xref
+				target="I-D.ietf-netconf-yp-transport-capabilities"/>, <xref
+        target="I-D.ietf-netconf-notif-envelope"/>, <xref
+        target="I-D.ietf-netconf-yang-notifications-versioning"/> and
+        <xref target="I-D.ietf-netconf-yang-library-augmentedby"/>.
+				</li>
+
+        <li>Arrcus Arcos <xref target="YANG_Push_Publisher"/>
+				implementation supporting, <xref
+				target="I-D.ietf-netconf-udp-notif"/> and <xref
+        target="I-D.ietf-netconf-notif-envelope"/>.</li>
+
+        <li>NetGauze Network Telemetry data collection <xref
+				target="Netgauze_Github"/> supporting <xref
+				target="YANG_Push_Receiver"/>, <xref
+				target="YANG_Message_Broker_Producer"/> and <xref
+				target="YANG Message_Broker_Consumer"/>.</li>
+
+        <li>Ciena Blue Planet UAA supporting <xref
+				target="YANG_Message_Broker_Consumer"/>.</li>
+
+        <li>Confluent YANG Schema Registry plugin <xref target="Yak24"/>
+				supporting <xref target="YANG_Schema_Registry"/>.</li>
     
         <li>Validate from Manage YANG-Push Subscription to YANG Data
 				Consumer end to end all components of this architecture.</li>
